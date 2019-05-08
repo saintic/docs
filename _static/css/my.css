@@ -2,3 +2,6 @@
 .wy-nav-content {
     max-width: 100% !important;
 }
+.ethical-rtd.ethical-dark-theme {
+    display:none;
+}
