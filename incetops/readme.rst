@@ -105,7 +105,9 @@ Nginx配置样例
 效果图
 -------
 
-|数据库| |任务|
+|数据库|
+
+|任务|
 
 .. |数据库| image:: https://raw.githubusercontent.com/staugur/IncetOps/master/Snapshot/db.png
 .. |任务| image:: https://raw.githubusercontent.com/staugur/IncetOps/master/Snapshot/task.png
