@@ -1,0 +1,118 @@
+SaintIC：[开源]项目、服务文档!
+===============================
+
+:Author: staugur
+:Contact: staugur\@saintic.com
+:Website: https://www.saintic.com
+
+.. meta::
+    :description: SaintIC.COM相关[开源]项目及服务文档
+    :keywords: saintic
+    :http-equiv=Content-Type: text/html; charset=UTF-8
+
+.. toctree::
+    :maxdepth: 2
+
+    grab_huaban_duitang
+    passport/index
+    incetops/index
+    Flask-PluginKit <https://flask-pluginkit.readthedocs.io>
+    Python-SecureHTTP <https://python-securehttp.readthedocs.io>
+    tdi/index
+
+.. _README:
+
+===========
+说在前面
+===========
+
+.. _About:
+
+关于
+~~~~~~~
+
+-  此作者：菜鸟运维一名，期待运维开发，北杭有工作推荐请@我。
+
+-  本文档：作者开源工具的使用文档，尽可能详细的文档。
+
+.. _Link:
+
+链接
+~~~~~~
+
+-  大概是官网吧：https://www.saintic.com
+-  GitHub：https://github.com/staugur
+-  码云：https://gitee.com/staugur
+
+.. _Feedback:
+
+反馈
+~~~~~~
+
+-  加Q群：`577543189 <https://jq.qq.com/?_wv=1027&k=5aZyCMV>`_
+-  收邮件： staugur\@saintic.com
+-  热烈欢迎star、pr、issue或加入 `github组织 <https://github.com/saintic>`_
+-  一个在线表单：`留言反馈 <https://passport.saintic.com/feedback.html>`_
+
+.. _Definition:
+
+约定
+~~~~~~
+
+-  相关Web类程序均基于 `Flask-PluginKit <https://github.com/staugur/Flask-PluginKit>`_
+-  相关认证服务(注册、统一登录与注销、用户设置与资料)均基于 `Passport <https://github.com/staugur/passport>`_
+-  程序源代码目录均为 ``src`` ，入口文件均为 ``src/main.py`` ，配置文件均为 ``src/config.py``
+-  配置文件中MYSQL段格式 ``mysql://host:port:user:password:database``，其他参数默认即可
+-  配置文件中REDIS段格式 ``redis://[:password]@host:port/db`` ，若无密码请省略 ``[:password]``
+-  配置文件中文档未提及的参数请参考文件内部注释。
+-  配置方法均采用“先环境变量-后默认值”的方式，使用os.getenv函数，请自行了解此函数。
+-  生产环境启动脚本 ``online_gunicorn.sh`` ，此脚本会先 ``source online_preboot.sh`` ，所以环境变量等可以在此脚本设置。
+-  文件结构实例模板:
+
+::
+
+   项目/
+   ├── requirements.txt          # 模块依赖包文件
+   └── src                       # 源代码目录
+       ├── config.py             # 配置文件
+       ├── libs                  # 类目录
+       │   ├── base.py           # 基类
+       │   ├── __init__.py
+       ├── main.py               # 入口文件
+       ├── online_gunicorn.sh    # 正式环境启动脚本-gunicorn
+       ├── online_uwsgi.sh       # 正式环境启动脚本-uwsgi
+       ├── plugins               # 插件代码目录
+       │   ├── demo              # 禁用的插件示例
+       │   ├── __init__.py
+       │   └── ssoclient         # sso客户端插件
+       ├── test                  # 测试用例
+       │   └── __init__.py
+       ├── utils                 # 工具目录
+       │   ├── aes_cbc.py        # 加密文件
+       │   ├── __init__.py
+       │   ├── jwt.py            # jwt签名认证文件
+       │   ├── log.py            # 日志记录文件
+       │   ├── Signature.py      # Api签名文件
+       │   ├── tool.py           # 其他可用函数
+       │   └── web.py            # web可用函数
+       ├── version.py            # 版本文件
+       └── views                 # 视图目录
+           ├── FrontView.py
+           └── __init__.py
+
+.. _End:
+
+说在后面
+~~~~~~~~~~
+
+-  博客小程序
+    |image0|
+
+-  微信捐赠也是可以的
+    |image1|
+
+
+.. |image0| image:: https://blog.saintic.com/static/img/applet.jpg
+    :width: 150
+.. |image1| image:: https://blog.saintic.com/static/img/weipayimg.jpg
+    :width: 150
