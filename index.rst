@@ -6,7 +6,7 @@ SaintIC：[开源]项目、服务文档!
 :Website: https://www.saintic.com
 
 .. meta::
-    :description: SaintIC.COM相关[开源]项目及服务文档
+    :description: SaintIC.com [开源]项目及服务文档
     :keywords: saintic
     :http-equiv=Content-Type: text/html; charset=UTF-8
 
