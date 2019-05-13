@@ -12,7 +12,7 @@ SaintIC：[开源]项目、服务文档!
 
 .. toctree::
     :maxdepth: 2
-    :caption: 开源项目
+    :caption: 集成文档
 
     grab_huaban_duitang
     passport/index
@@ -25,6 +25,14 @@ SaintIC：[开源]项目、服务文档!
 
     Flask-PluginKit <https://flask-pluginkit.readthedocs.io>
     Python-SecureHTTP <https://python-securehttp.readthedocs.io>
+
+.. toctree::
+    :maxdepth: 2
+    :caption: 友情链接
+
+    主站 <https://www.saintic.com>
+    博客 <https://blog.saintic.com>
+    诏预 <https://open.saintic.com>
 
 .. _README:
 
