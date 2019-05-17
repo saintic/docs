@@ -24,7 +24,7 @@ copyright = u'2019, SaintIC'
 author = u'SaintIC'
 
 # The short X.Y version
-version = u''
+version = u'0.1.0'
 # The full version, including alpha/beta/rc tags
 release = u''
 
@@ -94,8 +94,8 @@ html_theme_options = {
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-html_css_files = ['css/my.css']
-html_js_files = ['js/my.js']
+html_css_files = ['css/my.css?v=' + version]
+html_js_files = ['js/my.js?v=' + version]
 html_logo = '_static/images/logo.png'
 html_favicon = '_static/images/favicon.png'
 
