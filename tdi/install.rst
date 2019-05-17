@@ -242,7 +242,7 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS::
         ......
         #在已有配置文件中增加以下两段，具体下载目录和端口自行修改：
         #此路径是为了下载实际图片压缩包，直接走nginx，这段可以说是最重要的配置
-        location /downloads {
+        location ^~ /downloads/ {
             #下载程序目录
             alias /tdi/src/downloads;
             default_type application/octet-stream;
@@ -251,8 +251,8 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS::
                 add_header Content-Disposition 'attachment;';
             }
         }
-        #此路径是web程序中两条路由，需要代理过去
-        location ~ ^/(ping|download)$ {
+        #此路径是tdi程序中的路由，需要代理过去
+        location ~ ^/(ping|download|rqdashboard) {
             proxy_pass http://127.0.0.1:13145;
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
@@ -261,6 +261,7 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS::
         }
         ......
     }
+
 
 **NO.4 程序升级**
 ------------------
