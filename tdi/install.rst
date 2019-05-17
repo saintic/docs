@@ -12,7 +12,7 @@
 
 源码地址： https://github.com/staugur/tdi
 
-历史版本： 0.1.0，0.2.1(master)
+历史版本： 0.1.0，0.2.1，0.2.2(master)
 
 作者博客： https://blog.saintic.com/
 
@@ -83,9 +83,10 @@ HOST             crawlhuabantdi_host         127.0.0.1        监听地址
 PORT             crawlhuabantdi_port         13145            监听端口
 LOGLEVEL       crawlhuabantdi_loglevel       INFO             日志级别，可选DEBUG, INFO, WARNING, ERROR, CRITICAL
 STATUS         crawlhuabantdi_status         ready            自主设定服务状态，ready可用、tardy不可用
-\*REDIS        crawlhuabantdi_redis_url       无              redis连接串，格式是：redis://[:password]@host:port/db
-\*TOKEN        crawlhuabantdi_token           无              签名令牌，切勿泄露、遗失，支持修改。
+**REDIS**      crawlhuabantdi_redis_url       无              redis连接串，格式是：redis://[:password]@host:port/db
+**TOKEN**      crawlhuabantdi_token           无              签名令牌，切勿泄露、遗失，支持修改。
 NORQDASH       crawlhuabantdi_norqdash        no              是否关闭rq-dashboard，yes、no，这是一个可以查看队列任务的页面
+ALARMEMAIL     crawlhuabantdi_alarmemail      无              报警邮箱，当检测到队列有failed时发送邮件，可选。v0.2.2新增
 ============  ==========================  ===============   ================================================================
 
 !!!以上参数 **REDIS** 和 **TOKEN** 无默认值，必须手动设置，示例如下（可以写入.bash\_profile中）：
@@ -94,6 +95,8 @@ NORQDASH       crawlhuabantdi_norqdash        no              是否关闭rq-das
 
     $ export crawlhuabantdi_redis_url="redis://@127.0.0.1:6379/1"
     $ export crawlhuabantdi_token="test"
+
+其中ALARMEMAIL参数是v0.2.2新增配置，关于报警，可以参考：:ref:`tdi-alert`
 
 2.1.4 启动程序
 ^^^^^^^^^^^^^^
