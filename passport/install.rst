@@ -261,7 +261,7 @@ SYSTEM和PLUGINS段配置，前者是程序本身相关，有一些需要调整�
     export passport_sign_accesskeyid="${SIGN_ACCESSKEYID}"
     export passport_sign_accesskeysecret="${SIGN_ACCESSKEYSECRET}"
     ## SYSTEM段-其他配置
-    export passport_personalizeddomainnameprefix="https://www.saintic.com/user/"
+    export passport_personalizeddomainnameprefix="https://blog.saintic.com/user/"
     export passport_system_email="staugur@saintic.com"
     export passport_status_url="https://status.satic.io"
 

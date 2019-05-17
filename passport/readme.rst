@@ -4,7 +4,7 @@
 概述
 ======
 
-    程序地址：\ https://github.com/staugur/passport
+    程序地址： https://github.com/staugur/passport
 
     功能说明： 邮箱、手机，QQ、微博、GitHub、Coding、码云等第三方登录，支持多个账号类型绑定，统一登录注销，用户管理，SSO客户端管理等。
 

@@ -6,7 +6,7 @@
 
 批量下载花瓣网画板、堆糖网专辑
 
-程序地址：`Python版 <https://github.com/staugur/grab_huaban_board/>`_，`JavaScript版 <https://github.com/saintic/userscript>`_
+程序地址：`Python版 <https://github.com/staugur/grab_huaban_board/>`_，`JavaScript版 <https://github.com/staugur/userscript>`_
 
 功能说明：py版只有一个批量下载花瓣网的脚本，js版有两个油猴脚本分别下载花瓣网和堆糖网，且脚本已经上传到greasyfork。
 
@@ -40,7 +40,7 @@ for Python
         --board_id BOARD_ID   花瓣网单个画板id, action=getBoard时使用
         --user_id USER_ID     花瓣网单个用户id, action=getUser时使用
 
-3. 详细使用文档请参考: https://blog.saintic.com/blog/204.html
+3. 更多请参考博客: https://blog.saintic.com/blog/204.html
 
 4. gui_batchdownload.py
 
@@ -55,7 +55,7 @@ for Python
 for JavaScript(花瓣、堆糖)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
--  详细使用文档请参考： https://blog.saintic.com/blog/256.html
+-  更多请参考博客: https://blog.saintic.com/blog/256.html
 
 -  花瓣网下载脚本主页及安装地址： `花瓣网下载 <https://greasyfork.org/zh-CN/scripts/368427-%E8%8A%B1%E7%93%A3%E7%BD%91%E4%B8%8B%E8%BD%BD>`_
 

@@ -10,7 +10,7 @@
 
 --------------
 
-源码地址： https://github.com/saintic/tdi
+源码地址： https://github.com/staugur/tdi
 
 历史版本： 0.1.0，0.2.1(master)
 
@@ -52,9 +52,9 @@
 2.1.1 下载源码
 ^^^^^^^^^^^^^^
 
-    ! 建议，如果你有git，可以：\ ``git clone https://github.com/saintic/tdi``
+    ! 建议，如果你有git，可以：\ ``git clone https://github.com/staugur/tdi``
 
-    ! 也可以下载压缩包：\ ``wget -O tdi.zip https://codeload.github.com/saintic/tdi/zip/master && unzip tdi.zip && mv tdi-master tdi``
+    ! 也可以下载压缩包：\ ``wget -O tdi.zip https://codeload.github.com/staugur/tdi/zip/master && unzip tdi.zip && mv tdi-master tdi``
 
 2.1.2 安装依赖
 ^^^^^^^^^^^^^^
@@ -120,7 +120,7 @@ NORQDASH       crawlhuabantdi_norqdash        no              是否关闭rq-das
 
 ::
 
-    $ git clone https://github.com/saintic/tdi
+    $ git clone https://github.com/staugur/tdi
     $ cd tdi
     $ docker build -t tdi .
 

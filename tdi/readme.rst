@@ -8,13 +8,11 @@
 
     这是一个专项程序，用以接入 *花瓣网下载* 和 *堆糖网下载* 两个油猴脚本的远程下载服务。
 
-GitHub：https://github.com/saintic/tdi
+GitHub：https://github.com/staugur/tdi
 
 语言：Python
 
 框架：Flask
-
-备注：已经从个人仓库\ `staugur/tdi <https://github.com/staugur/tdi>`__\ 迁移到组织仓库\ `saintic/tdi <https://github.com/saintic/tdi>`__\ ，欢迎star、pr，也欢迎加入组中公开开发；另，提交issue可以到github中也可以在本文档首页找到QQ群和邮箱。
 
 .. _tdi-features:
 
@@ -47,7 +45,7 @@ GitHub：https://github.com/saintic/tdi
 ------------
 
 1. 要求： Python2.7（3+）和Redis
-2. 下载： ``git clone https://github.com/saintic/tdi && cd tdi/src``
+2. 下载： ``git clone https://github.com/staugur/tdi && cd tdi/src``
 3. 依赖： ``pip install -r requirements.txt``
 4. 配置： 即\ ``config.py``\ 文件，可以从环境变量中读取配置信息。
 5. 启动： sh online\_rq.sh start && sh online\_gunicorn.sh start

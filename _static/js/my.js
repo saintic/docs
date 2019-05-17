@@ -13,4 +13,22 @@
 
     //关闭readthedocs.org的广告
     $('.ethical-rtd.ethical-dark-theme').css('display','none');
+
+    //插入名句
+    $.ajax({
+        url: "https://open.saintic.com/api/sentence/all.svg?has-url=true&inline-style=true&font-size=16",
+        type: "GET",
+        success: function(res) {
+            if (res) {
+                $("#footer-extra-sentence").html(res);
+            }
+        }
+    });
+
+    /*
+    //强制http跳转到https
+    if (window.location.protocol != "https:") {
+        window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
+    }
+    */
 })();
