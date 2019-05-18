@@ -38,11 +38,11 @@ SaintIC：[开源]项目、服务文档!
 关于
 ~~~~~~~
 
--  此作者：菜鸟运维一名，期待运维开发，北杭有工作推荐请@我。
+-  此作者：菜鸟运维一名，期待运维开发，目前在北京，但杭州有工作推荐可以@我。
 
--  本文档：作者开源工具的使用文档，尽可能详细的文档。
+-  本文档：作者开源工具的使用文档，尽可能详细的文档，持续更新中；若有问题可提交issue或pr！
 
--  此域名：**saintic.com**是2014年底注册的，已备案，托管于阿里云，目前主要用来运行博客、公共接口及服务、项目演示等。
+-  此域名： **saintic.com** 是2014年底注册的，已备案，托管于阿里云，目前主要用来运行博客、公共接口及服务、项目演示等。
 
 .. _Link:
 
@@ -61,14 +61,15 @@ SaintIC：[开源]项目、服务文档!
 -  加Q群：`577543189 <https://jq.qq.com/?_wv=1027&k=5aZyCMV>`_
 -  收邮件： staugur\@saintic.com
 -  热烈欢迎star、pr、issue或加入 `github组织 <https://github.com/saintic>`_
--  一个在线表单：`留言反馈 <https://passport.saintic.com/feedback.html>`_
+-  在线表单：`留言反馈 <https://passport.saintic.com/feedback.html>`_
+-  在线评论：`评论吐槽 <https://open.saintic.com/comment>`_
 
 .. _Definition:
 
 约定
 ~~~~~~
 
--  相关Web类程序均基于 `Flask-PluginKit <https://github.com/staugur/Flask-PluginKit>`_
+-  相关Web类程序大多基于 `Flask-PluginKit <https://github.com/staugur/Flask-PluginKit>`_
 -  相关认证服务(注册、统一登录与注销、用户设置与资料)均基于 `Passport <https://github.com/staugur/passport>`_
 -  程序源代码目录均为 ``src`` ，入口文件均为 ``src/main.py`` ，配置文件均为 ``src/config.py``
 -  配置文件中MYSQL段格式 ``mysql://host:port:user:password:database``，其他参数默认即可
