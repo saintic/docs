@@ -25,10 +25,8 @@
         }
     });
 
-    /*
     //强制http跳转到https
-    if (window.location.protocol != "https:") {
+    if (window.location.protocol != "https:" && window.location.host === "docs.saintic.com") {
         window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
     }
-    */
 })();

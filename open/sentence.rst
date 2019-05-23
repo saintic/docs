@@ -4,7 +4,9 @@
 古诗词文名句接口文档
 ====================
 
-这个API是一个可以随机返回一句古诗词文中名句的接口。
+地址：https://open.saintic.com/sentence.html
+
+说明：这个API是一个可以随机返回一句古诗词文中名句的接口。
 
 .. _open-sentence-data-source:
 
