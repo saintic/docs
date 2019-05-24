@@ -24,7 +24,7 @@ for Python
 
 2. python grab_huaban_board.py
 
-::
+.. code-block:: bash
 
     usage: grab_huaban_board.py [-h] [-a ACTION] [-u USER] [-p PASSWORD]
                                 [-v] [--board_id BOARD_ID] [--user_id USER_ID]

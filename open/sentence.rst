@@ -99,6 +99,22 @@
 
 -  **使用方法:**
 
-    -  对于svg，可以使用\ ``<img src="">``\ 引用，img中可以写行内样式。
     -  对于txt、json等格式，可以通过ajax调用。
+
+    -  对于svg，可以使用\ ``<img src="">``\ 引用，img中可以写行内样式。
+
+    -  对于svg，可以使用inline-style参数，返回svg文本，通过ajax调用html方法写入页面中，例如：
+
+.. code-block:: html
+
+    <div id="svg"></div>
+    <script>
+        $.ajax({
+            url: "https://open.saintic.com/api/sentence/all.svg?has-url=true&inline-style=true&font-size=16",
+            type: "GET",
+            success: function (res) {
+                $("#svg").html(res);
+            }
+        });
+    </script>
 
