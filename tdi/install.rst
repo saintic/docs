@@ -192,6 +192,9 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS::
         charset utf-8;
         #防止在IE9、Chrome和Safari中的MIME类型混淆攻击
         add_header X-Content-Type-Options nosniff;
+        #设置允许发布内容为10M
+        client_max_body_size 10M;
+        client_body_buffer_size 128k;
         #此路径是为了下载实际图片压缩包，直接走nginx，这段可以说是最重要的配置
         location /downloads {
             #程序下载目录(源码下的src/downloads或者容器的主机挂载点)
@@ -243,6 +246,9 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS::
         server_name 此处为已有域名;
         ......
         #在已有配置文件中增加以下两段，具体下载目录和端口自行修改：
+        #设置允许发布内容为10M
+        client_max_body_size 10M;
+        client_body_buffer_size 128k;
         #此路径是为了下载实际图片压缩包，直接走nginx，这段可以说是最重要的配置
         location ^~ /downloads/ {
             #下载程序目录
