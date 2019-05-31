@@ -31,4 +31,16 @@
     if (window.location.protocol != "https:" && window.location.host === "docs.saintic.com") {
         window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
     }
+
+    //返回顶部
+    window.onscroll = function () {
+        var goTop = document.getElementsByClassName("back2top");
+        if (goTop.length > 0) {
+            goTop[0].style.display = document.documentElement.scrollTop >= 200 || document.body.scrollTop >= 200 ? 'block' : 'none';
+            goTop[0].onclick = function () {
+                document.body.scrollTop = 0;
+                document.documentElement.scrollTop = 0;
+            }
+        }
+    }
 })();
