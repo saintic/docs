@@ -100,6 +100,12 @@ ALARMEMAIL           无              报警邮箱，当检测到队列有failed
     $ sh online_rq.sh start   #可以用run参数前台启动，status查看状态，stop停止，restart重启
     $ systemctl start php-fpm #此为示例，根据实际情况使用命令启动php-fpm
 
+.. warning::
+
+    如果您不使用默认的php，或者说php不在系统PATH变量内，您需要创建 ``online_preboot.sh`` 脚本，online_rq.sh会尝试source这个脚本，其内容大概可以是这样：
+
+    export PHP_CLI=具体PHP命令路径
+
 **NO.3 Nginx配置**
 -------------------
 

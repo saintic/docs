@@ -8,7 +8,7 @@
 
     这是一个基于Python的专项程序，用以接入 *花瓣网下载* 和 *堆糖网下载* 两个油猴脚本的远程下载服务。
 
-    还有一个基于PHP的，文档是：:ref:`tdi-php-readme`，故此程序也可以称之为：Tdi for Python，以做区分。
+    还有一个基于PHP的，文档是：:ref:`Tdi for PHP <tdi-php-readme>`，故此程序也可以称之为：Tdi for Python，以做区分。
 
 GitHub：https://github.com/staugur/tdi
 
