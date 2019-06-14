@@ -7,12 +7,13 @@
 .. note::
 
     部署就是三步走，一步准备工作，一步安装依赖，一步配置运行。
+    Windows下就不要考虑了，以下文档基于Linux的CentOS7
 
 --------------
 
 源码地址： https://github.com/staugur/tdi
 
-历史版本： 0.1.0，0.2.1，0.2.2(master)
+发布版本： https://github.com/staugur/tdi/releases
 
 作者博客： https://blog.saintic.com/
 

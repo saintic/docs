@@ -19,6 +19,7 @@ SaintIC：[开源]项目、服务文档!
     passport/index
     incetops/index
     tdi/index
+    tdi-php/index
 
 .. toctree::
     :maxdepth: 2
