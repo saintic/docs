@@ -111,7 +111,7 @@ ALARMEMAIL           无              报警邮箱，当检测到队列有failed
 
 在php-fpm和php-resque进程启动后，对于php来说还需要一个WEB服务器搭配使用，比如nginx、apache。
 
-首选Nginx，不解释；Apache HTTP Server，很遗憾，我现在也忘了怎么配置，得写.htaccess正则。
+首选Nginx，不解释；Apache HTTP Server，很遗憾，我现在也忘了怎么配置，得写.htaccess规则。
 
 这里假设程序目录是/tdi-php，那么程序下载目录就是/tdi-php/src/downloads；
 
@@ -145,15 +145,6 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS::
             fastcgi_pass 127.0.0.1:9000;
             #fastcgi_pass unix:/dev/shm/php-fpm.sock;
         }
-        #这一段忽略也没问题，对于php直接可访问这个目录，不需要像python那样添加这一段
-        #location /downloads {
-        #    #下载程序目录
-        #    alias /tdi-php/src/downloads/;
-        #    default_type application/octet-stream;
-        #    if ($request_filename ~* ^.*?\.(zip|tgz)$){
-        #        add_header Content-Disposition 'attachment;';
-        #    }
-        #}
     }
 
 
@@ -172,3 +163,23 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS::
 
 关于定时检测、资源报警、过期清理等功能的使用，:ref:`请点击跳转查看Tdi使用说明文档 <tdi-usgae>`
 
+
+**NO.6 resque-web**
+--------------------
+
+Tdi for Python内置了rqdashboard路由可以直接使用Web页面查看队列情况，但是Tdi for PHP没有，不过如果需要，可以安装ruby语言编写的resque-web，命令是：``gem install resque-web``
+
+.. tip::
+
+    如果没有gem命令，那么你可能需要安装ruby环境，以CentOS为例，``yum install ruby``
+
+使用方法：
+    resque-web --port 3000 --redis redis://[:password]@host:port/db
+
+以上命令执行后会放入后台，其中redis参数要与tdi-php中配置的一致，否则读取不到队列数据，更多用法使用--help查看。
+
+此时使用浏览器打开ip:3000，会看到类似界面：
+
+|resque_web_image|
+
+.. |resque_web_image| image:: /_static/images/resque-web.png
