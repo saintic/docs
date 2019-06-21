@@ -125,6 +125,10 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS::
         index index.html index.htm index.php;
         client_max_body_size 10M;
         client_body_buffer_size 128k;
+        #不允许搜索引擎抓取信息
+        if ($http_user_agent ~* "qihoobot|Baiduspider|Googlebot|Googlebot-Mobile|Googlebot-Image|Mediapartners-Google|Adsbot-Google|Feedfetcher-Google|Yahoo! Slurp|Yahoo! Slurp China|YoudaoBot|Sosospider|Sogou spider|Sogou web spider|Sogou+web+spider|bingbot|MSNBot|ia_archiver|Tomato Bot") {
+            return 403;
+        }
         location / {
             try_files $uri $uri/ /$uri.php?$query_string;
         }

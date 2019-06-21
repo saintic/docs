@@ -9,6 +9,7 @@ SaintIC：[开源]项目、服务文档!
     :description: SaintIC.com [开源]项目及服务文档
     :keywords: saintic
     :http-equiv=Content-Type: text/html; charset=UTF-8
+    :google-site-verification: h2Kbua4YStdYubtL4-tQRiX0-Mx1ANHbMt8HF8hRj4o
 
 .. toctree::
     :maxdepth: 2

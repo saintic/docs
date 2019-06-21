@@ -195,6 +195,10 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS::
         add_header X-Content-Type-Options nosniff;
         client_max_body_size 10M;
         client_body_buffer_size 128k;
+        #不允许搜索引擎抓取信息
+        if ($http_user_agent ~* "qihoobot|Baiduspider|Googlebot|Googlebot-Mobile|Googlebot-Image|Mediapartners-Google|Adsbot-Google|Feedfetcher-Google|Yahoo! Slurp|Yahoo! Slurp China|YoudaoBot|Sosospider|Sogou spider|Sogou web spider|Sogou+web+spider|bingbot|MSNBot|ia_archiver|Tomato Bot") {
+            return 403;
+        }
         #此路径是为了下载实际图片压缩包，直接走nginx，这段可以说是最重要的配置
         location /downloads {
             #程序下载目录(源码下的src/downloads或者容器的主机挂载点)
