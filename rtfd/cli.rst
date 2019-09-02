@@ -1,77 +1,8 @@
-.. _rtfd-overview:
-
-======
-概述
-======
-
-rtfd是一个基于sphinx来构建文档的命令工具，用来生成私有文档。
-
-类似于 ``readthedocs.org`` 提供的服务，当然功能是比不上的，只是作为备用工具使用。
-
-开发这个工具的起因是我在readthdocs构建文档时发生了致命的错误，所以弄了个简版。
-
-值得注意的是，大多数情况下，这个命令工具你是用不到的，此文档仅以记录使用方法。
-
-
-Badge: |DocsStatus|
-
-.. |DocsStatus| image:: https://open.saintic.com/rtfd/badge/saintic-docs
-
-GitHub: https://github.com/staugur/rtfd
-
-.. _rtfd-features:
-
-功能
-======
-
-1. 使用简单，依靠命令行、API
-
-2. 配置简单，rtfd配置依靠ini文件，构建文档时也支持直接写ini文件配置文档所需环境
-
-3. 支持https(HTTP2、TLS1.3)
-
-4. 文档项目直接支持多语言(翻译)和多标签(版本)，在页面右下角有按钮可以显示
-
-5. 支持webhook触发、文档构建状态的徽章、文档单一版本等
-
-目前相对于readthedocs不足的特性是：
-
-1. 仅支持github
-
-2. 不支持生成PDF、EPUB
-
-3. 不支持自定义域名
-
-4. 不支持添加翻译版本
-
-5. 不支持设置子项目、构建时环境变量等
-
-.. _rtfd-install:
-
-======
-安装
-======
-
-rtfd本身依赖Flask-PluginKit>=3.3.0、Click>=7.0、configparser模块，
-目前只支持Python2.7，您可以在virtualenv、或在全局环境中安装。
-
-- 正式版本
-
-    `$ pip install -U rtfd`
-
-- 开发版本
-
-    `$ pip install -U git+https://github.com/staugur/rtfd.git@master`
-
-.. note::
-
-    Flask-PluginKit在v3.0.0时重构，不兼容旧版本，若有使用此模块请注意！
-
 .. _rtfd-usgae:
 
-======
-使用
-======
+===========
+命令行使用
+===========
 
 .. _rtfd-usgae-require:
 
@@ -88,7 +19,7 @@ Sphinx生成HTML文档，Nginx用来接收web请求，要求版本不小于1.15.
 
 关于托管域名需要说明下，需要的是一个域名后缀，文档项目创建时会依据文档项目名和托管域名
 生成文档对应的域名，所以这个域名要求有一个默认解析。
-比如托管域名是 ``satic.cn`` ，需要添加一条 ``*.satic.cn`` 的A记录或CNAME记录指向
+比如托管域名是 ``rtfd.vip`` ，需要添加一条 ``*.rtfd.vip`` 的A记录或CNAME记录指向
 Nginx服务器。
 
 如果要开启https，还需要证书，要求支持通配符。
@@ -102,7 +33,7 @@ Python要求python2和python3两个版本，且都安装了virtualenv模块，�
 
 .. _rtfd-usgae-quickstart:
 
-开始使用
+快速开始
 =========
 
 rtfd模块安装完成后，会在系统中生成一个 `rtfd` 命令，它的帮助信息可以使用 `-h/--help`
@@ -135,7 +66,9 @@ rtfd模块安装完成后，会在系统中生成一个 `rtfd` 命令，它的�
 
 安装完rtfd，准备好依赖环境，就可以开始使用了。
 
-NO.1 初始化配置文件
+.. _rtfd-usgae-quickstart-no1:
+
+一、初始化配置文件
 --------------------
 
 init子命令，这一步基本只用一次，在没有rtfd的配置文件时生成配置，如果已有则会直接退出。
@@ -146,10 +79,10 @@ init子命令，这一步基本只用一次，在没有rtfd的配置文件时生
 配置文件决定了数据目录，也就是说不同配置文件可以有不同数据目录，一个系统中可以存在多个
 rtfd的服务。
 
-另一个需要注意的选项是 ``--nginx-dn`` ，这是前面准备的托管域名，比如 ``satic.cn`` ！
+另一个需要注意的选项是 ``--nginx-dn`` ，这是前面准备的托管域名，比如 ``rtfd.vip`` ！
 
 注意到有两个选项 ``--nginx-ssl-crt和key`` ，其默认值有点特别，是个变量，其中
-的 `g.base_dir` 即 `--basedir` ， `dn `即 `--nginx-dn`
+的 `g.base_dir` 即 `--basedir` ， `dn` 即 `--nginx-dn`
 
 .. code-block:: bash
 
@@ -188,17 +121,20 @@ rtfd的服务。
                                         /home/xxxx/.rtfd.cfg]
         -h, --help                      Show this message and exit.
 
-
 当然，配置文件可以不用命令生成，这里有一个模板，而且包含了大量注释，强烈建议使用的：
-`rtfd.cfg <https://github.com/staugur/rtfd/blob/master/tpl/rtfd.cfg>`_
+`rtfd.cfg`_
 
-NO.2 项目管理
+.. _rtfd-usgae-quickstart-no2:
+
+二、项目管理
 ---------------
 
 类似于readthedocs，文档项目需要先创建，再构建，构建成功才能访问。
 
-project子目录用来管理项目，新建、查询、更新等操作，这个是常用的，因为目前项目新建只能
+project子命令用来管理项目，新建、查询、更新等操作，这个是常用的，因为目前项目新建只能
 使用命令行，API暂时还没写。
+
+.. _rtfd-usgae-quickstart-project-create:
 
 2.1 新建项目
 ^^^^^^^^^^^^^
@@ -210,7 +146,9 @@ create，--update-rule选项用不到，其他根据提示信息设置，最重�
 
 .. code-block:: bash
 
-    rtfd project -a create --url https://github.com/user/repo repo
+    $ rtfd project -a create --url https://github.com/user/repo repo
+
+.. _rtfd-usgae-quickstart-project-get:
 
 2.2 查询项目
 ^^^^^^^^^^^^^
@@ -219,20 +157,73 @@ create，--update-rule选项用不到，其他根据提示信息设置，最重�
 
 .. code-block:: bash
 
-    rtfd project repo
+    $ rtfd project repo
 
 这会输出JSON数据，所以可以用管道美化下输出结果，
 
 .. code-block:: bash
 
-    rtfd project repo | python -m json.tool
+    $ rtfd project repo | python -m json.tool
     # 或者
-    rtfd project repo | jq
+    $ rtfd project repo | jq
+
+.. _rtfd-usgae-quickstart-project-update:
 
 2.3 更新项目
 ^^^^^^^^^^^^^
 
 即更新项目配置信息，设置action为update即更新动作，所有更新内容用 `-ur/--update-rule`
-选项来设置，这个内容要求是JSON格式，其中配置字段名参考后续文档。
+选项来设置，这个内容要求是JSON格式，其中配置字段名即新建时的选项名，但注意是小写，而且
+短横线要改为下划线，不包含前缀的短横线。
 
-后续文档更新中ing......
+比如--install对应的更新键名是install=true/false，--version对应的是version=2/3
+
+另外，更新项目的配置还可以通过 `.rtfd.ini` 文件，且其优先级高，
+参考 :ref:`rtfd-config-docs-project` ，对比命令行，其支持latest参数，不支持更改
+show_nav、url、single、webhook_secret参数。
+
+.. warning::
+
+    更新languages、default_language、single参数会重载nginx配置。
+
+.. _rtfd-usgae-quickstart-project-remove:
+
+2.4 删除项目
+^^^^^^^^^^^^^
+
+选项action设置为remove，加上项目名即可删除项目，比如：
+
+.. code-block:: bash
+
+    $ rtfd project --action remove repo
+
+.. warning::
+
+    注意：这个操作会删除已生成的文档页面、Nginx配置等，属于危险操作！
+
+.. _rtfd-usgae-quickstart-project-list:
+
+2.5 列出项目
+^^^^^^^^^^^^^
+
+选项action设置为list，项目名随意（不想新开子命令了，但是这个名字还要求存在，没办法），
+列出本地存储中的项目，其中项目名如果设置为only，会只输出所有项目的项目名。
+
+输出JSON数据，同样可以美化输出结果。
+
+.. note::
+
+    上一节删除项目中，实际上只是清空了本地存储中项目对应的数据，并不能实际删除项目，所
+    以在列出所有项目时，会看到已删除的项目，不过值为空而已。
+
+.. _rtfd-usgae-quickstart-no3:
+
+三、构建文档
+---------------
+
+build子命令，用来通过命令行构建文档，支持一个branch选项设置分支，默认是master，允许
+设置为标签，其他的诸如远程分支不支持。
+
+构建文档还可以通过API触发，也可以webhook触发，参考 :ref:`rtfd-api-docs`
+
+.. _rtfd.cfg: https://github.com/staugur/rtfd/blob/master/tpl/rtfd.cfg
