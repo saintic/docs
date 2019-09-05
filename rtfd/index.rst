@@ -9,4 +9,5 @@ rtfd - 构建、阅读专属文档
     api
     config
     faq
+    changelog
 
