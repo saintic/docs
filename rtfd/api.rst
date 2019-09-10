@@ -102,7 +102,7 @@ API接口文档
 3. /rtfd/webhook/<your-docs-name>
 ---------------------------------
 
-基于webhook触发自动构建，适配了GitHub，支持push、release事件。
+基于webhook触发自动构建，适配了GitHub和码云(Gitee)，支持push、release事件。
 
 要使用这一功能，需要手动在GitHub项目的Webhooks中添加一条记录，GitHub需要的参数如下：
 
@@ -121,6 +121,19 @@ API接口文档
 - Trigger events
 
     触发事件可以选择默认的push，或者自定义为Pushes、Releases。
+
+对于码云(Gitee)来说，它的webhook选项只有URL、密码、事件：
+
+- URL，同GitHub的Payload URL，rtfd适配gitee的请求
+
+- 密码，同GitHub的Secret
+
+- 事件，请勾选上Push和Tag Push两个事件
+
+.. note::
+
+    在选择上述两个git服务商的webhook事件中，Releases或Tag Push事件是仅在发布新标签时
+    触发。
 
 .. _GitHub: https://github.com/staugur/Flask-PluginKit
 .. _rtfd.cfg: https://github.com/staugur/rtfd/blob/master/tpl/rtfd.cfg
