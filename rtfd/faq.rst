@@ -13,7 +13,7 @@
 
     生成程序级配置文件
 
-- ``rtfd project -a create your-docs-name`` 新增文档项目
+- ``rtfd project -a create --url xxx your-docs-name`` 新增文档项目
 
     在本地保存文档项目数据、初始化文档的nginx配置文件
 
@@ -53,7 +53,7 @@ rtfd子命令都支持一个 `-c / --config` 选项指定程序配置文件，�
 自定义域名
 ==============
 
-v0.3.0支持自定义域名（版本有bug，请使用v0.3.1）。
+v0.3.0支持自定义域名（版本有bug，请更新到v0.3.1+）。
 
 如果是新建项目可以直接使用 `--custom-domain` 选项；如果是已有项目追加自定义域名，请
 更新 `custom_domain` ，例如：
