@@ -33,7 +33,7 @@ GitHub: https://github.com/staugur/rtfd
 
 - 支持webhook触发、文档构建状态的徽章、文档单一版本等
 
-- 允许github公开仓库和私有仓库
+- 允许github、gitee公开仓库和私有仓库
 
 目前相对于readthedocs不足的特性是：
 
