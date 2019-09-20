@@ -27,8 +27,8 @@ SaintIC：[开源]项目、服务文档!
     :maxdepth: 2
     :caption: 独立文档
 
-    Flask-PluginKit <https://flask-pluginkit.readthedocs.io>
-    Python-SecureHTTP <https://python-securehttp.readthedocs.io>
+    Flask-PluginKit <https://flask-pluginkit.rtfd.vip>
+    Python-SecureHTTP <https://python-securehttp.rtfd.vip>
 
 .. _README:
 
