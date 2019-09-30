@@ -22,6 +22,7 @@ SaintIC：[开源]项目、服务文档!
     tdi/index
     tdi-php/index
     rtfd/index
+    securehttp.js/index
 
 .. toctree::
     :maxdepth: 2
