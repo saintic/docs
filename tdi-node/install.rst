@@ -17,7 +17,7 @@
 
 作者博客： https://blog.saintic.com/
 
-内容说明： 以下部署文档适用于有一点linux基础的同学，大概涉及到yum、git、php等相关命令，以及redis、nginx等服务。
+内容说明： 以下部署文档适用于有一点linux基础的同学，大概涉及到yum、git、node等相关命令，以及redis、nginx等服务。
 
 .. _tdi-node-install-no1:
 
@@ -40,9 +40,9 @@
 2.1 下载源码
 ^^^^^^^^^^^^^^
 
-    ! 建议，如果你有git，可以：\ ``git clone https://github.com/staugur/tdi-node && cd tdi-node``
+    ! 建议，如果你有git，可以： ``git clone https://github.com/staugur/tdi-node && cd tdi-node``
 
-    ! 也可以下载压缩包：\ ``wget -O tdi-node.zip https://codeload.github.com/staugur/tdi-node/zip/master && unzip tdi-node.zip && mv tdi-node-master tdi-node && cd tdi-node```
+    ! 也可以下载压缩包： ``wget -O tdi-node.zip https://codeload.github.com/staugur/tdi-node/zip/master && unzip tdi-node.zip && mv tdi-node-master tdi-node && cd tdi-node``
 
 2.2 安装依赖
 ^^^^^^^^^^^^^^
@@ -93,6 +93,16 @@ loglevel             INFO            日志级别，DEBUG、INFO、WARN、ERROR
 
 配置文件中alarmemail参数是关于报警的配置，可以参考 :ref:`tdi-alert`
 
+.. note::
+
+    Tdi-node读取配置有个顺序，假设配置名为key，首先从package.json中读取key值。
+
+    未果，从config.json中读取；
+
+    未果，从环境变量中读取，但是读取的是以 `crawlhuabantdi_` 开头的key值，这里，Tdi for Python也是通过环境变量设置的，所以可以共用。（但是redis有点区别，python版读取的是crawlhuabantdi_redis_url，node版读取的是crawlhuaban_redis）；
+
+    未果，返回自定义默认值，若无，则返回空字符串。
+
 2.4 启动程序
 ^^^^^^^^^^^^^^
 
@@ -139,7 +149,7 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS::
             }
         }
         location / {
-            #13145是默认端口
+            #3000是默认端口
             proxy_pass http://127.0.0.1:3000;
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
