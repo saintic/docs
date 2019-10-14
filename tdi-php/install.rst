@@ -125,10 +125,7 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS::
         index index.html index.htm index.php;
         client_max_body_size 10M;
         client_body_buffer_size 128k;
-        #不允许搜索引擎抓取信息
-        if ($http_user_agent ~* "qihoobot|Baiduspider|Googlebot|Googlebot-Mobile|Googlebot-Image|Mediapartners-Google|Adsbot-Google|Feedfetcher-Google|Yahoo! Slurp|Yahoo! Slurp China|YoudaoBot|Sosospider|Sogou spider|Sogou web spider|Sogou+web+spider|bingbot|MSNBot|ia_archiver|Tomato Bot") {
-            return 403;
-        }
+        #可以设置不允许搜索引擎抓取信息
         location / {
             try_files $uri $uri/ /$uri.php?$query_string;
         }
@@ -154,7 +151,7 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS::
 
 程序部署好+Nginx配置完成，启动后，这个域名就能对外服务了（温馨提示：您可以使用HTTPS提供服务，并且也建议用HTTPS，证书可以到此免费申请： https://freessl.cn ），即可进入下一篇查看如何注册、使用。
 
-另外，若您没有[已备案]域名，可以与我留言申请一个 *saintic.com* 的子域。
+另外，若您没有[已备案]域名，可以与我留言申请一个 *tdi.saintic.com* 的子域。
 
 **NO.4 程序升级**
 ------------------

@@ -46,7 +46,7 @@
 
 即直接部署到服务器上，比如物理机、云主机、VPS等，目前可用CentOS、Ubuntu的操作系统、Python2.7(支持pypy)和Redis。
 
-这里演示了一个简单的部署流程图： 
+这里演示了一个简单的部署流程图：
 
 |image0|
 
@@ -195,10 +195,7 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS::
         add_header X-Content-Type-Options nosniff;
         client_max_body_size 10M;
         client_body_buffer_size 128k;
-        #不允许搜索引擎抓取信息
-        if ($http_user_agent ~* "qihoobot|Baiduspider|Googlebot|Googlebot-Mobile|Googlebot-Image|Mediapartners-Google|Adsbot-Google|Feedfetcher-Google|Yahoo! Slurp|Yahoo! Slurp China|YoudaoBot|Sosospider|Sogou spider|Sogou web spider|Sogou+web+spider|bingbot|MSNBot|ia_archiver|Tomato Bot") {
-            return 403;
-        }
+        #可以设置不允许搜索引擎抓取信息
         #此路径是为了下载实际图片压缩包，直接走nginx，这段可以说是最重要的配置
         location /downloads {
             #程序下载目录(源码下的src/downloads或者容器的主机挂载点)
@@ -236,10 +233,9 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS::
 
 程序部署好+Nginx配置完成，启动后，这个域名就能对外服务了（温馨提示：您可以使用HTTPS提供服务，并且也建议用HTTPS，证书可以到此免费申请： https://freessl.cn ），即可进入下一篇查看如何注册、使用。
 
-另外，若您没有[已备案]域名，可以与我留言申请一个 *saintic.com* 的子域。
+另外，若您没有[已备案]域名，可以与我留言申请一个 *tdi.saintic.com* 的子域。
 
 **PS：补充说明**
-------------------
 
 您也可以使用已有域名配置，将Tdi设置为子目录，合并到配置文件中（server里），核心配置段：
 
