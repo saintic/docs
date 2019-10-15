@@ -13,7 +13,7 @@
 
 源码地址： https://github.com/staugur/tdi-php
 
-发布版本： https://github.com/staugur/tdi-php/releases
+正式版本： https://github.com/staugur/tdi-php/releases
 
 作者博客： https://blog.saintic.com/
 

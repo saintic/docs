@@ -148,7 +148,7 @@ Tdi: 即为花瓣网下载和堆糖网下载两个油猴脚本提供远程下载
     - Tdi for node
 
         可以修改config.json文件，设置status值为tardy；或者 ``export crawlhuabantdi_status=tardy`` 设置环境变量，这是允许的。
-        重启Web进程： ``yarn prod:restart``
+        重载Web进程： ``yarn prod:reload``
 
 - 您的服务可以随意停止，如果中心端接收到请求并转发到了您的程序，但程序无法正确响应，此时会由中心端本身提供下载。【另外，您现在也可以随时在控制台中直接删除接入的Tdi服务！】
 

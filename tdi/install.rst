@@ -13,7 +13,7 @@
 
 源码地址： https://github.com/staugur/tdi
 
-发布版本： https://github.com/staugur/tdi/releases
+正式版本： https://github.com/staugur/tdi/releases
 
 作者博客： https://blog.saintic.com/
 
@@ -145,7 +145,7 @@ ALARMEMAIL     crawlhuabantdi_alarmemail      无              报警邮箱，�
     $ docker run -tdi --name 容器名 --restart=always --net=host \
         -e crawlhuabantdi_redis_url=REDIS连接串 \
         -e crawlhuabantdi_token=令牌 \
-        -v 挂载点:/Tdi/downloads \
+        -v 下载目录挂载点:/Tdi/downloads \
         镜像:标签
 
 镜像及标签：
