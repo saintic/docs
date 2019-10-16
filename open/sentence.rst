@@ -36,19 +36,30 @@
 
 -  **RULE规则:**
 
-    1. 注意：**all** 或 **.** 表示随机
+    1. 注意：**all** 或 **.** 表示随机；suffix后缀；catalog分类；theme主题；author作者；pinyin即要求汉字拼音！
     2. 为空时: 格式默认，随机返回名句
     3. 不为空但没有点: catalog\_pinyin: 随机返回分类中名句，格式默认
     4. 一个点: catalog\_pinyin.suffix:
 
         -  点后为后缀，支持svg,json,txt；
         -  点前为catalog之分类，默认all，随机返回名句
+        -  示例：爱情分类（主题是抒情）
+
+        .. code-block:: html
+
+            aiqing.json
 
     5. 两个点: theme\_pinyin.catalog\_pinyin.suffix:
 
         -  第一个点前是主题，留空或all即随机
         -  第二个点前是分类，留空或all即随机
         -  第二个点后是后缀
+        -  点前为catalog之分类，默认all，随机返回名句
+        -  示例：抒情主题，爱情分类
+
+        .. code-block:: html
+
+            shuqing.aiqing.json
 
     6. 三个点: author\_pinyin.theme\_pinyin.catalog\_pinyin.suffix:
 
@@ -56,6 +67,11 @@
         -  第二个点前是主题，留空或all即随机
         -  第三个点前是分类，留空或all即随机
         -  第三个点后是后缀
+        -  示例：作者苏轼，抒情主题，爱情分类
+
+        .. code-block:: html
+
+            sushi.shuqing.aiqing.json
 
 .. _open-sentence-query:
 
