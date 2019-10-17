@@ -12,7 +12,7 @@ SaintIC：[开源]项目、服务文档!
     :google-site-verification: h2Kbua4YStdYubtL4-tQRiX0-Mx1ANHbMt8HF8hRj4o
 
 .. toctree::
-    :maxdepth: 1
+    :maxdepth: 2
     :caption: 集成文档
 
     open/index
