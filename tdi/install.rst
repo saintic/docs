@@ -57,6 +57,10 @@
 
     ! 也可以下载压缩包：\ ``wget -O tdi.zip https://codeload.github.com/staugur/tdi/zip/master && unzip tdi.zip && mv tdi-master tdi``
 
+    ! 或者到release页面下载正式版本的包。
+
+    ! 进入代码目录： `cd tdi`
+
 2.1.2 安装依赖
 ^^^^^^^^^^^^^^
 
@@ -156,7 +160,9 @@ ALARMEMAIL     crawlhuabantdi_alarmemail      无              报警邮箱，�
 
     标签（这里表示版本，每个稳定版打一个标签）：
         latest：默认，最新版本，可能是最新的稳定版，但最可能是正在开发的版本，所以建议用稳定版
+        v0.3.0：压缩方式由zip改为tar
         v0.2.1：支持了py3、更新了过期时间等
+        v0.2.0：忘记了~
         v0.1.0：第一个稳定版
 
 解释说明：

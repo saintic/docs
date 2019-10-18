@@ -40,22 +40,18 @@
 2.1 下载源码
 ^^^^^^^^^^^^^^
 
-    ! 建议，如果你有git，可以： ``git clone https://github.com/staugur/tdi-node && cd tdi-node``
+    ! 建议，如果你有git，可以： ``git clone https://github.com/staugur/tdi-node``
 
-    ! 也可以下载压缩包： ``wget -O tdi-node.zip https://codeload.github.com/staugur/tdi-node/zip/master && unzip tdi-node.zip && mv tdi-node-master tdi-node && cd tdi-node``
+    ! 也可以下载压缩包： ``wget -O tdi-node.zip https://codeload.github.com/staugur/tdi-node/zip/master && unzip tdi-node.zip && mv tdi-node-master tdi-node``
 
     ! 或者到release页面下载正式版本的包。
+
+    ! 进入代码目录： `cd tdi-node`
 
 2.2 安装依赖
 ^^^^^^^^^^^^^^
 
     - 很详细的安装Node.js的步骤不是这里的重点，您可以使用包管理器安装、直接下载二进制或源码编译，版本推荐v10+
-
-    - 目前有一处使用了系统命令zip，所以你需要安装它（一般系统中应该都安装了）：
-
-        - CentOS/Fedora/RHEL: ``yum install zip``
-
-        - Ubuntu: ``apt-get install zip``
 
     - 项目中依赖的第三方模块已经写好了，如果不是二次开发，仅安装生产依赖即可（开发依赖就一个，安装也不嫌多~~）
 
@@ -67,6 +63,14 @@
 
         请复制config.sample.json生成配置，这是JSON文件也不好注释，
         其中必填项是 ``redis`` 和 ``token`` ，具体内容参考下方2.3小节中的配置表格。
+
+    .. note::
+
+        tdi-node v0.1.0，用了系统zip命令，不过现已经舍弃，如果还用旧版，可以如下安装
+
+        - CentOS/Fedora/RHEL: ``yum install zip``
+
+        - Ubuntu: ``apt-get install zip``
 
 .. _tdi-node-config:
 
@@ -162,6 +166,7 @@ noclean              无             如果值是true，那么使用pm2启动正
 
     标签（这里表示版本，每个稳定版打一个标签）：
         latest：默认，最新版本，可能是最新的稳定版，但最可能是正在开发的版本，所以建议用稳定版
+        v0.2.0：压缩方式由zip改为tar
         v0.1.0：第一个稳定版
 
 3.3.3 其他参数解释说明

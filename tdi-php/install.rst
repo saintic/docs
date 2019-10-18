@@ -44,6 +44,10 @@
 
     ! 也可以下载压缩包：\ ``wget -O tdi-php.zip https://codeload.github.com/staugur/tdi-php/zip/master && unzip tdi-php.zip && mv tdi-php-master tdi-php``
 
+    ! 或者到release页面下载正式版本的包。
+
+    ! 进入代码目录： `cd tdi-php`
+
 2.2 安装依赖
 ^^^^^^^^^^^^^^
 
@@ -69,7 +73,7 @@
 2.3 修改配置
 ^^^^^^^^^^^^^^
 
-配置文件是\ ``config.php``\ ，给出了样例文件 ``config.sample.php``。
+配置文件是\ ``config.php``\ ，给出了样例文件 ``config.sample.php`` （v0.1.0此样例包含VERSION定义，现已废弃）。
 
 您需要使用 ``mv config.sample.php config.php`` 重命名文件，或者使用 ``cp config.sample.php config.php`` 复制一份。
 
