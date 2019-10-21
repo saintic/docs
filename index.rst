@@ -12,7 +12,7 @@ SaintIC：[开源]项目、服务文档!
     :google-site-verification: h2Kbua4YStdYubtL4-tQRiX0-Mx1ANHbMt8HF8hRj4o
 
 .. toctree::
-    :maxdepth: 2
+    :hidden:
     :caption: 集成文档
 
     open/index
@@ -26,6 +26,7 @@ SaintIC：[开源]项目、服务文档!
     securehttp.js/index
 
 .. toctree::
+    :hidden:
     :caption: 独立文档
 
     Flask-PluginKit <https://flask-pluginkit.rtfd.vip>
