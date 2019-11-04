@@ -31,6 +31,7 @@ SaintIC：[开源]项目、服务文档!
 
     Flask-PluginKit <https://flask-pluginkit.rtfd.vip>
     Python-SecureHTTP <https://python-securehttp.rtfd.vip>
+    Isso中文文档 <https://isso-cn.rtfd.vip>
 
 .. _README:
 
