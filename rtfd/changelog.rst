@@ -4,6 +4,21 @@
 更新日志
 ===========
 
+v0.4.0
+------
+
+- feat: sphinx构建器由默认不可选的html改为可选，支持html, dirhtml. singlehtml等
+- feat: 前端导航隐藏/显示git部分
+- feat: cli project子命令添加对应选项
+- feat: app模块，可以直接用gunicorn启动（rtfd.app:app）
+- feat: api消息增加按项目分类
+- feat: 构建文档前增加的js附加数据改为url query形式
+- feat: 构建前后的钩子命令
+- fix: build name for shelve
+- fix: auto-update key type for shelve
+- fix builder.sh when installing sphinx
+- chore: update package info, add test
+
 v0.3.3
 ------
 

@@ -42,11 +42,17 @@ rtfd模块安装完成后，会在系统中生成一个 `rtfd` 命令，它的�
 .. code-block:: bash
 
     $ rtfd -v
-    0.3.3
+    0.4.0
 
-在编写此文档时，rtfd版本0.2.0！
+在最初编写此文档时，rtfd版本0.2.0！
 
-更新于2019-09-11，此时版本0.3.3！
+.. versionchanged:: 0.3.0
+
+.. versionchanged:: 0.4.0
+
+    - 构建钩子
+    - 多选构建器
+    - 前端导航和脚本、API消息接口等
 
 .. code-block:: bash
 
@@ -200,12 +206,24 @@ HTTPS，请设置选项 `--ssl --ssl-crt 证书文件 --ssl-key 密钥文件` �
 比如--install对应的更新键名是install=true/false，--version对应的是version=2/3
 
 另外，更新项目的配置还可以通过 `.rtfd.ini` 文件，且其优先级高，
-参考 :ref:`rtfd-config-docs-project` ，对比命令行，其支持latest参数，不支持更改
-show_nav、url、single、webhook_secret参数。
+参考 :ref:`rtfd-config-docs-project` ，对比命令行，其支持latest参数及rtfd.ini样例
+中的其他参数，样例中未提及的参数则不支持更改。
 
 .. warning::
 
     更新languages、default_language、single参数会重载nginx配置。
+
+.. versionchanged:: 0.4.0
+
+    - show_nav_git: 导航中是否显示git view/edit部分
+
+    - before_hook: 构建前钩子，要求为系统命令（安装完文档项目的依赖后，sphinx-build命令执行前）
+
+    - after_hook: 构建成功后钩子，要求为系统命令
+
+    以上三个选项未在rtfd project选项中，算是小tip，其中两个钩子为单条命令（不能包含
+    管道、与、或等），若要用多条命令组合，请了解下eval（温馨提示：命令在子进程运行，
+    请注意对系统安全性）！
 
 .. _rtfd-usgae-quickstart-project-remove:
 

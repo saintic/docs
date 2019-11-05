@@ -67,7 +67,7 @@ v0.3.0支持自定义域名（版本有bug，请更新到v0.3.1+）。
 
 .. code-block:: bash
 
-    rtfd project -a update -ur '{"custom_domain":"domain-name","ssl":true,"ssl_crt":"证书公钥","ssl_key":"使用"}' docs-project
+    rtfd project -a update -ur '{"custom_domain":"domain-name","ssl":true,"ssl_crt":"证书公钥文件","ssl_key":"私钥文件"}' docs-project
 
 .. note::
 

@@ -19,12 +19,15 @@ register函数返回了视图扩展点的配置。
 
 1. 单独写一个启动Web的文件
 
-    代码参考： https://github.com/staugur/rtfd/blob/master/tpl/app.py
-
     启动脚本： https://github.com/staugur/rtfd/blob/master/tpl/online.sh
 
     三行代码完事，脚本可以启动、关闭、重载Web应用，注意脚本头部注释，使用时需要安装
     gunicorn模块，如果要自定义进程名，还需要安装setproctitle模块。
+
+    .. versionchanged:: 0.4.0
+
+        在这个版本中新加了独立的app.py模块，省的再去git上找模板，只需要用gunicorn、
+        uwsgi之类的启动即可，模块名是： `rtfd.app:app`
 
 2. 集成到已有的Flask应用中
 
@@ -44,22 +47,24 @@ register函数返回了视图扩展点的配置。
 
 3. 集成到Flask-PluginKit的应用中
 
-    那就简单了，rtfd本身已经适配了Flask-PluginKit，作为其第三方插件，所以就像第一种
-    情况提供的代码参考一样，在初始化PluginManager时，传入plugin_packages参数中添加
-    rtfd这个插件名即可。
+    那就简单了，rtfd本身已经适配了Flask-PluginKit，作为其第三方插件，
+    在初始化PluginManager时，传入plugin_packages参数中添加rtfd这个插件名即可。
+    具体可以参考 `app.py <https://github.com/staugur/rtfd/blob/master/rtfd/app.py>`_ 。
 
 .. warning::
 
     rtfd源码中包含静态文件，如果不是集成在Flask-PluginKit应用中，静态文件需要单独拿出
     来供外部访问，当然，我也上传到CDN了：https://static.saintic.com/rtfd/
 
+    主目录是master分支的静态文件，其子目录有0.3.2、0.3.3、0.4.0，是各标签版本的静态文件。
+
     使用外部静态资源需要配置server_static_url，参考注释：`rtfd.cfg`_
 
     静态资源有三个文件，最重要的是rtfd.js，所有文档构建时都会在sphinx的配置文件
-    config.py中追加配置以使用这个文件，访问文档时会请求这个rtfd.js，而这个js会初始化
+    conf.py中追加配置以使用这个文件，访问文档时会请求这个rtfd.js，而这个js会初始化
     文档右下角的导航按钮。
 
-上面的三种情况基本上是贴近正式环境，如果是开发环境，可以使用api子命令直接启动web应用。
+上面的三种情况基本上是正式环境下运行api，如果是开发环境，可以使用api子命令直接启动web应用。
 
 .. code-block:: bash
 
@@ -87,6 +92,10 @@ API接口文档
 - GET, Action=queryBuildmsg 获取消息输出
 
     非必需，raw=true/false，默认值true，返回数据的内容格式
+
+    .. versionchanged:: 0.4.0
+
+        必需，name查询参数
 
 - POST, Action=buildProject 构建文档
 
@@ -136,4 +145,4 @@ API接口文档
     触发。
 
 .. _GitHub: https://github.com/staugur/Flask-PluginKit
-.. _rtfd.cfg: https://github.com/staugur/rtfd/blob/master/tpl/rtfd.cfg
+.. _rtfd.cfg: https://github.com/staugur/rtfd/blob/master/tpl/rtfd.cfg#L13

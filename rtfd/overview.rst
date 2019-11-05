@@ -35,9 +35,9 @@ GitHub: https://github.com/staugur/rtfd
 
 - 允许github、gitee公开仓库和私有仓库
 
-目前相对于readthedocs不足的特性是：
+- 支持构建前后的钩子命令
 
-- 仅支持github
+目前相对于readthedocs不足的特性是：
 
 - 不支持生成PDF、EPUB
 
@@ -63,4 +63,4 @@ rtfd本身依赖Flask-PluginKit>=3.3.0、Click>=7.0、configparser模块，
 
 .. note::
 
-    Flask-PluginKit在v3.0时重构，不兼容旧版本，若有使用此模块请注意！
+    Flask-PluginKit在v3.0时重构，v3.3.1前不兼容旧版本，若有使用此模块请注意！
