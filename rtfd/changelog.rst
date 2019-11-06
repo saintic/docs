@@ -7,7 +7,9 @@
 v0.4.0
 ------
 
-- feat: sphinx构建器由默认不可选的html改为可选，支持html, dirhtml. singlehtml等
+Released in 2019-11-05
+
+- feat: sphinx构建器由默认不可选的html改为可选，支持html、dirhtml、singlehtml等
 - feat: 前端导航隐藏/显示git部分
 - feat: cli project子命令添加对应选项
 - feat: app模块，可以直接用gunicorn启动（rtfd.app:app）
