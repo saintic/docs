@@ -44,17 +44,17 @@ SaintIC：[开源]项目、服务文档!
 关于
 ~~~~~~~
 
--  此作者：菜鸟运维一名，期待运维开发，目前在北京，但杭州有工作推荐可以@我。
+-  此作者：菜鸟运维一名，期待运维开发，目前在北京，但上海有工作推荐可以@我。
 
 -  本文档：作者开源工具的使用文档，尽可能详细的文档，持续更新中；若有问题可提交issue或pr！
 
 -  此域名： **saintic.com** 是2014年底注册的，已备案，托管于阿里云，目前主要用来运行博客、公共接口及服务、项目演示等，全站支持https，具体域名：
 
+    - open.saintic.com: 开放的接口、服务、工具等，会将有趣的东西放上去；
     - www.saintic.com: 早先是博客主域名，后来单独搞一个页面分离出来，目前就是一个导航作用；
     - blog.saintic.com: 技术博客，一些项目介绍、一些技术记录，主要是运维、Python方面；
-    - open.saintic.com: 开放的接口、服务、工具等，会将有趣的东西放上去；
     - passport.saintic.com: 用来认证的应用，统一登录、注册；
-    - 其他诸如swarmops、incetops等项目演示站及 **satic.io** 相关域名。
+    - 其他诸如swarmops、incetops等项目演示站, **satic.io**, **satic.cn**, **rtfd.vip** 等相关域名。
 
 .. _Link:
 
@@ -73,7 +73,7 @@ SaintIC：[开源]项目、服务文档!
 -  加Q群：`577543189 <https://jq.qq.com/?_wv=1027&k=5aZyCMV>`_
 -  收邮件： staugur\@saintic.com
 -  热烈欢迎star、pr、issue或加入 `github组织 <https://github.com/saintic>`_
--  留言反馈：`留言反馈 <https://passport.saintic.com/feedback.html>`_
+-  `留言反馈 <https://passport.saintic.com/feedback.html>`_
 
 .. _Definition:
 
