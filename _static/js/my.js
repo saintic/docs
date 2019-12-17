@@ -1,6 +1,15 @@
 (function () {
     'use strict';
 
+    if (!String.prototype.endsWith) {
+        String.prototype.endsWith = function (search, this_len) {
+            if (this_len === undefined || this_len > this.length) {
+                this_len = this.length;
+            }
+            return this.substring(this_len - search.length, this_len) === search;
+        };
+    }
+
     //设置sphinx_rtd_theme右侧内容占据全部宽度 [已通过css更改样式]
     //$('div.wy-nav-content').css('max-width','100%');
 
@@ -43,4 +52,21 @@
             }
         }
     }
+
+    //添加Isso评论
+    var isDirIndex = location.pathname.endsWith("/index.html");
+    var hr = document.getElementsByTagName("footer")[0].getElementsByTagName("hr")[0];
+    hr.insertAdjacentHTML('beforebegin', '<section id="isso-thread"' + (isDirIndex ? (' data-isso-id="' + location.pathname.split("index.html")[0] + '"') : '') + '></section>');
+    var hs = document.createElement("script");
+    hs.type = "text/javascript";
+    hs.src = 'https://pac.saintic.com/isso/docs/js/embed.min.js';
+    hs.dataset.isso = 'https://pac.saintic.com/isso/docs';
+    hs.dataset.issoAvatar = 'false';
+    hs.dataset.issoGravatar = 'true';
+    hs.dataset.issoReplyNotifications = 'true';
+    hs.dataset.issoRequireAuthor = 'true';
+    if (isDirIndex === true) {
+        hs.dataset.issoId = location.pathname.split("index.html")[0];
+    }
+    document.getElementsByTagName('head')[0].appendChild(hs);
 })();
