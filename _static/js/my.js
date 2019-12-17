@@ -59,8 +59,8 @@
     hr.insertAdjacentHTML('beforebegin', '<section id="isso-thread"' + (isDirIndex ? (' data-isso-id="' + location.pathname.split("index.html")[0] + '"') : '') + '></section>');
     var hs = document.createElement("script");
     hs.type = "text/javascript";
-    hs.src = 'https://pac.saintic.com/isso/docs/js/embed.min.js';
-    hs.dataset.isso = 'https://pac.saintic.com/isso/docs';
+    hs.src = 'https://open.saintic.com/isso/docs/js/embed.min.js';
+    hs.dataset.isso = 'https://open.saintic.com/isso/docs';
     hs.dataset.issoAvatar = 'false';
     hs.dataset.issoGravatar = 'true';
     hs.dataset.issoReplyNotifications = 'true';
