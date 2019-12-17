@@ -1,4 +1,4 @@
-(function () {
+$(document).ready(function () {
     'use strict';
 
     if (!String.prototype.endsWith) {
@@ -69,4 +69,4 @@
         hs.dataset.issoId = location.pathname.split("index.html")[0];
     }
     document.getElementsByTagName('head')[0].appendChild(hs);
-})();
+});
