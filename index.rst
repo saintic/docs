@@ -24,6 +24,7 @@ SaintIC：[开源]项目、服务文档!
     tdi-node/index
     rtfd/index
     securehttp.js/index
+    picbed/index
 
 .. toctree::
     :hidden:
