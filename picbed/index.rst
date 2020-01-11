@@ -7,3 +7,5 @@ picbed - 简约不小气的自建图床程序
     readme
     install
     usage
+    hook
+    api

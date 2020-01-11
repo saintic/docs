@@ -77,7 +77,7 @@
 HOST              picbed_host                 127.0.0.1         监听地址
 PORT              picbed_port                  9514             监听端口
 LOGLEVEL          picbed_loglevel              DEBUG            日志级别，可选DEBUG, INFO, WARNING, ERROR, CRITICAL
-HookReloadTime    picbed_hookreloadtime        600              钩子管理器重新加载钩子的最大间隔时间，单位：秒
+SecretKey         picbed_secretkey             无               App应用秘钥(默认自动生成)
 **REDIS**         picbed_redis_url             无               核心数据存储（redis连接串，格式是：redis://[:password]@host:port/db）
 ================  ==========================  ===============   ====================================================================
 
