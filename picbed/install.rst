@@ -52,8 +52,8 @@
 
 .. note::
 
-    目前只有master分支处于所谓beta状态，我已经在线上部署，服务地址是：
-    https://picbed.saintic.com
+    目前只有master分支处于所谓beta状态，我已经在测试部署，服务地址是：
+    http://picbed.demo.saintic.com
 
 2.2 安装依赖
 ^^^^^^^^^^^^^^
