@@ -94,11 +94,13 @@ SecretKey         picbed_secretkey             无               App应用秘钥
 
 开发环境::
 
-    $ make run
+    $ make dev
 
 正式环境::
 
     $ sh online_gunicorn.sh start  #可以用run参数前台启动，status查看状态，stop停止，restart重启
+
+    或者使用make start等同于上述命令，其他诸如: make stop, make restart, make status
 
 **NO.3 Nginx配置**
 -------------------
