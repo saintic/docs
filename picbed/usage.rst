@@ -15,12 +15,37 @@
 0. 命令行
 ----------
 
-即 ``cli.py`` ，其子命令sa用来创建用户（管理员），请注意约束：
+即flask子命令，其中 ``flask sa create`` 是用来创建用户（管理员），请注意约束：
 这个入口应该是唯一一个创建管理员用户的方法。
 
 创建管理员用户可以在启动程序前后。
 
-|image0|
+.. code:: bash
+
+    $ flask sa --help
+    Usage: flask sa [OPTIONS] COMMAND [ARGS]...
+
+        Administrator commands
+
+    Options:
+        --help  Show this message and exit.
+
+    Commands:
+        clean   清理系统
+        create  创建账号
+
+    $ flask sa create --help
+    Usage: flask sa create [OPTIONS]
+
+        创建账号
+
+    Options:
+        -u, --username TEXT       用户名
+        -p, --password TEXT       用户密码
+        --isAdmin / --no-isAdmin  是否为管理员  [default: False]
+        -a, --avatar TEXT         头像地址
+        -n, --nickname TEXT       昵称
+        --help                    Show this message and exit.
 
 1. 个人中心
 -------------
@@ -102,7 +127,6 @@ Web中只有首页可以上传，同时最多选择10张，默认支持jpg、jpe
 
 请转到 :doc:`/picbed/api`
 
-.. |image0| image:: /_static/images/picbed_cli.png
 .. |image1| image:: /_static/images/picbed_setting.png
 .. |image2| image:: /_static/images/picbed_hook.png
 .. |image3| image:: /_static/images/picbed_hooksetting.png
