@@ -15,7 +15,7 @@ Nginx
 -----
 
 Sphinx生成HTML文档，Nginx用来接收web请求，要求版本不小于1.15.0，且有一个托管域名，
-另外用户需要有权限执行 `nginx` 相关命令。
+另外用户需要有权限执行 `nginx` 相关命令，比如 ``sudo nginx`` 。
 
 关于托管域名需要说明下，需要的是一个域名后缀，文档项目创建时会依据文档项目名和托管域名
 生成文档对应的域名，所以这个域名要求有一个默认解析。
@@ -42,7 +42,7 @@ rtfd模块安装完成后，会在系统中生成一个 `rtfd` 命令，它的�
 .. code-block:: bash
 
     $ rtfd -v
-    0.4.0
+    0.4.2
 
 在最初编写此文档时，rtfd版本0.2.0！
 
@@ -53,6 +53,12 @@ rtfd模块安装完成后，会在系统中生成一个 `rtfd` 命令，它的�
     - 构建钩子
     - 多选构建器
     - 前端导航和脚本、API消息接口等
+
+.. versionchanged:: 0.4.2
+
+    - api内部变更
+    - 支持构建任意分支
+    - 其他参见changlog
 
 .. code-block:: bash
 
@@ -171,9 +177,10 @@ HTTPS，请设置选项 `--ssl --ssl-crt 证书文件 --ssl-key 密钥文件` �
 比如托管域名是 ``rtfd.vip`` ，新建项目test，那么默认域名是test.rtfd.vip；如果自定义
 了其他域名，那么请CNAME到test.rtfd.vip（这是最靠谱的，因为其他域名可能不在同机器）。
 
-已有项目如果要删除自定义域名，也是可以的，参考 :ref:`rtfd-faq-custom-domain`
-
 .. versionadded:: 0.3.0
+
+    - 已有项目如果要删除自定义域名，也是可以的，参考 :ref:`rtfd-faq-custom-domain`
+
 
 .. _rtfd-usgae-quickstart-project-get:
 
@@ -186,7 +193,7 @@ HTTPS，请设置选项 `--ssl --ssl-crt 证书文件 --ssl-key 密钥文件` �
 
     $ rtfd project repo
 
-这会输出JSON数据，所以可以用管道美化下输出结果，
+这会输出JSON数据，可以美化下输出结果，
 
 .. code-block:: bash
 
@@ -250,18 +257,13 @@ HTTPS，请设置选项 `--ssl --ssl-crt 证书文件 --ssl-key 密钥文件` �
 
 输出JSON数据，同样可以美化输出结果。
 
-.. note::
-
-    上一节删除项目中，实际上只是清空了本地存储中项目对应的数据，并不能实际删除项目，所
-    以在列出所有项目时，如果项目名是raw会看到已删除的项目，不过值为空，否则过滤不显示。
-
 .. _rtfd-usgae-quickstart-no3:
 
 三、构建文档
 ---------------
 
 build子命令，用来通过命令行构建文档，支持一个branch选项设置分支，默认是master，允许
-设置为标签，其他的诸如远程分支不支持。
+设置为标签，v0.4.2及之后版本已经支持克隆任意远程分支。
 
 构建文档还可以通过API触发，也可以webhook触发，参考 :ref:`rtfd-api-docs`
 

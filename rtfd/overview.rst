@@ -50,8 +50,8 @@ GitHub: https://github.com/staugur/rtfd
 安装
 ======
 
-rtfd本身依赖Flask-PluginKit>=3.3.0、Click>=7.0、configparser模块，
-目前只支持Python2.7，您可以在virtualenv、或在全局环境中安装。
+rtfd本身依赖Flask-PluginKit>=3.5.0、Click>=7.0、configparser模块，
+理论上支持Python2.7和3.5+，您可以在virtualenv、或在全局环境中安装。
 
 - 正式版本
 

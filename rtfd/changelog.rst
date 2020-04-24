@@ -4,6 +4,20 @@
 更新日志
 ===========
 
+v0.4.2
+------
+
+Released in 2020-04-24
+
+- feat: api路由不变，结构整改，vep改为bep，静态文件也可以通过蓝图(rtfd)获得
+- feat: 构建时增加usedtime表示用时
+- feat: 构建克隆仓库改为-b选项指定任意分支
+- chore: api项目详情showNav、showNavGit将废弃，同步新增show_nav、show_nav_git
+- chore: 更新tipped
+- chore: 更新LocalStorage
+- misc: app加载rtfd移除static_url_path
+- misc: passed v0.4.1
+
 v0.4.0
 ------
 

@@ -9,25 +9,26 @@ API使用
 启动API服务
 =============
 
-API部分使用的是Flask框架，目前提供了三个Api视图，位于api.py模块中。
+API部分使用的是Flask框架，目前提供了三个Api视图(v0.4.2更改为蓝图)，位于api.py模块中。
 
 需要说明的是，rtfd在开发时依赖了Flask-PluginKit模块，这是一个基于Flask的插件化开发
-工具，其详细情况可以参考 `GitHub`_ 。所以，api.py模块实际上就是视图扩展点，已经通过
-register函数返回了视图扩展点的配置。
+工具，其详细情况可以参考 `GitHub`_ 。所以，api.py模块实际上就是扩展点，已经通过
+register函数返回了扩展点的配置。
 
 所以运行API服务，可以参考以下三种情况：
 
-1. 单独写一个启动Web的文件
+1. 直接启动
 
     启动脚本： https://github.com/staugur/rtfd/blob/master/tpl/online.sh
 
-    三行代码完事，脚本可以启动、关闭、重载Web应用，注意脚本头部注释，使用时需要安装
+    脚本可以启动、关闭、重载Web应用，注意脚本头部注释，使用时需要安装
     gunicorn模块，如果要自定义进程名，还需要安装setproctitle模块。
 
     .. versionchanged:: 0.4.0
 
-        在这个版本中新加了独立的app.py模块，省的再去git上找模板，只需要用gunicorn、
-        uwsgi之类的启动即可，模块名是： `rtfd.app:app`
+        在这个版本中新加了独立的app.py模块，省的再去git上找模板，只需要安装
+        gunicorn后即可用上述脚本，也可以采用uwsgi自行启动，但不能用上面脚本了，
+        模块名是： `rtfd.app:app`
 
 2. 集成到已有的Flask应用中
 
@@ -36,14 +37,25 @@ register函数返回了视图扩展点的配置。
     .. code-block:: python
 
         from flask import Flask
-        from rtfd import register
+        from rtfd.api import bp as rtfd_bp
         app = Flask(__name__)
-        for vep in register()["vep"]:
-            app.add_url_rule(
-                rule=vep["rule"],
-                view_func=vep["view_func"],
-                methods=vep.get("methods", ["GET"])
-            )
+        app.register_blueprint(rtfd_bp, url_prefix="/rtfd")
+
+    .. note::
+
+        上述代码是针对v0.4.2+，如果是旧版本，参考代码：
+
+        .. code-block:: python
+
+            from flask import Flask
+            from rtfd import register
+            app = Flask(__name__)
+            for vep in register()["vep"]:
+                app.add_url_rule(
+                    rule=vep["rule"],
+                    view_func=vep["view_func"],
+                    methods=vep.get("methods", ["GET"])
+                )
 
 3. 集成到Flask-PluginKit的应用中
 
@@ -56,7 +68,8 @@ register函数返回了视图扩展点的配置。
     rtfd源码中包含静态文件，如果不是集成在Flask-PluginKit应用中，静态文件需要单独拿出
     来供外部访问，当然，我也上传到CDN了：https://static.saintic.com/rtfd/
 
-    主目录是master分支的静态文件，其子目录有0.3.2、0.3.3、0.4.0，是各标签版本的静态文件。
+    主目录是master分支的静态文件，其子目录有0.3.2、0.3.3、0.4.0、0.4.2，
+    是各版本的静态文件。
 
     使用外部静态资源需要配置server_static_url，参考注释：`rtfd.cfg`_
 
