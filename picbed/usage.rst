@@ -149,7 +149,7 @@ LinkToken的使用类似Token，只不过只有一种方法，放到header中：
 
 目前4个条件，origin、ip、ep、method，分别定义了允许访问的来源地址、来源IP和
 允许访问哪些api接口(即ep，endpoint，中文叫端点，是picbed所用web框架Flask的
-术语，嗯，可能不明白，下面给了一张表来说明)以及允许访问接口的什么方法。
+术语，嗯，可能不明白，后面给了一张表来说明)以及允许访问接口的什么方法。
 
 这4个限定条件都可以用英文逗号分隔写多条，也可以留空使用默认值。
 
@@ -177,7 +177,7 @@ LinkToken的使用类似Token，只不过只有一种方法，放到header中：
 
   endpoint，即端点，这是程序所用web框架术语，就是API接口对应的名字，此项
   用来限制允许访问的目标接口。
-  API接口均以 **/api** 为前缀，比如 /api/upload, api/index，用端点来说，就是
+  API接口均以 **/api** 为前缀，比如 /api/upload, /api/index，用端点来说，就是
   api.upload, api.index，分别是上传接口，API首页没啥卵用的充门面接口。
 
   端点是必须有滴，默认是api.index,api.upload，以下是可能有用的端点说明：
@@ -311,7 +311,7 @@ NO.2 初始化
 
   .. code:: html
 
-    <button id="#up2picbed">上传</button>
+    <button id="up2picbed">上传</button>
     <script src="Your Picbed URL/static/sdk/uploader.js"></script>
     <script>
         up2picbed({
