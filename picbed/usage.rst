@@ -334,7 +334,7 @@ NO.2 初始化
 
   .. code:: html
 
-    <button id="#up2picbed">上传</button>
+    <button id="up2picbed">上传</button>
     <script>
         function onSuccess(res) {
             alert(JSON.stringify(res));
