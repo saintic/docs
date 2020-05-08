@@ -137,6 +137,10 @@ LinkToken的使用类似Token，只不过只有一种方法，放到header中：
 
 综述，创建一个LinkToken，需要尽可能小地设置访问条件，且建议专项专用。
 
+.. note::
+
+    Token优先级高，只有程序未发现Token时（不论是否认证通过）才会尝试使用LinkToken！
+
 |image4|
 
 如图，新建时有两块比较难理解，分权引用限定条件和允许访问规则，两者相结合
@@ -167,7 +171,7 @@ LinkToken的使用类似Token，只不过只有一种方法，放到header中：
   .. note::
 
     管理员控制台有一项设置定义了CORS Origin，如果未定义，那么此处不可填；
-    如果*，此处随意；如果设置了具体的，此处只能留空或选择已设置的。
+    如果是*，此处随意；如果设置了具体的，此处只能留空或选择已设置的。
 
 - ip
 
@@ -218,7 +222,7 @@ LinkToken的使用类似Token，只不过只有一种方法，放到header中：
   opt计算时直接返回True允许放行。
   
   如果定义了opt对应的限定条件，但没有定义放行规则，那默认是in！
-
+  
 - **所有限定条件之间的(平行)规则**
 
   定义各个条件最终如何组合，程序根据请求来源和目标，与用户定义的允许来源
@@ -267,7 +271,7 @@ ep内部判断也返回True才允许。
 
 .. warning::
 
-  但是也要注意，如果上述说明看完仍不理解，请保持默认，否则在使用LinkToken时，
+  如果上述说明看完仍不理解，请保持默认，否则在使用LinkToken时，
   程序计算结果可能会触发500异常。
   
   实际上，上述是需要一点对(开发语言的)运算符的了解的。
@@ -285,7 +289,7 @@ picbed是一个简单的图床程序，上传图片都是通过api.upload接口�
 网站下直接上传图片到picbed。
 
 但是上传到picbed这个独立图床，基本上都会出现跨域，而且管理员可能不允许匿名
-上传，综合，就需要LinkToken了（也是在这个需求背景下产生的）。
+上传，综合，就需要LinkToken了。
 
 如下图所示，实现的选择图片自动上传，成功后回调给页面。
 
@@ -323,6 +327,8 @@ NO.2 初始化
         });
     </script>
 
+  推荐使用此方式！
+
 - 自动调用
 
   如下，引入uploader.js时将所需参数用dataset形式赋好值，js内会自动初始化。
@@ -347,24 +353,158 @@ NO.2 初始化
         data-auto="true">
     </script>
 
-手动调用时未传入的参数会尝试从dataset中获取，最后无果才会使用默认值。
+**调用up2picbed函数，其接收一个object，有效的选项如下：**
 
-调用up2picbed函数，其接收一个object，有效的选项如下：
+.. tip::
 
-.. code:: text
+    以下选项用于初始化上传方法，无值时读取dataset自身的初始化参数（即
+    script引入时以 *data-* 前缀的部分）。
 
-    以下选项用于构造上传类，无值时读取dataset自身的初始化参数，支持如下：
-    url: [必需]picbed上传接口地址
-    elem: [默认#up2picbed]绑定上传的button元素
-    auto: [注意]当值为true时脚本会自动初始化，否则需要在手动调用up2picbed函数初始化elem上传
-    token: [建议]picbed上传所需的LinkToken值，当然允许匿名可以省略
-    album: 定义上传图片所属相册，留空表示默认使用LinkToken设定值（仅当LinkToken认证成功此项才有效）
-    style: 仅当值为false时有效，会取消自动设置elem的内联样式
-    size: 允许上传的图片大小，单位Kb，最大10Mb
-    exts: 允许上传的图片后缀
-    success: 上传成功的回调（通过字符串映射函数，传递响应结果，在脚本执行之前全局要有此函数，否则不生效）
-    fail: 上传失败或错误的回调（同success）
-    progress: 上传进度回调，传递百分比
+- url
+
+  必需，picbed上传接口地址，例如http://picbed.demo.saintic.com/api/upload
+
+- elem
+
+  上传绑定的元素（通常是按钮，可以ID，也可以是class），这个值默认是
+  **#up2picbed** ，也就是说绑定的元素需要设置 `id="up2picbed"` 才能找到，
+  当然也可以改为其他名称。
+
+- token 
+
+  picbed上传所需的LinkToken值，如果为空则是匿名上传，如果存在且认证成功则是
+  登录状态上传。
+
+- album
+
+  定义上传图片所属相册，留空表示使用LinkToken设定的默认值（仅当LinkToken
+  认证成功此项才有效，匿名状态下其最终是anonymous）
+
+- style
+
+  引入uploader.js时，脚本会自动给绑定的elem元素附加内联样式以美化，不过会有
+  一段空窗期元素是原始状态，所以建议您设置style=false，会取消自动设置elem的
+  内联样式，以便您自己定义样式。
+
+  如何自定义，可以参考下方【关于style选项的小技巧】。
+
+- size
+
+  允许上传的图片大小，单位Kb，最大10 * 1024（10Mb，即便设置超过，也会
+  直接定死）。
+
+- exts
+
+  允许上传的图片后缀，默认是jpg|png|gif|bmp|jpeg|webp，用竖线分隔，也不能
+  超过picbed设置的允许后缀。
+
+- auto
+
+  仅用在自动调用中，且值是true才会自动调用初始化，附着在dataset
+
+- success
+
+  上传成功的回调方法，传递一个picbed上传接口成功时返回的json数据，大概是：
+
+  .. code:: json
+  
+    {
+        "src": "http://your-picbed-url/static/upload/anonymous/1588905202617.webp",
+        "code": 0,
+        "sender": "up2local",
+        "filename": "1588905202617.webp",
+        "api": "http://your-picbed-url/api/sha/sha1.xxxxxxxxxx",
+        "msg": null
+    }
+
+  code=0表示上传成功，src字段是图片地址，filename是服务器最终保存的图片名。
+
+  如果是自动调用，则会通过字符串映射函数，传递res，在脚本执行之前全局要有
+  此函数，否则不生效转而使用默认函数（会使用console.log控制台输出）。
+
+  此回调是页面拿到图片上传后的地址进行后续处理的关键，比如插入到编辑器中、
+  显示在页面里。
+
+- fail
+
+  上传失败或错误的回调方法，包括在上传过程中遇到的网络错误、系统异常错误等，
+  所以传递给fail回调的参数就不一定了。
+
+  单纯上传失败传递一个json数据，code不为0，msg为错误信息。
+
+  在自动调用中，同success，默认函数会使用console.error控制台输出。
+
+- progress: 上传进度回调，传递百分比，没有默认。
+
+.. tip::
+
+  关于style选项的小技巧。
+
+  给原始按钮增加一个样式（效果参考上方gif图内的按钮）：
+
+  .. code:: css
+
+    .btn {
+        display: inline-block;
+        margin-right: 10px;
+        padding: 9px 15px;
+        font-size: 12px;
+        background-color: #fff;
+        color: #409eff;
+        border: 1px #409eff solid;
+        border-radius: 3px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+  这是蓝色边框、文字，白色背景的按钮，也是picbed默认附加的样式，可以藉此修改。
+
+  可以再加个悬浮效果，蓝底蓝框白色文字：
+
+  .. code:: css
+
+    .btn:hover {
+        background-color: #409eff;
+        color: white;
+    }
+
+  - 覆盖btn的某些样式让按钮保持蓝底蓝框白色文字：
+
+  .. code:: css
+
+    .btn-primary {
+        color: #fff;
+        background-color: #409eff;
+        border: 0;
+    }
+
+  - 或者主题色换成红色：
+
+  .. code:: css
+
+    .btn-danger {
+        color: #fff;
+        background-color: #f56c6c;
+        border: 0;
+    }
+
+    .btn-danger:hover {
+        background-color: #f56c6c;
+    }
+
+  也可以自定义其他颜色，使用时，btn为主，辅以primary、danger：
+
+  .. code:: html
+
+    <button class="btn">默认</button>
+    <button class="btn btn-primary">深蓝</button>
+    <button class="btn btn-danger">暗红</button>
+
+  -----我是一个分割线-------
+
+  如果您不想自定义按钮样式，而又想更改默认样式颜色，也是可以的，style参数
+  可以接收一个逗号分隔的色值，格式是： `color,bgColor`, 分别是文字和边框
+  颜色、背景色。
 
 2. 控制台
 ---------------
