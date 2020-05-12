@@ -15,8 +15,6 @@
 
 正式版本： https://github.com/staugur/picbed/releases
 
-作者博客： https://blog.saintic.com/
-
 内容说明： 以下部署文档适用于有一点linux基础的同学，大概涉及到yum、git、docker等命令，以及redis、nginx等服务。
 
 .. _picbed-install-no1:
@@ -28,7 +26,9 @@
 
 也可以docker启动，用官方镜像启动一个docker redis，镜像：\ https://hub.docker.com/_/redis\ 。
 
-记得修改redis配置文件，开启AOF持久化，否则数据丢失那就。。。
+.. warning::
+
+    一定记得修改redis配置文件，开启AOF持久化，否则数据丢失那就。。。
 
 .. _picbed-install-no2:
 
@@ -44,16 +44,15 @@
 2.1. 下载源码
 ^^^^^^^^^^^^^^^
 
+- 开发版
+
     ! 建议，如果你有git，可以：\ ``git clone https://github.com/staugur/picbed``
 
     ! 也可以下载压缩包：\ ``wget -O picbed.zip https://codeload.github.com/staugur/picbed/zip/master && unzip picbed.zip && mv picbed-master picbed``
 
-    ! 或者到release页面下载正式版本的包。
+- 正式版
 
-.. note::
-
-    目前只有master分支处于所谓beta状态，我已经在测试部署，服务地址是：
-    http://picbed.demo.saintic.com
+    ! 到 `release <https://github.com/staugur/picbed/releases>`_ 页面下载正式版本的包。
 
 2.2 安装依赖
 ^^^^^^^^^^^^^^
@@ -62,6 +61,7 @@
 
     $ git clone https://github.com/staugur/picbed
     $ cd picbed/src
+    $ [建议]激活virtualenv、venv，或者直接在全局模式下安装
     $ pip install -r requirements.txt
 
 .. _picbed-config:
@@ -69,13 +69,12 @@
 2.3 修改配置
 ^^^^^^^^^^^^^^
 
-
-配置文件是源码src目录下的config.py，它会加载中 **.cfg** 文件读取配置信息，
-无法找到时加载环境变量，最后使用默认值，必需的配置项是picbed_redis_url。
+配置文件是源码src目录下的config.py，它会加载同级目录 **.cfg** 文件读取配置信息，
+无法找到时再加载环境变量，最后使用默认值，必需的配置项是picbed_redis_url。
 
 所以可以把配置项写到 `.bash_profile` 或 `.bashrc` 此类文件中在登录时加载，
 也可以写入到 `.cfg` 文件里，这是推荐的方式，它不会被提交到仓库，格式是k=v，
-每行一条。
+每行一条，注意，v是所见即所得！
 
 比如: `picbed_redis_url=redis://@localhost`
 
@@ -93,11 +92,15 @@ SecretKey         picbed_secretkey             无               App应用秘钥
 
 更多参数请参考config.py配置文件中的注释。
 
-!!!以上参数 **REDIS** 无默认值，必须手动设置，示例如下（可以写入.bash\_profile中）：
+!!!以上参数 **REDIS** 无默认值，必须根据实际情况手动设置，
+示例如下（可以写入.bash\_profile中）：
 
 .. code:: bash
 
-    $ export picbed_redis_url="redis://@127.0.0.1:6379/1"
+    $ export picbed_redis_url="redis://:password@127.0.0.1:6379/1"
+    或者
+    $ cat .cfg
+    picbed_redis_url=redis://:password@127.0.0.1:6379/1
 
 2.4 启动程序
 ^^^^^^^^^^^^^^
@@ -108,9 +111,9 @@ SecretKey         picbed_secretkey             无               App应用秘钥
 
 正式环境::
 
-    $ sh online_gunicorn.sh start  #可以用run参数前台启动，status查看状态，stop停止，restart重启
+    $ sh online_gunicorn.sh start  #可以用run参数前台启动，status查看状态，stop停止，restart重启，reload重载
 
-    或者使用make start等同于上述命令，其他诸如: make stop, make restart, make status
+    或者使用make start等同于上述命令，其他诸如: make stop, make restart, makre load, make status
 
 **NO.3 Nginx配置**
 -------------------
@@ -128,12 +131,12 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS::
         #上传大小限制12M（实际程序上限是10M）
         client_max_body_size 12M;
         #可以设置不允许搜索引擎抓取信息
-        #处理静态资源:
+        #处理静态资源，root路径根据实际情况修改
         location ~ ^\/static\/.*$ {
             root /path/to/picbed/src/;
         }
         location / {
-            #9514是默认端口
+            #9514是默认端口，根据实际情况修改
             proxy_pass http://127.0.0.1:9514;
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
@@ -144,12 +147,31 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS::
 
 程序部署好+Nginx配置完成，启动后，这个域名就能对外服务了（温馨提示：您可以使用HTTPS提供服务，并且也建议用HTTPS），即可进入下一篇查看如何注册、使用。
 
-**NO.4 程序升级**
+**NO.4 演示站**
+-------------------
+
+目前在国内部署了一个演示站，使用master最新代码测试新功能，服务地址是：
+
+    http://picbed.demo.saintic.com
+
+    测试账号及密码：demo 123456
+
+由于开启匿名上传出现大量“不适”图片，所以关闭了匿名，可以注册测试，也可以
+使用上述测试账号，请不要修改其密码。
+
+另请勿将其当做永久站，图片不定时删除，仅作测试演示使用。
+
+**NO.5 程序升级**
 ------------------
 
-目前git下载可以使用git pull拉取最新代码，重启主程序(sh online_gunicorn.sh restart)即完成升级；
+目前git下载可以使用git pull拉取最新代码，重载或重启主程序(make reload/restart)即完成升级。
 
-**NO.5 使用篇**
+.. tip::
+
+    reload/restart在大部分情况下都可以重载代码和配置(从.cfg读取)，但是如果
+    从环境变量读取配置，那么只能用restart。
+
+**NO.6 使用篇**
 ----------------
 
 关于功能的使用，请看下一篇！

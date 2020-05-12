@@ -52,7 +52,7 @@
 
 个人中心包含个人资料、修改密码、用户设置、我的图片等。
 
-个人资料只是简单的用户名、昵称、头像等，但舍弃外，还有一个Token信息。
+个人资料只是简单的用户名、昵称、头像等，但除此之外，还有一个Token信息。
 
 .. _Token:
 
@@ -78,15 +78,9 @@ Token的使用也很简单，有两种方法：
 
     curl -XPOST -d token=xxx -d other=xxx http://picbed.example.ltd/api/upload
 
-我的图片
-+++++++++++++
+.. warning::
 
-我的图片顾名思义，登录用户能看到自己上传的所有图片，点击图片显示详情弹窗，
-在弹窗里可以继续复制URL、HTML、rST、Markdown格式的图片链接，当然允许
-删除，不仅是逻辑删除，只要后端存储钩子支持亦会删除实际图片文件，目前的钩子
-均支持完全删除。
-
-图片详情中相册名是可以修改的，点击后面的√即可提交更新。
+    如需使用Token，那么墙裂建议使用基于它的 :ref:`LinkToken` ！
 
 用户设置
 +++++++++++++++
@@ -195,6 +189,8 @@ LinkToken的使用类似Token，只不过只有一种方法，放到header中：
   +-------------------+--------------------+------------+---------------------------------------------------------+
   | api.waterfall     | /api/waterfall     | POST       | 获取个人图片数据                                        |
   +-------------------+--------------------+------------+---------------------------------------------------------+
+
+  更多端点参考 :ref:`picbed-api`
 
 - method
 
@@ -506,6 +502,16 @@ NO.2 初始化
   可以接收一个逗号分隔的色值，格式是： `color,bgColor`, 分别是文字和边框
   颜色、背景色。
 
+我的图片
++++++++++++++
+
+我的图片顾名思义，登录用户能看到自己上传的所有图片，点击图片显示详情弹窗，
+在弹窗里可以继续复制URL、HTML、rST、Markdown格式的图片链接，当然允许
+删除，不仅是逻辑删除，只要后端存储钩子支持亦会删除实际图片文件，目前的钩子
+均支持完全删除。
+
+图片详情中相册名是可以修改的，点击后面的√即可提交更新。
+
 2. 控制台
 ---------------
 
@@ -532,7 +538,7 @@ NO.2 初始化
 
 |image3|
 
-还有其他钩子，更多了解参考下一节。
+还有其他钩子，更多了解参考 :ref:`picbed-hook`
 
 3. 上传
 ---------
@@ -549,6 +555,61 @@ Web中只有首页可以上传，同时最多选择10张，默认支持jpg、jpe
 当然也可以使用API接口上传，当然首页上传也是依托接口，您还可以通过HTTP
 客户端或其他图床桌面程序上传，使用Token做用户认证。
 
+以下是几个客户端上传示例
+
+- 使用PicGo上传到自定义的picbed图床
+
+  `下载PicGo <https://github.com/Molunerfinn/PicGo/releases>`_ 并安装，打开
+  主界面，在 **插件设置** 中搜索 **web-uploader** 并安装，然后
+  在 **图床设置-自定义Web图床** 中按照如下方式填写：
+
+  .. code:: text
+
+    url: http[s]://你的picbed域名/api/upload
+
+    paramName: picbed
+
+    jsonPath: src
+
+    # 以上是匿名上传，仅在管理员开启匿名时才能上传成功
+    ## 如需登录上传，请使用token(在控制台-个人资料-Token查看)，以下两种任选:
+    customHeader: {"Authorization": "Token 你的Token值"}
+    customBody: {"token": "你的Token值", "album: "相册名或留空"}
+
+    ## 可用LinkToken替换Token(仅用于Header)：
+    customHeader: {"Authorization": "LinkToken 你的LinkToken值"}
+    customBody: {"album: "相册名或留空"}
+
+  设置完之后选择自定义Web图床为默认图床即可。
+
+- 使用uPic上传到自定义的picbed图床
+
+  `下载uPic <https://github.com/gee1k/uPic>`_ 并安装，在 **偏好设置-图床** 中
+  添加 **自定义**，信息如下：
+
+  .. code:: text
+
+    API地址：http[s]://你的picbed域名/api/upload
+
+    请求方式：POST
+
+    文件字段名：picbed
+
+    其他字段：增加Header字段 或 增加Body字段，任选一种方式：
+    - Headers数据
+        key: Authorization
+        value: Token 你的Token值
+        ## 可用LinkToken替换Token(仅用于Header)：
+        key: Authorization
+        value: LinkToken 你的LinkToken值
+
+    - Body数据
+        key: token
+        value: 你的Token值
+        # 如需设置相册，请增加Body字段，key为album，value即相册名
+
+    URL路径：["src"]
+
 4. 钩子
 --------
 
@@ -559,12 +620,18 @@ Web中只有首页可以上传，同时最多选择10张，默认支持jpg、jpe
 
 请转到 :doc:`/picbed/api`
 
+6. 数据备份
+-------------
+
+存储使用redis，内存级数据存储，可以使用
+`AnotherRedisDesktopManager <https://github.com/qishibo/AnotherRedisDesktopManager/>`_ 查看redis数据，
+备份、迁移可以参考我的 `这篇文章 <https://blog.saintic.com/blog/265.html>`_ 。
+
 .. |image1| image:: /_static/images/picbed_setting.png
 .. |image2| image:: /_static/images/picbed_hook.png
 .. |image3| image:: /_static/images/picbed_hooksetting.png
 .. |image4| image:: /_static/images/picbed_linktoken.png
 .. |image5| image:: /_static/images/picbed_upload.gif
 .. |image6| image:: /_static/images/picbed_linktoken_copy.png
-
 
 .. _了解HTTP访问控制: https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS

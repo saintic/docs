@@ -20,13 +20,34 @@ GitHub：https://github.com/staugur/picbed
 功能：
 ------
 
-1. 私有或公开的图床程序（允许匿名）
-2. 可插拔的功能点扩展钩子
+1. 可作为私有或公开的图床程序
+
+2. 可插拔的钩子管理器，允许第三方扩展功能点
+
+  - 扩展了如又拍云、七牛云、阿里云、腾讯云等后端存储
+  - 扩展了如sm.ms,superbed.cn等公共图床
+
 3. API
-4. 保存上传图片的后端高扩展（除本地可扩展又拍云、七牛云、阿里云、腾讯云等）
-5. 上传图片快捷复制支持原生URL、HTML、reStructuredText、Markdown格式
-6. 站点全局参数可后台配置
-7. 支持PyPy、Python2.7、3.5+
+
+  - 基于api的上传接口，支持通过文件域和base64（允许Data URI形式）上传
+  - 可定制的api响应数据[及字段]及中英错误消息提示
+  - 支持Token以及更安全的基于Token的LinkToken调用api
+  - 外部网站通过按钮一键上传的插件
+
+4. 我的图片快捷复制支持原生URL、HTML、reStructuredText、Markdown格式
+
+5. 管理员控制台可配置全局参数定制站点信息以及用户个性自定义覆盖全局参数
+
+6. 支持PyPy、Python2.7、3.5+
+
+不足：
+-------
+
+- 图床管理暂时不能批量化
+
+- 非专业前后端开发，UI、API设计差点意思
+
+- 基于redis的数据存储，虽响应快，但数据方面可能有些风险
 
 .. _picbed-deploy:
 
@@ -36,8 +57,8 @@ GitHub：https://github.com/staugur/picbed
 1. 要求： Python2.7（3.5+）和Redis
 2. 下载： ``git clone https://github.com/staugur/picbed && cd picbed/src``
 3. 依赖： ``pip install -r requirements.txt``
-4. 配置： ``config.py`` 即配置文件，可以从环境变量中读取配置信息。
-5. 启动： sh online\_gunicorn.sh start
+4. 配置： ``config.py`` 即配置文件，可从 `.cfg` 文件或环境变量读取配置信息。
+5. 启动： make start 或 sh online\_gunicorn.sh start
 
 详细部署请看下一篇！
 --------------------
