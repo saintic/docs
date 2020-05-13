@@ -4,57 +4,47 @@
 RESTful API
 ============
 
-约定
-Access-Control-Allow-Headers: Authorization
-Access-Control-Allow-Origin: \*或具体来源
+约定：
 
-.. http:get:: /users/(int:user_id)/posts/(tag)
+- API返回均为JSON，除了api.index接口返回的字符串，其他都是对象，基本字段code、msg。
 
-   The posts tagged with `tag` that the user (`user_id`) wrote.
+  code=0表示处理成功，否则失败，此时msg有错误消息。
 
-   It accepts :http:method:`post` only.
+  API返回的msg支持中英文，它检测Accept-Language头或cookie的locale字段，zh-CN返回中文。
 
-   **Example request**:
+  API返回的基本字段可以修改，可以用下面三个查询参数修改返回的res基本格式：
 
-   .. sourcecode:: http
+  - status_name规定数据状态的字段名称，默认code
+  
+  - ok_code规定成功的状态码，默认0，用字符串bool则会返回布尔类型
+  
+  - msg_name规定状态信息的字段名称，默认msg
 
-      GET /users/123/posts/web HTTP/1.1
-      Host: example.com
-      Accept: application/json, text/javascript
+  .. code:: http
 
-   **Example response**:
+    $ curl -XPOST "http://127.0.0.1/api/upload?status_name=status&ok_code=200"
+    - 请求成功
+        {"status": 200, "msg": null}
+    - 请求失败
+        {"status": -1, "msg": "errmessage"}
 
-   .. sourcecode:: http
+    $ curl -XPOST "http://127.0.0.1/api/upload?status_name=success&ok_code=bool&msg_name=message"
+    - 请求成功
+        {"success": True, "message": null}
+    - 请求失败
+        {"success": False, "message": "errmessage"}
 
-      HTTP/1.1 200 OK
-      Vary: Accept
-      Content-Type: text/javascript
+- API返回的响应头可能有以下两个公共字段。
 
-      [
-        {
-          "post_id": 12345,
-          "author_id": 123,
-          "tags": ["server", "web"],
-          "subject": "I tried Nginx"
-        },
-        {
-          "post_id": 12346,
-          "author_id": 123,
-          "tags": ["html5", "standards", "web"],
-          "subject": "We go to HTML 5"
-        }
-      ]
+  - Access-Control-Allow-Headers: Authorization
 
-   :query sort: one of ``hit``, ``created-at``
-   :query offset: offset number. default is 0
-   :query limit: limit number. default is 30
-   :reqheader Accept: the response content type depends on
-                      :mailheader:`Accept` header
-   :reqheader Authorization: optional OAuth token to authenticate
-   :resheader Content-Type: this depends on :mailheader:`Accept`
-                            header of request
-   :statuscode 200: no error
-   :statuscode 404: there's no user
+    当内置Token钩子开启后
+
+  - Access-Control-Allow-Origin: \*或具体来源
+
+    当管理员在控制台CORS-Origin设置后
+
+- 以下接口，顶部的 ``api.xxx`` 这部分就叫端点，endpoint，下面是普通用户可能用到的。
 
 1. api.index
 -------------
@@ -63,7 +53,7 @@ Access-Control-Allow-Origin: \*或具体来源
 
   Api首页，仅用来表明登录态，允许 :http:method:`post` :http:method:`get` 方法
 
-  :resjson: Hello picbed(未登录)/<username>(已登录)
+  :resjson string: Hello picbed(未登录)/<username>(已登录)
 
 2. api.login
 -------------
@@ -226,12 +216,12 @@ Access-Control-Allow-Origin: \*或具体来源
         "code": 0,
         "data": {
             "album": "",
-            "src": "http://picbed.dev.vip/static/upload/admin/1589266897617.gif",
+            "src": "http://127.0.0.1:9514/static/upload/admin/1589266897617.gif",
             "sender": "up2local",
             "tpl": {
-                "rST": ".. image:: http://picbed.dev.vip/static/upload/admin/1589266897617.gif",
-                "HTML": "<img src='http://picbed.dev.vip/static/upload/admin/1589266897617.gif' alt='1589266897617.gif'>",
-                "Markdown": "![1589266897617.gif](http://picbed.dev.vip/static/upload/admin/1589266897617.gif)"
+                "rST": ".. image:: http://127.0.0.1:9514/static/upload/admin/1589266897617.gif",
+                "HTML": "<img src='http://127.0.0.1:9514/static/upload/admin/1589266897617.gif' alt='1589266897617.gif'>",
+                "Markdown": "![1589266897617.gif](http://127.0.0.1:9514/static/upload/admin/1589266897617.gif)"
             },
             "agent": "homepage/0.5.5",
             "filename": "1589266897617.gif",
@@ -351,6 +341,8 @@ Access-Control-Allow-Origin: \*或具体来源
 
     大概是这两种情况，src字段改名或者改为子对象中的字段。
 
+  **请求与响应示例：**
+
   .. http:example::
 
     POST /api/upload HTTP/1.1
@@ -362,11 +354,11 @@ Access-Control-Allow-Origin: \*或具体来源
     Content-Type: application/json
 
     {
-        "src": "http://picbed.dev.vip/static/upload/admin/1589362171435.jpg",
+        "src": "http://127.0.0.1:9514/static/upload/admin/1589362171435.jpg",
         "code": 0,
         "sender": "up2local",
         "filename": "1589362171435.jpg",
-        "api": "http://picbed.dev.vip/api/sha/sha1.1589362171.44.790d07c9a0fd7538ea9dc7c1ec208dbcd291ce35",
+        "api": "http://127.0.0.1:9514/api/sha/sha1.1589362171.44.790d07c9a0fd7538ea9dc7c1ec208dbcd291ce35",
         "msg": null
     }
 
@@ -408,4 +400,14 @@ Access-Control-Allow-Origin: \*或具体来源
             headers=headers,
         ).json()
 
+    - ajax
+
+        $.ajax({
+            url: 'http://127.0.0.1:9514/api/upload',
+            method:'POST',
+            data: {picbed: 'data:image/png;base64,图片base64编码'},
+            success:function(res){
+                console.log(res);
+            }
+        });
 
