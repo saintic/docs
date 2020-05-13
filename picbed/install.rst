@@ -48,7 +48,13 @@
 
     ! 建议，如果你有git，可以：\ ``git clone https://github.com/staugur/picbed``
 
-    ! 也可以下载压缩包：\ ``wget -O picbed.zip https://codeload.github.com/staugur/picbed/zip/master && unzip picbed.zip && mv picbed-master picbed``
+    ! 也可以下载压缩包：
+    
+    .. code:: bash
+    
+        $ wget -O picbed.zip https://codeload.github.com/staugur/picbed/zip/master
+        $ unzip picbed.zip 
+        $ mv picbed-master picbed
 
 - 正式版
 
@@ -169,7 +175,7 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS::
 .. tip::
 
     reload/restart在大部分情况下都可以重载代码和配置(从.cfg读取)，但是如果
-    从环境变量读取配置，那么只能用restart。
+    需要从环境变量重新读取配置，那么只能用restart。
 
 **NO.6 使用篇**
 ----------------

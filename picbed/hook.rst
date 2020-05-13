@@ -145,10 +145,10 @@ API
 程序有一个API接口是专门给钩子准备的，端点是 ``api.ep`` ，
 url是 ``/api/extendpoint`` ，仅支持POST方法，它从URL查询参数获取两个值：
 
-Object：即钩子名，Action：钩子方法
+Object：即钩子模块名名，Action：钩子方法
 
-钩子管理器定位到Object执行Action函数，Action如果返回Response子类，那么路由
-函数则直接返回函数结果。
+钩子管理器定位到Object执行Action函数，Action如果返回Flask.Response子类，
+那么路由函数则会直接返回Action函数执行结果。
 
 假设一个钩子helloworld，定义如下：
 
@@ -222,11 +222,12 @@ HTML模板代码，前者以render_template渲染，后者以render_template_str
 
 2. 基本上需要一些对Flask框架的了解
 
-3. 实际编写中，就是一个模块，复杂一点可以定义成包，编写时需要定义
-元数据(必须包含version和author)，参照函数运行环境，灵活使用
-Flask的“全局”变量，之后就可以开搞了。
+3. 
+  实际编写中，就是一个模块，复杂一点可以定义成包。
+  编写时需要定义元数据(必须包含version和author)，参照函数运行环境，
+  灵活使用Flask的“全局”变量，之后就可以开搞了。
 
-.. code:: python
+  .. code:: python
 
     __version__ = '版本号'
     __author__ = '作者'
@@ -237,6 +238,6 @@ Flask的“全局”变量，之后就可以开搞了。
 
     #: Your Code Here.
 
-可以参照 `Flask-PluginKit如何开发第三方插件 <https://flask-pluginkit.rtfd.vip/zh_CN/latest/tutorial/third-party-plugin.html#how-to-develop-plugins>`_ ，
-除了第一步开发细节，其他流程差不多。
+  可以参照 `Flask-PluginKit如何开发第三方插件 <https://flask-pluginkit.rtfd.vip/zh_CN/latest/tutorial/third-party-plugin.html#how-to-develop-plugins>`_ ，
+  除了第一步开发细节，其他流程差不多。
 
