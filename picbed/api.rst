@@ -4,7 +4,7 @@
 RESTful API
 ============
 
-约定：
+**约定：**
 
 - API返回均为JSON，除了api.index接口返回的字符串，其他都是对象，基本字段code、msg。
 
@@ -30,19 +30,19 @@ RESTful API
 
     $ curl -XPOST "http://127.0.0.1/api/upload?status_name=success&ok_code=bool&msg_name=message"
     - 请求成功
-        {"success": True, "message": null}
+        {"success": true, "message": null}
     - 请求失败
-        {"success": False, "message": "errmessage"}
+        {"success": false, "message": "errmessage"}
 
 - API返回的响应头可能有以下两个公共字段。
 
-  - Access-Control-Allow-Headers: Authorization
+  - 当内置Token钩子开启后
 
-    当内置Token钩子开启后
+    Access-Control-Allow-Headers: Authorization
 
-  - Access-Control-Allow-Origin: \*或具体来源
-
-    当管理员在控制台CORS-Origin设置后
+  - 当管理员在控制台CORS-Origin设置后
+  
+    Access-Control-Allow-Origin: \*或具体来源
 
 - 以下接口，顶部的 ``api.xxx`` 这部分就叫端点，endpoint，下面是普通用户可能用到的。
 
@@ -53,7 +53,7 @@ RESTful API
 
   Api首页，仅用来表明登录态，允许 :http:method:`post` :http:method:`get` 方法
 
-  :resjson string: Hello picbed(未登录)/<username>(已登录)
+  返回: Hello picbed(未登录)/<username>(已登录)
 
 2. api.login
 -------------
@@ -73,14 +73,14 @@ RESTful API
 
   .. http:example:: curl python-requests
 
-    POST /api/login HTTP/1.1
+    POST /api/login HTTP/1.0
     Host: 127.0.0.1:9514
     Content-Type: application/x-www-form-urlencoded
 
     username=xxx&&password=your-password-here
 
 
-    HTTP/1.1 200 OK
+    HTTP/1.0 200 OK
     Content-Type: application/json
 
     {
@@ -107,14 +107,14 @@ RESTful API
 
   .. http:example:: curl python-requests
 
-    POST /api/register HTTP/1.1
+    POST /api/register HTTP/1.0
     Host: 127.0.0.1:9514
     Content-Type: application/x-www-form-urlencoded
 
     username=xxx&&password=your-password-here
 
 
-    HTTP/1.1 200 OK
+    HTTP/1.0 200 OK
     Content-Type: application/json
 
     {
@@ -144,14 +144,14 @@ RESTful API
 
   .. http:example:: curl python-requests
 
-    GET /api/waterfall HTTP/1.1
+    GET /api/waterfall HTTP/1.0
     Host: 127.0.0.1:9514
     Authorization: LinkToken Your-LinkToken-Value
 
     :query limit: 1
 
 
-    HTTP/1.1 200 OK
+    HTTP/1.0 200 OK
     Content-Type: application/json
 
     {
@@ -311,7 +311,7 @@ RESTful API
 .. http:post:: /api/upload
   
   图片上传接口，默认不允许匿名（可由管理员开启允许），有两种上传模式，
-  文件域和base64。
+  文件域表单和base64。
 
   获取上传数据的字段默认是picbed，管理员可以在控制台修改，但是不建议改，
   如果要改，首页上传会自动跟随，但uploader.js中需要手动更新。
@@ -341,16 +341,18 @@ RESTful API
 
     大概是这两种情况，src字段改名或者改为子对象中的字段。
 
+    再结合顶部约定处的公共查询参数自定义返回的基本字段，此处src定制灵活度很高。
+
   **请求与响应示例：**
 
   .. http:example::
 
-    POST /api/upload HTTP/1.1
+    POST /api/upload HTTP/1.0
     Host: 127.0.0.1:9514
     Authorization: LinkToken Your-LinkToken-Value
 
 
-    HTTP/1.1 200 OK
+    HTTP/1.0 200 OK
     Content-Type: application/json
 
     {
