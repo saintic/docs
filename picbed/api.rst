@@ -8,31 +8,35 @@ RESTful API
 
 - API返回均为JSON，除了api.index接口返回的字符串，其他都是对象，基本字段code、msg。
 
-  code=0表示处理成功，否则失败，此时msg有错误消息。
+  code值为number，0表示处理成功，否则失败，此时msg有错误消息。
 
-  API返回的msg支持中英文，它检测Accept-Language头或cookie的locale字段，zh-CN返回中文。
+  API返回的msg支持中英文，它检测Accept-Language头或cookie的locale字段，zh-CN则返回中文。
 
-  API返回的基本字段可以修改，可以用下面三个查询参数修改返回的res基本格式：
+  API返回的基本字段可以修改，可以用下面三个查询参数修改返回的基本格式：
 
   - status_name规定数据状态的字段名称，默认code
   
-  - ok_code规定成功的状态码，默认0，用字符串bool则会返回布尔类型
+  - ok_code规定成功的状态码，默认0，ok_code=bool则会返回布尔类型，其他值均认为是number类型
   
   - msg_name规定状态信息的字段名称，默认msg
 
   .. code:: http
 
-    $ curl -XPOST "http://127.0.0.1/api/upload?status_name=status&ok_code=200"
+    $ curl "http://127.0.0.1/api/xx?status_name=status&ok_code=200"
     - 请求成功
         {"status": 200, "msg": null}
     - 请求失败
         {"status": -1, "msg": "errmessage"}
 
-    $ curl -XPOST "http://127.0.0.1/api/upload?status_name=success&ok_code=bool&msg_name=message"
+    $ curl "http://127.0.0.1/api/xx?status_name=success&ok_code=bool&msg_name=message"
     - 请求成功
         {"success": true, "message": null}
     - 请求失败
         {"success": false, "message": "errmessage"}
+
+    $ curl "http://127.0.0.1:9514/api/xx?ok_code=abc"
+    - ok_code不是number类型或bool值，则一律返回默认
+    {"code": 0, "msg": null}
 
 - API返回的响应头可能有以下两个公共字段。
 
@@ -43,6 +47,8 @@ RESTful API
   - 当管理员在控制台CORS-Origin设置后
   
     Access-Control-Allow-Origin: \*或具体来源
+
+- API返回非200状态码时，404、405、413、500都返回JSON基本格式，msg是状态码名字
 
 - 以下接口，顶部的 ``api.xxx`` 这部分就叫端点，endpoint，下面是普通用户可能用到的。
 
@@ -412,4 +418,24 @@ RESTful API
                 console.log(res);
             }
         });
+
+8. api.my
+-----------
+
+  修改用户资料、密码等
+
+9. api.ep
+----------
+
+  专为钩子实现的接口
+
+10. api.link
+--------------
+
+  LinkToken管理接口
+
+11. api.report
+---------------
+
+  记录查询接口
 
