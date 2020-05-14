@@ -20,7 +20,7 @@
 
 创建管理员用户可以在启动程序前后。
 
-.. code:: bash
+.. code-block:: bash
 
     $ flask sa --help
     Usage: flask sa [OPTIONS] COMMAND [ARGS]...
@@ -68,13 +68,13 @@ Token的使用也很简单，有两种方法：
 
 - 一是Header，使用 **"Authorization:Token 你的token值"** 
 
-  .. code:: bash
+  .. code-block:: bash
 
     curl -XPOST -H "Authorization:Token xxx" http://picbed.example.ltd/api/upload
 
 - 二是post body中附带token字段，例如:
 
-  .. code:: bash
+  .. code-block:: bash
 
     curl -XPOST -d token=xxx -d other=xxx http://picbed.example.ltd/api/upload
 
@@ -123,7 +123,7 @@ LinkToken的使用类似Token，只不过只有一种方法，放到header中：
 
 - 使用 **"Authorization:LinkToken 你的LinkToken值"**
 
-  .. code:: bash
+  .. code-block:: bash
 
     curl -XPOST -H "Authorization:LinkToken xxx" http://picbed.example.ltd/api/upload
 
@@ -309,7 +309,7 @@ NO.2 初始化
 
   如下，在页面引入uploader.js，找一个按钮放到需要上传的地方，写js初始化即可。
 
-  .. code:: html
+  .. code-block:: html
 
     <button id="up2picbed">上传</button>
     <script src="Your Picbed URL/static/sdk/uploader.js"></script>
@@ -334,7 +334,7 @@ NO.2 初始化
   需要注意的是，success、fail、progress三个要求是函数，用此自动方法，如要
   设置这三个，需要在js引入时全局就已有对应的函数，否则查找不到失效。
 
-  .. code:: html
+  .. code-block:: html
 
     <button id="up2picbed">上传</button>
     <script>
@@ -402,7 +402,7 @@ NO.2 初始化
 
   上传成功的回调方法，传递一个picbed上传接口成功时返回的json数据，大概是：
 
-  .. code:: json
+  .. code-block:: json
   
     {
         "src": "http://your-picbed-url/static/upload/anonymous/1588905202617.webp",
@@ -436,7 +436,7 @@ NO.2 初始化
 
   给原始按钮增加一个样式（效果参考上方gif图内的按钮）：
 
-  .. code:: css
+  .. code-block:: css
 
     .btn {
         display: inline-block;
@@ -455,7 +455,7 @@ NO.2 初始化
 
   可以再加个悬浮效果，蓝底蓝框白色文字：
 
-  .. code:: css
+  .. code-block:: css
 
     .btn:hover {
         background-color: #409eff;
@@ -464,7 +464,7 @@ NO.2 初始化
 
   - 覆盖btn的某些样式让按钮保持蓝底蓝框白色文字：
 
-  .. code:: css
+  .. code-block:: css
 
     .btn-primary {
         color: #fff;
@@ -474,7 +474,7 @@ NO.2 初始化
 
   - 或者主题色换成红色：
 
-  .. code:: css
+  .. code-block:: css
 
     .btn-danger {
         color: #fff;
@@ -488,7 +488,7 @@ NO.2 初始化
 
   也可以自定义其他颜色，使用时，btn为主，辅以primary、danger：
 
-  .. code:: html
+  .. code-block:: html
 
     <button class="btn">默认</button>
     <button class="btn btn-primary">深蓝</button>
@@ -521,19 +521,19 @@ NO.2 初始化
 
 |image1|
 
-如图示，添加一个第三方钩子：up2upyun，这个钩子可以将上传的图片保存到又拍云。
+如图示，添加一个第三方钩子：up2smms，这个钩子可以将上传的图片保存到sm.ms公共图床。
 
 |image2|
 
-不过在web中添加这个钩子需要首先在部署的服务器上安装up2upyun模块::
+不过在web中添加这个钩子需要首先在部署的服务器上安装up2smms模块::
 
     正式版本
 
-        $ pip install -U up2upyun
+        $ pip install -U up2smms
 
     开发版本
 
-        $ pip install -U git+https://github.com/staugur/picbed-up2upyun.git@master
+        $ pip install -U git+https://github.com/staugur/picbed-up2smms.git@master
 
 添加钩子成功有提示，有些会附带模板，所以需要刷新下页面，比如上面这个会在
 站点设置的钩子配置区域追加模板：
@@ -565,7 +565,7 @@ Web中只有首页可以上传，同时最多选择10张，默认支持jpg、jpe
   主界面，在 **插件设置** 中搜索 **web-uploader** 并安装，然后
   在 **图床设置-自定义Web图床** 中按照如下方式填写：
 
-  .. code:: text
+  .. code-block:: 
 
     url: http[s]://你的picbed域名/api/upload
 
@@ -589,7 +589,7 @@ Web中只有首页可以上传，同时最多选择10张，默认支持jpg、jpe
   `下载uPic <https://github.com/gee1k/uPic>`_ 并安装，在 **偏好设置-图床** 中
   添加 **自定义**，信息如下：
 
-  .. code:: text
+  .. code-block:: 
 
     API地址：http[s]://你的picbed域名/api/upload
 

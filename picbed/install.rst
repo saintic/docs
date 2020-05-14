@@ -50,7 +50,7 @@
 
     ! 也可以下载压缩包：
     
-    .. code:: bash
+    .. code-block:: bash
     
         $ wget -O picbed.zip https://codeload.github.com/staugur/picbed/zip/master
         $ unzip picbed.zip 
@@ -63,12 +63,36 @@
 2.2 安装依赖
 ^^^^^^^^^^^^^^
 
-.. code:: bash
+.. code-block:: bash
 
     $ git clone https://github.com/staugur/picbed
-    $ cd picbed/src
+    $ cd picbed
     $ [建议]激活virtualenv、venv，或者直接在全局模式下安装
-    $ pip install -r requirements.txt
+    $ pip install -r requirements/all.txt # all可以换成具体env
+
+.. versionchanged:: 1.1.0
+
+    requirements目录是依赖包文件所在，env是环境，比如开发环境是dev，正式环境是prod。
+
+    .. code-block:: bash
+
+        $ pip install -r requirements/dev.txt
+    
+    在v1.1.0+版本内置了几个对象存储钩子，需要安装的模块在此目录下以 *up2xxx.txt* 命名，
+    你在控制台开启使用了某个钩子就需要安装对应模块，比如开启又拍云上传，请先安装：
+
+    .. code-block:: bash
+
+        $ pip install -r requirements/up2upyun.txt
+
+    当然，也可以直接全部安装：
+
+    .. code-block:: bash
+
+        $ pip install -r requirements/all.txt
+
+    requirements目录几个txt文件，up2xxx都是独立的，dev/prod依赖基础的base.txt，而
+    终极大法就是all.txt，直接安装了所有依赖。
 
 .. _picbed-config:
 
@@ -101,7 +125,7 @@ SecretKey         picbed_secretkey             无               App应用秘钥
 !!!以上参数 **REDIS** 无默认值，必须根据实际情况手动设置，
 示例如下（可以写入.bash\_profile中）：
 
-.. code:: bash
+.. code-block:: bash
 
     $ export picbed_redis_url="redis://:password@127.0.0.1:6379/1"
     或者
@@ -126,7 +150,9 @@ SecretKey         picbed_secretkey             无               App应用秘钥
 
 在程序启动后，默认情况下，监听地址是127.0.0.1:9514
 
-Nginx配置示例如下，您也可以配置使其支持HTTPS::
+Nginx配置示例如下，您也可以配置使其支持HTTPS:
+
+.. code-block:: nginx
 
     server {
         listen 80;

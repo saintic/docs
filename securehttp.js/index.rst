@@ -38,7 +38,7 @@ Node.js
 
     securehttp.js源码就是使用node开发，您可以直接导入：
 
-    .. code:: javascript
+    .. code-block::
 
         # 一次性导入
         var securehttp = require('securehttp');
@@ -76,7 +76,7 @@ API
 Demo
 ----
 
-.. code:: html
+.. code-block:: html
 
     <!DOCTYPE html>
     <html>
@@ -113,7 +113,7 @@ Demo
 
     而且只是用在浏览器环境，不适用于node.js开发中，且必须使用script提前引入依赖的脚本：
 
-    .. code:: javascript
+    .. code-block:: guess
 
         <!--
         ### 引入AES加密库！

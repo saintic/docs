@@ -20,6 +20,10 @@
 所属本地，不允许删除，只能禁用、启用，目前有两个内置，up2local和token，
 分别是将上传的图片保存到本地、API可以使用Token（LinkToken）认证。
 
+.. versionchanged:: 1.1.0
+
+    内置增加了4个，将我之前写的常用的对象存储内置集成了，不过默认是禁用的。
+
 .. _picbed-thirds:
 
 第三方钩子
@@ -35,7 +39,7 @@
 
 上面我发布的第三方基本都已经发布到pypi，所以可以使用pip直接安装：
 
-.. code:: bash
+.. code-block:: bash
 
     $ pip install up2upyun
 
@@ -85,7 +89,7 @@ login_handler是登录页面，其通过ajax登录，传递username、password�
 参数，基本可以不用管，当然，如果你的登录参数复杂，可以定义此函数返回自定义
 登录页面，要求返回值要是Flask.Response的子类，示例：
 
-.. code:: python
+.. code-block:: python
 
     from flask import make_response
 
@@ -106,7 +110,7 @@ login_api是登录动作处理器，默认登录页面是ajax提交给接口，�
 另外要求返回值要是Flask.Response的子类，而且要设置登录态，
 比如cookie、session（如果采用默认登录页面，返回类型要求是JSON）。
 
-.. code:: python
+.. code-block:: python
 
     from flask import request, jsonify
 
@@ -122,7 +126,7 @@ before_request是flask的一种钩子，每次请求都先经过它“预处理�
 函数，自定义认证需要通过它设置 ``g.siginin = True/False`` 设定登录成功与否
 和 ``g.userinfo`` 登录用户的信息，必须字段username，其他字段is_admin、avatar、nickname等。
 
-.. code:: python
+.. code-block:: python
 
     def before_request():
         if check_with_cookie_or_session_login_ok:
@@ -152,7 +156,7 @@ Object：即钩子模块名名，Action：钩子方法
 
 假设一个钩子helloworld，定义如下：
 
-.. code:: python
+.. code-block:: python
 
     from flask import jsonify
 
@@ -161,7 +165,7 @@ Object：即钩子模块名名，Action：钩子方法
 
 上述钩子加入picbed，请求如下：
 
-.. code:: bash
+.. code-block:: bash
 
     $ curl -XPOST "http://your-picbed-url/api/extendpoint?Object=helloworld&Action=welcome"
     {"hello": "world"}
@@ -186,7 +190,7 @@ HTML模板代码，前者以render_template渲染，后者以render_template_str
 
   管理员控制台站点设置下与上传设置之间，表单内容。
 
-  .. code:: html
+  .. code-block:: html
 
     intpl_sitesetting = '''
     <div class="layui-form-item">
@@ -227,7 +231,7 @@ HTML模板代码，前者以render_template渲染，后者以render_template_str
   编写时需要定义元数据(必须包含version和author)，参照函数运行环境，
   灵活使用Flask的“全局”变量，之后就可以开搞了。
 
-  .. code:: python
+  .. code-block:: python
 
     __version__ = '版本号'
     __author__ = '作者'

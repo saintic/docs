@@ -24,7 +24,7 @@ copyright = u'2019, SaintIC'
 author = u'SaintIC'
 
 # The short X.Y version
-version = u'0.2.0'
+version = u'0.3'
 # The full version, including alpha/beta/rc tags
 release = u''
 

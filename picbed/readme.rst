@@ -4,7 +4,7 @@
 概述
 ======
 
-基于Flask的Web自建图床，默认存储在本地，支持扩展又拍云、七牛云、阿里云OSS、腾讯云COS等后端存储。
+基于Flask的Web自建图床，默认存储在本地，支持又拍云、七牛云、阿里云OSS、腾讯云COS等后端存储。
 
 GitHub：https://github.com/staugur/picbed
 
@@ -22,6 +22,11 @@ GitHub：https://github.com/staugur/picbed
 2. 可插拔的钩子管理器，允许第三方扩展功能点
 
   - 扩展了如又拍云、七牛云、阿里云、腾讯云等后端存储
+
+  .. versionchanged:: 1.1.0
+
+      上述扩展已改为内置
+
   - 扩展了如sm.ms,superbed.cn等公共图床
 
 3. API

@@ -64,7 +64,7 @@
 2.1.2 安装依赖
 ^^^^^^^^^^^^^^
 
-.. code:: bash
+.. code-block:: bash
 
     # CentOS
     $ yum install -y gcc python-devel libffi-devel
@@ -96,7 +96,7 @@ ALARMEMAIL     crawlhuabantdi_alarmemail      无              报警邮箱，�
 
 !!!以上参数 **REDIS** 和 **TOKEN** 无默认值，必须手动设置，示例如下（可以写入.bash\_profile中）：
 
-.. code:: bash
+.. code-block:: bash
 
     $ export crawlhuabantdi_redis_url="redis://@127.0.0.1:6379/1"
     $ export crawlhuabantdi_token="test"
@@ -126,7 +126,7 @@ ALARMEMAIL     crawlhuabantdi_alarmemail      无              报警邮箱，�
 2.2.1 自主构建
 ^^^^^^^^^^^^^^
 
-::
+.. code-block:: bash
 
     $ git clone https://github.com/staugur/tdi
     $ cd tdi
@@ -135,7 +135,7 @@ ALARMEMAIL     crawlhuabantdi_alarmemail      无              报警邮箱，�
 2.2.2 使用官方镜像
 ^^^^^^^^^^^^^^^^^^
 
-::
+.. code-block:: bash
 
     $ docker pull registry.cn-beijing.aliyuncs.com/staugur/tdi
 
@@ -144,7 +144,7 @@ ALARMEMAIL     crawlhuabantdi_alarmemail      无              报警邮箱，�
 
 启动命令：
 
-::
+.. code-block:: bash
 
     $ docker run -tdi --name 容器名 --restart=always --net=host \
         -e crawlhuabantdi_redis_url=REDIS连接串 \
@@ -175,12 +175,15 @@ ALARMEMAIL     crawlhuabantdi_alarmemail      无              报警邮箱，�
 
 > 挂载点：程序运行在容器内，下载的图片都在内部，路径是\ ``/Tdi/downloads``\ ，需要挂载出来，供nginx访问，比如挂载点是/data/TdiDownloads/
 
-> 示例::
+> 示例:
 
-    docker run -tdi --name Tdi1 --restart=always --net=host \
+.. code-block:: bash
+
+    $ docker run -tdi --name Tdi1 --restart=always --net=host \
         -e crawlhuabantdi_redis_url=redis://:passwd@127.0.0.1:6379/0 \
         -e crawlhuabantdi_token=test \
-        -v /data/Downloads/Tdi1:/Tdi/downloads registry.cn-beijing.aliyuncs.com/staugur/tdi [或自行打包的镜像名]
+        -v /data/Downloads/Tdi1:/Tdi/downloads \
+        registry.cn-beijing.aliyuncs.com/staugur/tdi [或自行打包的镜像名]
 
 **NO.3 Nginx配置**
 -------------------
@@ -191,7 +194,9 @@ ALARMEMAIL     crawlhuabantdi_alarmemail      无              报警邮箱，�
 
 如果您是Docker部署，需要将容器内部的downloads目录挂载到宿主机上，以供nginx访问。
 
-Nginx配置示例如下，您也可以配置使其支持HTTPS::
+Nginx配置示例如下，您也可以配置使其支持HTTPS:
+
+.. code-block:: nginx
 
     server {
         listen 80;
@@ -204,7 +209,7 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS::
         #可以设置不允许搜索引擎抓取信息
         #此路径是为了下载实际图片压缩包，直接走nginx，这段可以说是最重要的配置
         location /downloads {
-            #程序下载目录(源码下的src/downloads或者容器的主机挂载点)
+            #程序下载目录，源码src下的downloads目录或者容器的主机挂载点
             alias /tdi/src/downloads/;
             default_type application/octet-stream;
             #开启目录索引，建议关闭，开启后能看到downloads下所有文件
@@ -243,14 +248,14 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS::
 
 **PS：补充说明**
 
-您也可以使用已有域名配置，将Tdi设置为子目录，合并到配置文件中（server里），核心配置段：
+您也可以使用已有域名配置，将Tdi设置为子目录，合并到配置文件中（server里），核心配置段:
 
-::
+.. code-block:: nginx
 
     server{
         listen 80;
         server_name 此处为已有域名;
-        ......
+        #...你的其他配置...
         #在已有配置文件中增加以下两段，具体下载目录和端口自行修改：
         client_max_body_size 10M;
         client_body_buffer_size 128k;
@@ -272,7 +277,7 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS::
             proxy_set_header X-Forwarded-Proto $scheme;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         }
-        ......
+        #...你的其他配置...
     }
 
 

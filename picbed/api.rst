@@ -20,7 +20,7 @@ RESTful API
   
   - msg_name规定状态信息的字段名称，默认msg
 
-  .. code:: http
+  .. code-block:: bash
 
     $ curl "http://127.0.0.1/api/xx?status_name=status&ok_code=200"
     - 请求成功
@@ -372,13 +372,15 @@ RESTful API
 
   **文件域上传示例：**
 
-  .. code:: http
+  - curl
 
-    - curl
+    .. code-block:: bash
 
-        curl http://127.0.0.1:9514/api/upload -F "picbed=@上传的图片路径" -XPOST
+        $ curl http://127.0.0.1:9514/api/upload -F "picbed=@上传的图片路径" -XPOST
 
-    - python
+  - python
+
+    .. code-block:: python
 
         files = {
             'picbed': (filename, open("图片", "rb"))
@@ -393,13 +395,15 @@ RESTful API
 
   **base64上传示例：**
 
-  .. code:: http
+  - curl
 
-    - curl
+    .. code-block:: bash
 
-        curl http://127.0.0.1:9514/api/upload -d "picbed=图片base64编码" -XPOST
+        $ curl http://127.0.0.1:9514/api/upload -d "picbed=图片base64编码" -XPOST
 
-    - python
+  - python
+
+    .. code-block:: python
 
         headers = {"Authorization": "LinkToken xxxx"}
         requests.post(
@@ -408,7 +412,9 @@ RESTful API
             headers=headers,
         ).json()
 
-    - ajax
+  - ajax
+
+    .. code-block:: javascript
 
         $.ajax({
             url: 'http://127.0.0.1:9514/api/upload',
