@@ -565,7 +565,7 @@ Web中只有首页可以上传，同时最多选择10张，默认支持jpg、jpe
   主界面，在 **插件设置** 中搜索 **web-uploader** 并安装，然后
   在 **图床设置-自定义Web图床** 中按照如下方式填写：
 
-  .. code-block:: 
+  .. code-block:: text
 
     url: http[s]://你的picbed域名/api/upload
 
@@ -589,7 +589,7 @@ Web中只有首页可以上传，同时最多选择10张，默认支持jpg、jpe
   `下载uPic <https://github.com/gee1k/uPic>`_ 并安装，在 **偏好设置-图床** 中
   添加 **自定义**，信息如下：
 
-  .. code-block:: 
+  .. code-block:: text
 
     API地址：http[s]://你的picbed域名/api/upload
 
