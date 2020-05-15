@@ -50,6 +50,8 @@ RESTful API
 
 - API返回非200状态码时，404、405、413、500都返回JSON基本格式，msg是状态码名字
 
+- 以下接口要求boolean类型的，值可以是true、True、1、on、yes, 均认为是真，反之则假！
+
 - 以下接口，顶部的 ``api.xxx`` 这部分就叫端点，endpoint，下面是普通用户可能用到的。
 
 1. api.index
@@ -249,6 +251,14 @@ RESTful API
   :statuscode 404: 没有对应图片时
   :statuscode 403: 未登录或图片所属用户与请求用户不匹配
 
+  **示例：**
+
+  .. http:example:: curl python-requests
+
+    DELETE /api/shamgr/sha1.xxxxxxx HTTP/1.0
+    Host: 127.0.0.1:9514
+    Authorization: LinkToken Your-LinkToken-Value
+
 .. http:put:: /api/shamgr/<string:sha>
 
   图片数据更新接口，要求登录，只有图片所属用户和管理员允许修改。
@@ -266,6 +276,7 @@ RESTful API
 
     PUT /api/shamgr/sha1.xxxxxxx HTTP/1.0
     Host: 127.0.0.1:9514
+    Authorization: LinkToken Your-LinkToken-Value
 
     :query Action: updateAlbum
 
@@ -288,6 +299,7 @@ RESTful API
 
     GET /api/album HTTP/1.0
     Host: 127.0.0.1:9514
+    Authorization: LinkToken Your-LinkToken-Value
 
 
     HTTP/1.0 200 OK
@@ -320,11 +332,14 @@ RESTful API
   文件域表单和base64。
 
   获取上传数据的字段默认是picbed，管理员可以在控制台修改，但是不建议改，
-  如果要改，首页上传会自动跟随，但uploader.js中需要手动更新。
+  如果要改，首页上传会自动更新，但引用uploader.js在外部上传的话，那就需要
+  设置 **name** 值，具体参考 :ref:`LinkToken-upload-plugin` ，有一个name选项
+  可以设置其他值。
 
   :query string format: 指定图片地址的显示字段
   :form album: 图片所属相册（匿名时总是直接设置为anonymous）
   :form format: 等于query查询参数的format
+  :form filename: 使用base64模式上传此值有效，设定文件名
   :resjson string filename: 最终保存到服务器的文件名
   :resjson string sender: 保存图片的钩子名
   :resjson string api: 图片详情接口的地址 
@@ -333,21 +348,24 @@ RESTful API
 
   .. tip::
 
-    图片地址src是可以自定义的，利用format参数，允许使用最多一个点号。
+    1. base64模式上传允许 `Data URI <https://developer.mozilla.org/docs/Web/HTTP/data_URIs>`_ 形式的！
 
-    举例，默认返回{code:0, src:xx}
+    2. 图片地址src是可以自定义的，利用format参数，允许使用最多一个点号。
 
-    - format=imgUrl  （这种情况最少需要两个字符）
+      举例，默认返回{code:0, src:xx}
+
+      - format=imgUrl  （这种情况最少需要两个字符）
 
         {code:0, imgUrl:xx}
 
-    - format=data.src
+      - format=data.src
 
         {code:0, data:{src:xx}}
 
-    大概是这两种情况，src字段改名或者改为子对象中的字段。
+      大概是这两种情况，src字段改名或者改为子对象中的字段。
 
-    再结合顶部约定处的公共查询参数自定义返回的基本字段，此处src定制灵活度很高。
+      再结合顶部约定处的公共查询参数自定义返回的基本字段，此处src定制灵活度
+      很高。
 
   **请求与响应示例：**
 
@@ -399,7 +417,7 @@ RESTful API
 
     .. code-block:: bash
 
-        $ curl http://127.0.0.1:9514/api/upload -d "picbed=图片base64编码" -XPOST
+        $ curl http://127.0.0.1:9514/api/upload -d picbed="图片base64编码" -d filename="test.jpg" -XPOST
 
   - python
 
@@ -408,7 +426,9 @@ RESTful API
         headers = {"Authorization": "LinkToken xxxx"}
         requests.post(
             "http://127.0.0.1:9514/api/upload",
-            data=dict(picbed="图片base64编码"),
+            data=dict(
+                picbed="data:image/jpg;base64,图片base64编码"
+            ),
             headers=headers,
         ).json()
 

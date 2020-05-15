@@ -38,7 +38,7 @@ Node.js
 
     securehttp.js源码就是使用node开发，您可以直接导入：
 
-    .. code-block::
+    .. code::
 
         # 一次性导入
         var securehttp = require('securehttp');

@@ -41,7 +41,7 @@
 
 .. code-block:: bash
 
-    $ pip install up2upyun
+    $ pip install up2smms up2superbed
 
 目前已有的钩子及简介：
 =======================
