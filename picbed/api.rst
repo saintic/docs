@@ -328,8 +328,15 @@ RESTful API
 
 .. http:post:: /api/upload
   
-  图片上传接口，默认不允许匿名（可由管理员开启允许），有两种上传模式，
+  图片上传接口，默认不允许匿名（可由管理员开启允许），有两种上传方式，
   文件域表单和base64。
+
+  .. versionchanged:: 1.2.0
+
+    三种上传方式，v1.2.0新增一种图片链接上传，picbed字段值为URL形式时，会
+    尝试下载图片（URL符合规则且下载的确实是图片类型才能成功）
+
+    上传方式优先级：文件域 > Image URL > Image base64
 
   获取上传数据的字段默认是picbed，管理员可以在控制台修改，但是不建议改，
   如果要改，首页上传会自动更新，但引用uploader.js在外部上传的话，那就需要
@@ -337,9 +344,10 @@ RESTful API
   可以设置其他值。
 
   :query string format: 指定图片地址的显示字段
-  :form album: 图片所属相册（匿名时总是直接设置为anonymous）
   :form format: 等于query查询参数的format
-  :form filename: 使用base64模式上传此值有效，设定文件名
+  :form album: 图片所属相册（匿名时总是直接设置为anonymous）
+  :form picbed: 上传字段名
+  :form filename: 使用 **base64/url** 方式上传时此值有效，设定文件名
   :resjson string filename: 最终保存到服务器的文件名
   :resjson string sender: 保存图片的钩子名
   :resjson string api: 图片详情接口的地址 
@@ -348,9 +356,18 @@ RESTful API
 
   .. tip::
 
-    1. base64模式上传允许 `Data URI <https://developer.mozilla.org/docs/Web/HTTP/data_URIs>`_ 形式的！
+    - 当接口获取不到文件时，判断picbed字段值，如果以http://或https://开头，
+      那么进入Image URL上传流程，否则进入Image Base64上传流程。
 
-    2. 图片地址src是可以自定义的，利用format参数，允许使用最多一个点号。
+    - Image URL上传，url要以系统允许的后缀结尾（如果不，除非提交了filename字段，
+      否则认为不是Image URL，即无效），而且尝试请求URL时返回状态码是2xx或
+      3xx、Content-Type是image类型时才有效。
+
+      简而言之，是真正的图片链接才行。当然，被伪造也是可能的。
+
+    - base64方式上传允许 `Data URI <https://developer.mozilla.org/docs/Web/HTTP/data_URIs>`_ 形式的！
+
+    - 图片地址src是可以自定义的，利用format参数，允许使用最多一个点号。
 
       举例，默认返回{code:0, src:xx}
 
@@ -366,6 +383,7 @@ RESTful API
 
       再结合顶部约定处的公共查询参数自定义返回的基本字段，此处src定制灵活度
       很高。
+
 
   **请求与响应示例：**
 
@@ -394,7 +412,8 @@ RESTful API
 
     .. code-block:: bash
 
-        $ curl http://127.0.0.1:9514/api/upload -F "picbed=@上传的图片路径" -XPOST
+        $ curl -H "Authorization: LinkToken xxxx" -XPOST \
+          http://127.0.0.1:9514/api/upload -F "picbed=@上传的图片路径"
 
   - python
 
@@ -411,13 +430,14 @@ RESTful API
         ).json()
 
 
-  **base64上传示例：**
+  **Image Base64上传示例：**
 
   - curl
 
     .. code-block:: bash
 
-        $ curl http://127.0.0.1:9514/api/upload -d picbed="图片base64编码" -d filename="test.jpg" -XPOST
+        $ curl -H "Authorization: LinkToken xxxx" -XPOST \
+          http://127.0.0.1:9514/api/upload -d picbed="图片base64编码" -d filename="test.jpg"
 
   - python
 
@@ -444,6 +464,39 @@ RESTful API
                 console.log(res);
             }
         });
+
+  **Image URL上传示例：**
+
+  - curl
+
+    .. code-block:: bash
+
+        $ url=https://hbimg.huabanimg.com/6b7b7456a3cb7b1b149be2463dca29c18e8c03c2bd0c-DcxKZ5
+        $ curl -XPOST -H "Authorization: LinkToken xxxx" \
+          http://127.0.0.1:9514/api/upload -d picbed="${url}"
+        {
+            "msg": "No file or image format error",
+            "code": 1
+        }
+        $ curl -XPOST -H "Authorization: LinkToken xxxx" \
+          http://127.0.0.1:9514/api/upload -d picbed="${url}" -d filename="test.jpg"
+        {
+            "code": 0
+            "src": "xxx"
+        }
+
+  - python
+
+    .. code-block:: python
+
+        headers = {"Authorization": "LinkToken xxxx"}
+        requests.post(
+            "http://127.0.0.1:9514/api/upload",
+            data=dict(
+                picbed="https://xxxx.com/your-image.png"
+            ),
+            headers=headers,
+        ).json()
 
 8. api.my
 -----------
