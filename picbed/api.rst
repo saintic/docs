@@ -145,7 +145,7 @@ RESTful API
   :resjson number count: 用户的图片总数
   :resjson number pageCount: 根据limit和count计算的总页数
   :resjsonarr albums: 用户的相册列表 
-  :resjsonarr data: 用户的图片列表
+  :resjsonarr data: 用户的图片列表（其中字段参考shamgr接口）
   :statuscode 403: 未登录时
 
   **示例：**
@@ -206,7 +206,17 @@ RESTful API
 
   :param sha: 图片的唯一标识
   :type sha: string
-  :resjsonarr data: 图片详情（上述接口的图片列表中包含的就是此详情数据）
+  :resjson object data: 图片详情（上述接口的图片列表中包含的就是此详情数据）
+  :resjson album: 相册（当前及下方字段位于data内）
+  :resjson src: 图片在picbed中的链接
+  :resjson sender: 图片保存者（钩子名）
+  :resjson object tpl: URL文本复制的模板
+  :resjson agent: 上传来源UserAgent
+  :resjson filename: 最终保存到服务器文件名
+  :resjson sha: 图片唯一标识
+  :resjson status: 状态
+  :resjson user: 所属用户
+  :resjson upload_path: 图片前缀路径
   :statuscode 404: 没有对应图片时
 
   **示例：**
@@ -227,6 +237,7 @@ RESTful API
             "src": "http://127.0.0.1:9514/static/upload/admin/1589266897617.gif",
             "sender": "up2local",
             "tpl": {
+                "URL": "http://127.0.0.1:9514/static/upload/admin/1589266897617.gif",
                 "rST": ".. image:: http://127.0.0.1:9514/static/upload/admin/1589266897617.gif",
                 "HTML": "<img src='http://127.0.0.1:9514/static/upload/admin/1589266897617.gif' alt='1589266897617.gif'>",
                 "Markdown": "![1589266897617.gif](http://127.0.0.1:9514/static/upload/admin/1589266897617.gif)"
@@ -323,6 +334,8 @@ RESTful API
         }
     }
 
+.. _picbed-api-upload:
+
 7. api.upload
 -----------------
 
@@ -333,8 +346,8 @@ RESTful API
 
   .. versionchanged:: 1.2.0
 
-    三种上传方式，v1.2.0新增一种图片链接上传，picbed字段值为URL形式时，会
-    尝试下载图片（URL符合规则且下载的确实是图片类型才能成功）
+    v1.2.0新增一种图片链接上传（目前共三种上传方式），picbed字段值为URL形式时，
+    会尝试下载图片（URL符合规则且下载的确实是图片类型才能成功）。
 
     上传方式优先级：文件域 > Image URL > Image base64
 
@@ -359,9 +372,15 @@ RESTful API
     - 当接口获取不到文件时，判断picbed字段值，如果以http://或https://开头，
       那么进入Image URL上传流程，否则进入Image Base64上传流程。
 
-    - Image URL上传，url要以系统允许的后缀结尾（如果不，除非提交了filename字段，
-      否则认为不是Image URL，即无效），而且尝试请求URL时返回状态码是2xx或
-      3xx、Content-Type是image类型时才有效。
+    - Image URL上传，程序会从url中尝试查找出文件名，无效时判定失败，除非手动设置文件名。
+      
+      .. versionchanged:: 1.4.0
+
+        优化了图片链接上传，程序自动尝试从链接查找文件名，无果也无妨，
+        继续请求url，根据其返回内容、类型猜测文件后缀。
+      
+      程序使用get方式请求url，只有返回状态码是2xx或3xx且Content-Type是image
+      类型时才有效。
 
       简而言之，是真正的图片链接才行。当然，被伪造也是可能的。
 
@@ -384,6 +403,17 @@ RESTful API
       再结合顶部约定处的公共查询参数自定义返回的基本字段，此处src定制灵活度
       很高。
 
+  .. note::
+  
+    上传流程：
+
+    1. 登录及匿名上传判断
+
+    2. 获取文件（三种方式）
+
+    3. 如果文件有效，初始化相关参数，交给上传类钩子处理图片流并回传结果进行后续处理
+
+    4. 返回响应数据
 
   **请求与响应示例：**
 

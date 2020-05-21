@@ -12,7 +12,7 @@
 
 --------
 
-.. _picbed-local:
+.. _picbed-local-hook:
 
 内置钩子
 -----------
@@ -24,7 +24,41 @@
 
     内置增加了4个，将我之前写的常用的对象存储内置集成了，不过默认是禁用的。
 
-.. _picbed-thirds:
+- up2local
+
+    将上传的图片保存到本地（picbed源码目录src/static/upload），默认保存图片
+    的钩子。
+
+- up2upyun
+    
+    将上传的图片保存到又拍云的 `USS云存储服务 <https://www.upyun.com/products/file-storage>`_
+
+    使用方法：启用钩子，刷新控制台页面，在 **站点管理-网站设置** 底部的
+    钩子配置区域配置又拍云相关信息， 如加速域名、Bucket、用户名及密码等，
+    并在上传区域中 **选择存储后端为up2upyun** 即可，后续图片上传时将会
+    保存到又拍云。
+
+- up2qiniu
+
+    将上传的图片保存到七牛云的 `KODO对象存储服务 <https://www.qiniu.com/products/kodo>`_
+
+    使用方法：参考又拍云的使用即可，配置加速域名、Bucket、AK及SK等（在七牛云
+    个人中心-密钥管理可以拿到AK、SK）。
+
+- up2oss
+
+    将上传的图片保存到阿里云 `OSS对象存储 <https://www.aliyun.com/product/oss>`_
+
+    使用方法：同上，配置要求的AK及SK可以在阿里云管理控制台-AccessKey密钥管理
+    中拿到；允许使用RAM子用户的密钥（允许编程访问），要求拥有OSS管理权限即可。
+
+- up2cos
+
+    用来将上传的图片保存到腾讯云 `COS对象存储 <https://cloud.tencent.com/product/cos>`_
+
+    使用方法：同上，配置加速域名、Bucket、SecretID及Key等（在腾讯云控制台-访问管理-访问密钥-API密钥管理中可以拿到SecretId、SecretKey；允许使用子用户的密钥，要求拥有COS管理权限即可）。
+
+.. _picbed-third-hook:
 
 第三方钩子
 ------------

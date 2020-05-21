@@ -4,13 +4,15 @@
 概述
 ======
 
-基于Flask的Web自建图床，默认存储在本地，支持又拍云、七牛云、阿里云OSS、腾讯云COS等后端存储。
+基于Flask的Web自建图床，默认存储在本地，内置支持又拍云、七牛云、阿里云OSS、腾讯云COS等对象存储。
 
 GitHub：https://github.com/staugur/picbed
 
 语言：Python
 
 框架：Flask
+
+当前文档对应版本：v1.3.0
 
 .. _picbed-features:
 
@@ -31,16 +33,16 @@ GitHub：https://github.com/staugur/picbed
 
 3. API
 
-  - 基于api的上传接口，支持通过文件域和base64（允许Data URI形式）上传
+  - 基于api的上传接口，支持通过文件域、base64（允许Data URI形式）、Image URL上传
   - 可定制的api响应数据[及字段]及中英错误消息提示
   - 支持Token以及更安全的基于Token的LinkToken调用api
   - 外部网站通过按钮一键上传的插件
 
-4. 我的图片快捷复制支持原生URL、HTML、reStructuredText、Markdown格式
+4. 我的图片快捷复制支持原生URL、HTML、reStructuredText、Markdown格式，可定制图片处理
 
 5. 管理员控制台可配置全局参数定制站点信息以及用户个性自定义覆盖全局参数
 
-6. 支持PyPy、Python2.7、3.5+
+6. 支持PyPy、Python2.7、3.5+（推荐）
 
 不足：
 -------

@@ -203,6 +203,10 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS:
     reload/restart在大部分情况下都可以重载代码和配置(从.cfg读取)，但是如果
     需要从环境变量重新读取配置，那么只能用restart。
 
+.. versionchanged:: 1.2.0
+
+    增加了依赖，需要安装requests模块，已写到requirements/base.txt
+
 **NO.6 使用篇**
 ----------------
 
