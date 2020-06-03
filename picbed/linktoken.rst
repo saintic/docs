@@ -31,6 +31,18 @@ LinkToken的使用类似Token，只不过只有一种方法，放到header中：
 
     curl -XPOST -H "Authorization:LinkToken xxx" http://picbed.example.ltd/api/upload
 
+.. versionchanged:: 1.5.0
+
+    在此版本，LinkToken额外增加两种调用方式：query、body，共三种。
+
+    - query
+
+        即URL查询参数，将 `LinkToken=xx` 附着在URL中即可，通常用于GET请求。
+
+    - body
+
+        即表单数据方式，将 `LinkToken=xx` 放到body中，通常用于POST/PUT/DELETE请求。
+
 可以用在ajax中（跨域），或者直接客户端请求，比如curl。
 
 综述，创建一个LinkToken，需要尽可能小地设置访问条件，且建议专项专用。
@@ -94,6 +106,8 @@ LinkToken的使用类似Token，只不过只有一种方法，放到header中：
   | api.upload        | /api/upload        | POST       | 上传图片                                                |
   +-------------------+--------------------+------------+---------------------------------------------------------+
   | api.waterfall     | /api/waterfall     | POST       | 获取个人图片数据                                        |
+  +-------------------+--------------------+------------+---------------------------------------------------------+
+  | front.userscript  | /picbed.user.js    | GET        | 并不是API接口，返回JS用户脚本                           |
   +-------------------+--------------------+------------+---------------------------------------------------------+
 
   更多端点参考 :ref:`picbed-api`

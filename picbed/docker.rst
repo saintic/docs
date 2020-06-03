@@ -32,6 +32,8 @@ Docker仅包含源码及其依赖的Python模块，不包含redis和nginx环境�
 
   拉取1.4.0镜像： `docker pull staugur/picbed:1.4.0`
 
+  拉取1.5.0镜像： `docker pull staugur/picbed:1.5.0`
+
 .. _picbed-self-build:
 
 2. 自行打包

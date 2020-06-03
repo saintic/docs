@@ -12,7 +12,7 @@ GitHub：https://github.com/staugur/picbed
 
 框架：Flask
 
-当前文档对应版本：v1.4.0
+当前文档对应版本：v1.5.0
 
 .. _picbed-features:
 

@@ -155,9 +155,77 @@ v1.4.0之前上传图片只能根据全局设置保存图片的目录和文件�
 .. note::
 
     登录用户上传的图片总是位于自己的用户名下，所以无论怎么修改都不影响别人，
-    但注意，如果规则中的默认选项（无子目录且使用文件原名），以前上传的图片
-    很有可能会被后上传的图片覆盖，而且保存图片的钩子可能不支持覆盖（目前
-    内置钩子只有GitHub、Gitee不会覆盖，上传提示失败）。
+    但注意，如果使用规则中的默认选项（无子目录且使用文件原名），以前上传的
+    图片很有可能会被后上传的图片覆盖，而且保存图片的钩子可能不支持覆盖（目
+    前内置钩子只有GitHub、Gitee不会覆盖，上传提示失败）。
+
+.. _userscript:
+
+1.2.4 油猴脚本
+^^^^^^^^^^^^^^^^^^^
+
+用户脚本是一段代码，它们能够优化您的网页浏览体验。
+
+安装之后，有些脚本能为网站添加新的功能，有些能使网站的界面更加易用，有些则能隐藏网站上烦人的部分内容。
+
+运行脚本需要浏览器扩展，早期Firefox的Greasemonkey，简称GM，中文俗称为“油猴子”，
+所以用户脚本通常也称为“油猴脚本”。
+
+不过picbed的油猴脚本支持的扩展是Tampermonkey。
+
+Tampermonkey是一款免费的浏览器扩展和最为流行的用户脚本管理器，它适用于
+Chrome, Microsoft Edge, Safari, Opera Next, 和 Firefox。
+
+官网：https://www.tampermonkey.net
+
+请先根据浏览器安装Tampermonkey扩展，然后在用户设置中配置。
+
+|picbed_userscript|
+
+脚本地址： `Your Picbed URL/picbed.user.js`
+
+只有开启用户脚本后才能产生脚本链接，不严格要求填写LinkToken，但是没有的话将
+会是匿名上传且不支持脚本更新。
+
+.. note::
+
+    脚本更新功能不在v1.5.0中，master最新代码、1.5.1修复版或将发布的1.6.0可用。
+
+开启并保存后，点击上图开关旁边的小图标，能直接打开脚本地址，此时扩展会自动
+识别出用户脚本，给出安装界面：
+
+|picbed_userscript_install|
+
+安装完成后，在浏览器打开任意网站，鼠标移到图片上，Windows下是Ctrl/Alt键+右击，
+MacOS下使用Control/Option+点击），效果如下：
+
+|picbed_userscript_upload|
+
+通过Image URL方式上传，除基本图片外(含svg)，支持blob、base64类型。
+
+限制条件：
+
+  - 只能上传img标签的图片
+
+  - 包裹了蒙层无法上传
+
+  - 部分网站CSP限制等
+
+  - 但是，还有一条限制！
+
+    用户脚本在全网通过ajax上传，基本都是跨域操作，所以，管理员必须设置
+    CORS Origin为*且LinkToken对Origin无限制，否则只能在允许的源站上传，而
+    其他网站上传失败。
+
+  - 简而言之，脚本必须获取到实际图片且允许上传才行
+
+  - 另外，如果是被墙的网站图片，你的服务器在国内，那么很遗憾无法下载，应该
+    会提示：未获取到图片或不允许的图片格式。
+
+.. note::
+
+    此用户脚本从 `Search-By-Image <https://github.com/ccloli/Search-By-Image/>`_
+    移植而来，如您正在使用它，注意快捷键冲突。
 
 .. _picbed-mypic:
 
@@ -304,5 +372,8 @@ Web中只有首页可以上传，同时最多选择10张，默认支持jpg、jpe
 .. |image1| image:: /_static/images/picbed_setting.png
 .. |image2| image:: /_static/images/picbed_hook.png
 .. |image3| image:: /_static/images/picbed_hooksetting.png
-
 .. |picbed_userdiyimg| image:: /_static/images/picbed_userdiyimg.png
+.. |picbed_userscript| image:: /_static/images/picbed_userscript.png
+.. |picbed_userscript_upload| image:: /_static/images/picbed_userscript_upload.png
+.. |picbed_userscript_install| image:: /_static/images/picbed_userscript_install.png
+

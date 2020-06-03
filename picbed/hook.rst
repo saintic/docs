@@ -58,6 +58,49 @@
 
     使用方法：同上，配置加速域名、Bucket、SecretID及Key等（在腾讯云控制台-访问管理-访问密钥-API密钥管理中可以拿到SecretId、SecretKey；允许使用子用户的密钥，要求拥有COS管理权限即可）。
 
+.. versionchanged:: 1.5.0
+
+- up2github
+
+    用来将上传的图片保存到 `GitHub <https://github.com>`_ 公开仓库，您需要拥有github账号，并获取personal access token。
+
+    定位到：https://github.com/settings/tokens/new，勾选repo权限，生成后会有
+    下图所示token，只会出现这一次，保存好！
+
+    |picbed_github_token|
+
+    之后[可选]创建一个public仓库，或使用已有仓库。
+
+    接下来是开启GitHub钩子并配置，上传的图片会存到“仓库/存储根目录”下，允许
+    多级子目录和 `自定义域名 <https://help.github.com/github/working-with-github-pages/about-custom-domains-and-github-pages>`_ 
+    （默认是raw.githubusercontent.com），当然，
+    不用域名而使用JsDelivr也是极好的，直接全网CDN（+免费图床套餐）！
+
+    |picbed_github_hook|
+
+    .. tip::
+
+        JsDelivr能直接把github仓库CDN化，所以很多静态资源放github，用jsdelivr
+        访问，实现CDN效果。
+        
+        不过注意勾选上使用JsDelivr，由于CDN缓存效果，删除时，图片一段时间
+        仍然可以访问。
+
+        如果使用自定义域名（请参考官方文档设置），其需要github构建，所以
+        刚上传的图片也不能立刻访问，需要等构建成功。
+
+- up2gitee
+
+    用来将上传的图片保存到 `Gitee（码云） <https://github.com>`_ ，也要先生成
+    `私人令牌 <https://gitee.com/profile/personal_access_tokens/new>`_ ，勾选
+    projects权限，其他不需要。
+
+    同样保存好令牌，创建一个公开仓库或使用已有仓库。
+
+    开启Gitee钩子并配置，没有JsDelivr支持，其他与github类似。
+
+    |picbed_gitee_hook|
+
 .. _picbed-third-hook:
 
 第三方钩子
@@ -279,3 +322,6 @@ HTML模板代码，前者以render_template渲染，后者以render_template_str
   可以参照 `Flask-PluginKit如何开发第三方插件 <https://flask-pluginkit.rtfd.vip/zh_CN/latest/tutorial/third-party-plugin.html#how-to-develop-plugins>`_ ，
   除了第一步开发细节，其他流程差不多。
 
+.. |picbed_github_token| image:: /_static/images/picbed_github_token.png
+.. |picbed_github_hook| image:: /_static/images/picbed_github_hook.png
+.. |picbed_gitee_hook| image:: /_static/images/picbed_gitee_hook.png
