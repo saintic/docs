@@ -4,7 +4,7 @@
 概述
 ======
 
-基于Flask的Web自建图床，默认存储在本地，内置支持又拍云、七牛云、阿里云OSS、腾讯云COS等对象存储。
+基于Flask的Web自建图床，默认存储在本地，内置支持又拍云、七牛云、阿里云OSS、腾讯云COS等对象存储，支持GitHub、Gitee（码云）。
 
 GitHub：https://github.com/staugur/picbed
 
@@ -12,7 +12,7 @@ GitHub：https://github.com/staugur/picbed
 
 框架：Flask
 
-当前文档对应版本：v1.3.0
+当前文档对应版本：v1.4.0
 
 .. _picbed-features:
 
@@ -22,12 +22,6 @@ GitHub：https://github.com/staugur/picbed
 1. 可作为私有或公开的图床程序
 
 2. 可插拔的钩子管理器，允许第三方扩展功能点
-
-  - 扩展了如又拍云、七牛云、阿里云、腾讯云等后端存储
-
-  .. versionchanged:: 1.1.0
-
-      上述扩展已改为内置
 
   - 扩展了如sm.ms,superbed.cn等公共图床
 
@@ -42,7 +36,9 @@ GitHub：https://github.com/staugur/picbed
 
 5. 管理员控制台可配置全局参数定制站点信息以及用户个性自定义覆盖全局参数
 
-6. 支持PyPy、Python2.7、3.5+（推荐）
+6. 支持PyPy、Python2.7、3.5+（推荐），支持Docker且实时构建最新镜像传到官方仓库
+
+7. 支持油猴脚本（用户脚本） ，使用它，几乎可以采集全网图片！
 
 不足：
 -------
@@ -51,7 +47,7 @@ GitHub：https://github.com/staugur/picbed
 
 - 非专业前后端开发，UI、API设计差点意思
 
-- 基于redis的数据存储，虽响应快，但数据方面可能有些风险
+- 基于redis的数据存储，虽响应快，但数据存储方面可能有些风险
 
 .. _picbed-deploy:
 

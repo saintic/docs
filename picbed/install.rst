@@ -49,9 +49,9 @@
     ! 建议，如果你有git，可以：\ ``git clone https://github.com/staugur/picbed``
 
     ! 也可以下载压缩包：
-    
+
     .. code-block:: bash
-    
+
         $ wget -O picbed.zip https://codeload.github.com/staugur/picbed/zip/master
         $ unzip picbed.zip 
         $ mv picbed-master picbed
@@ -145,6 +145,12 @@ SecretKey         picbed_secretkey             无               App应用秘钥
 
     或者使用make start等同于上述命令，其他诸如: make stop, make restart, makre load, make status
 
+.. tip::
+
+    部署程序可以使用Docker，源码中已经写好了Dockerfile，您可以藉此构建或者
+    使用构建好的 `staugur/docker <https://hub.docker.com/r/staugur/picbed>`_ ，
+    详情请看 :ref:`picbed-docker-deploy`
+
 **NO.3 Nginx配置**
 -------------------
 
@@ -206,9 +212,3 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS:
 .. versionchanged:: 1.2.0
 
     增加了依赖，需要安装requests模块，已写到requirements/base.txt
-
-**NO.6 使用篇**
-----------------
-
-关于功能的使用，请看下一篇！
-

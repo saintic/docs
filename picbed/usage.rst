@@ -82,7 +82,7 @@ Token的使用也很简单，有两种方法：
 
 .. warning::
 
-    如需使用Token，那么墙裂建议使用基于它的 :ref:`LinkToken` ！
+    如需使用Token，那么墙裂建议使用基于它的 :ref:`LinkToken <LinkToken>` ！
 
 .. _picbed-usersetting:
 
@@ -137,10 +137,27 @@ picbed的URL后缀选项，就是定义分隔符和处理指令，当然由于�
 
 单独设置URL后缀也没有意义，需要结合应用场景使用：**图片加载时、URL、HTML、rST、Markdown**，
 后四个场景是在复制URL格式时（API、图片详情弹窗）使用，图片加载时是指
-浏览个人中心加载我的图片时使用URL后缀。
+浏览个人中心加载我的图片时使用URL后缀（包含查看图片详情时）。
 
 举例，保存到up2upyun又拍云的图片链接是A，设置后缀up2upyun:!small，应用到图片加载时场景，
 那么在打开个人中心浏览器请求的图片链接是 **A!small**
+
+1.2.3 用户自定义图片上传前缀和文件名
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. versionadded: 1.4.0
+
+|picbed_userdiyimg|
+
+v1.4.0之前上传图片只能根据全局设置保存图片的目录和文件名，现在用户可以自行
+修改规则。
+
+.. note::
+
+    登录用户上传的图片总是位于自己的用户名下，所以无论怎么修改都不影响别人，
+    但注意，如果规则中的默认选项（无子目录且使用文件原名），以前上传的图片
+    很有可能会被后上传的图片覆盖，而且保存图片的钩子可能不支持覆盖（目前
+    内置钩子只有GitHub、Gitee不会覆盖，上传提示失败）。
 
 .. _picbed-mypic:
 
@@ -152,7 +169,7 @@ picbed的URL后缀选项，就是定义分隔符和处理指令，当然由于�
 当然允许删除，不仅是逻辑删除，只要后端存储钩子支持亦会删除实际图片文件，
 目前的内置钩子均支持完全删除。
 
-图片详情中相册名是可以修改的，点击后面的√即可提交更新。
+图片详情中相册名是可以修改的，双击显示已有相册，点击后面的√即可提交更新。
 
 .. _picbed-control:
 
@@ -288,3 +305,4 @@ Web中只有首页可以上传，同时最多选择10张，默认支持jpg、jpe
 .. |image2| image:: /_static/images/picbed_hook.png
 .. |image3| image:: /_static/images/picbed_hooksetting.png
 
+.. |picbed_userdiyimg| image:: /_static/images/picbed_userdiyimg.png

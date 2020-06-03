@@ -6,6 +6,7 @@ picbed - 简约不小气的自建图床程序
 
     readme
     install
+    docker
     usage
     hook
     linktoken
