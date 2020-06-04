@@ -91,7 +91,7 @@
 
 - up2gitee
 
-    用来将上传的图片保存到 `Gitee（码云） <https://github.com>`_ ，也要先生成
+    用来将上传的图片保存到 `Gitee（码云） <https://github.com>`_ ，生成
     `私人令牌 <https://gitee.com/profile/personal_access_tokens/new>`_ ，勾选
     projects权限，其他不需要。
 

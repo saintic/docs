@@ -53,10 +53,27 @@ $(document).ready(function () {
         }
     }
 
+    //添加utterances评论
+    var hr = document.getElementsByTagName("footer")[0].getElementsByTagName("hr")[0];
+    hr.insertAdjacentHTML('beforebegin', '<section id="comment"></section>');
+    (function() {
+        // 匿名函数，防止污染全局变量
+        var utterances = document.createElement('script');
+        utterances.type = 'text/javascript';
+        utterances.async = true;
+        utterances.setAttribute('issue-term','title');
+        utterances.setAttribute('theme','github-light');
+        utterances.setAttribute('repo','saintic/docs');
+        utterances.crossorigin = 'anonymous';
+        utterances.src = 'https://utteranc.es/client.js';
+        document.getElementById('comment').appendChild(utterances);
+    })();
+
+    /*
     //添加Isso评论
     var isDirIndex = location.pathname.endsWith("/index.html");
     var hr = document.getElementsByTagName("footer")[0].getElementsByTagName("hr")[0];
-    hr.insertAdjacentHTML('beforebegin', '<section id="isso-thread"' + (isDirIndex ? (' data-isso-id="' + location.pathname.split("index.html")[0] + '"') : '') + '></section>');
+    hr.insertAdjacentHTML('beforebegin', '<section class=".utterances" id="isso-thread"' + (isDirIndex ? (' data-isso-id="' + location.pathname.split("index.html")[0] + '"') : '') + '></section>');
     var hs = document.createElement("script");
     hs.type = "text/javascript";
     hs.src = 'https://open.saintic.com/isso/docs/js/embed.min.js';
@@ -69,4 +86,5 @@ $(document).ready(function () {
         hs.dataset.issoId = location.pathname.split("index.html")[0];
     }
     document.getElementsByTagName('head')[0].appendChild(hs);
+    */
 });

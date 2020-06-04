@@ -38,3 +38,6 @@
     border-right: 10px solid transparent;
     border-bottom: 15px solid #fff;
 }
+.utterances {
+    margin-left: 0;
+}
