@@ -505,14 +505,10 @@ RESTful API
         $ curl -XPOST -H "Authorization: LinkToken xxxx" \
           http://127.0.0.1:9514/api/upload -d picbed="${url}"
         {
-            "msg": "No file or image format error",
-            "code": 1
-        }
-        $ curl -XPOST -H "Authorization: LinkToken xxxx" \
-          http://127.0.0.1:9514/api/upload -d picbed="${url}" -d filename="test.jpg"
-        {
             "code": 0
-            "src": "xxx"
+            "src": "xxx",
+            "filename": "xx",
+            "sender": "up2local"
         }
 
   - python

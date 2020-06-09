@@ -54,8 +54,6 @@ $(document).ready(function () {
     }
 
     //添加utterances评论
-    /*
-
     var hr = document.getElementsByTagName("footer")[0].getElementsByTagName("hr")[0];
     hr.insertAdjacentHTML('beforebegin', '<section id="comment"></section>');
     (function() {
@@ -70,8 +68,7 @@ $(document).ready(function () {
         utterances.src = 'https://utteranc.es/client.js';
         document.getElementById('comment').appendChild(utterances);
     })();
-    */
-
+    /*
     //添加Isso评论
     var isDirIndex = location.pathname.endsWith("/index.html");
     var hr = document.getElementsByTagName("footer")[0].getElementsByTagName("hr")[0];
@@ -88,4 +85,6 @@ $(document).ready(function () {
         hs.dataset.issoId = location.pathname.split("index.html")[0];
     }
     document.getElementsByTagName('head')[0].appendChild(hs);
+    */
+
 });

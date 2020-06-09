@@ -226,7 +226,9 @@ API
 程序有一个API接口是专门给钩子准备的，端点是 ``api.ep`` ，
 url是 ``/api/extendpoint`` ，仅支持POST方法，它从URL查询参数获取两个值：
 
-Object：即钩子模块名名，Action：钩子方法
+Object：即钩子模块名；
+
+Action：钩子方法
 
 钩子管理器定位到Object执行Action函数，Action如果返回Flask.Response子类，
 那么路由函数则会直接返回Action函数执行结果。
@@ -252,7 +254,7 @@ Object：即钩子模块名名，Action：钩子方法
 
 与上面不同，这些只作用在模板内，用来在页面某位置插入HTML代码。
 
-使用方法是，在钩子内，用 ``intpl_NAME`` 赋值，可以定义成字符串或者函数。
+使用方法是，在钩子内，用 ``intpl_NAME`` 赋值（intpl_是固定前缀），可以定义成字符串或者函数。
 
 如果是函数，那么会先执行函数（结果必须是字符串），
 其结果再判断是模板文件还是HTML代码。
@@ -293,6 +295,11 @@ HTML模板代码，前者以render_template渲染，后者以render_template_str
 - before_usersetting
 
   用户设置的站点个性化设置上面，表单内容，格式参考上面。
+
+.. tip::
+
+  由于前端页面使用 `Layui <https://www.layui.com/>`_ 框架，所以模板内表单
+  您需要对其格式有所了解。
 
 如何编写钩子？
 ----------------

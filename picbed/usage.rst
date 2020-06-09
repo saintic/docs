@@ -197,7 +197,7 @@ Chrome, Microsoft Edge, Safari, Opera Next, 和 Firefox。
 |picbed_userscript_install|
 
 安装完成后，在浏览器打开任意网站，鼠标移到图片上，Windows下是Ctrl/Alt键+右击，
-MacOS下使用Control/Option+点击），效果如下：
+MacOS下使用Control/Option+点击，效果如下：
 
 |picbed_userscript_upload|
 
