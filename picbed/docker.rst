@@ -39,7 +39,11 @@ Docker仅包含源码及其依赖的Python模块，不包含redis和nginx环境�
 2. 自行打包
 ~~~~~~~~~~~~~~~~
 
-v1.4.0增加了Dockerfile文件，它使用alpine3.11 + python3.6，构建完成大概290M，
+v1.4.0增加了Dockerfile文件，它使用alpine3.11 + python3.6，构建完成大概290M。
+
+.. versionchanged:: 1.6.0
+
+    重写了Dockerfile，采用分阶段构建，最终打包150M左右。
 
 打包步骤如下：
 
@@ -59,15 +63,17 @@ v1.4.0增加了Dockerfile文件，它使用alpine3.11 + python3.6，构建完成
   .. code-block:: bash
 
     $ git clone https://github.com/staugur/picbed && cd picbed
-    $ docker build -t staugur/picbed . --build-arg ALPINEMIRROR=dl-cdn.alpinelinux.org --build-arg PIPMIRROR=https://pypi.org/simple
+    $ docker build -t staugur/picbed . --build-arg ALPINEMIRROR=dl-cdn.alpinelinux.org --build-arg PIPMIRROR=https://pypi.org/simple --build-arg DEBIANMIRROR=deb.debian.org
+
+.. tip::
+
+    由于Dockerfile安装了所有依赖（包括本地禁用的扩展依赖），但实际上可能用
+    不着所有，故可以修改Dockerfile的 `pip install` 部分，仅安装/requirements/prod.txt
 
 3. 启动运行
 ~~~~~~~~~~~~~~~
 
-您可以单独启动picbed镜像，或者使用docker-compose启动包括redis、nginx在内的
-所有依赖环境。
-
-启动一个容器：
+3.1 单独启动
 
 .. code-block:: bash
 
@@ -94,6 +100,22 @@ v1.4.0增加了Dockerfile文件，它使用alpine3.11 + python3.6，构建完成
     root     23546  0.0  1.1  25700 20740 pts/0    S+   10:11   0:00 gunicorn: master [picbed]
     root     23548  0.0  2.1  49216 39936 pts/0    Sl+  10:11   0:01 gunicorn: worker [picbed]
 
+3.2 使用docker-compose启动
+
+.. versionadded:: 1.6.0
+
+编写了一个简单docker-compose.yml，构建并启动picbed和redis，无nginx，
+redis开启AOF，宿主机映射9514端口以供外部访问。
+
+.. code-block:: bash
+
+    $ docker-compose up -d
+    $ docker-compose ps
+        Name                 Command               State           Ports         
+    ---------------------------------------------------------------------------------
+    picbed_redis_1    docker-entrypoint.sh redis ...   Up      6379/tcp              
+    picbed_webapp_1   sh online_gunicorn.sh run        Up      0.0.0.0:9514->9514/tcp
+
 4. 后续
 ~~~~~~~~~~~~
 
@@ -105,5 +127,11 @@ nginx配置自然还是要有的，遗憾的是在容器内静态资源不方便
 .. code-block:: bash
 
     $ docker exec -i picbed flask sa create -u 管理员账号 -p 密码 --isAdmin
+
+如果使用docker-compose启动，命令如下：
+
+.. code-block:: bash
+
+    $ docker-compose exec webapp flask sa create -u 管理员账号 -p 密码 --isAdmin
 
 其他额外选项，如昵称、头像就不说了。

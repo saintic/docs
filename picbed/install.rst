@@ -30,6 +30,11 @@
 
     一定记得修改redis配置文件，开启密码和AOF持久化，否则有被入侵和数据丢失风险。
 
+.. tip::
+
+    v1.6.0及之后版本兼容了redis cluster集群模式，可以将数据存到集群中，
+    具体参考配置。
+
 .. _picbed-install-no2:
 
 **NO.2 部署程序**
@@ -91,8 +96,8 @@
 
         $ pip install -r requirements/all.txt
 
-    requirements目录几个txt文件，up2xxx都是独立的，dev/prod依赖基础的base.txt，而
-    终极大法就是all.txt，直接安装了所有依赖。
+requirements目录几个txt文件，up2xxx都是独立的，dev/prod依赖基础的base.txt，
+而终极大法就是all.txt，直接安装了所有依赖。
 
 .. _picbed-config:
 
@@ -131,6 +136,11 @@ SecretKey         picbed_secretkey             无               App应用秘钥
     或者
     $ cat .cfg
     picbed_redis_url=redis://:password@127.0.0.1:6379/1
+
+.. versionchanged:: 1.6.0
+
+    v1.6.0支持redis cluster集群连接，格式：``rediscluster://host:port,host:port...``
+    其他地方无需修改，暂不支持密码
 
 2.4 启动程序
 ^^^^^^^^^^^^^^
@@ -209,6 +219,19 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS:
     reload/restart在大部分情况下都可以重载代码和配置(从.cfg读取)，但是如果
     需要从环境变量重新读取配置，那么只能用restart。
 
-.. versionchanged:: 1.2.0
+下面提到的版本在升级时需要注意，未提及的直接更新代码和程序即可。
 
-    增加了依赖，需要安装requests模块，已写到requirements/base.txt
+- v1.2.0
+
+    增加了依赖，需要安装requests模块（pip install requests），
+    已写到requirements/base.txt
+
+- v1.6.0
+
+    兼容了redis cluster集群模式，如果使用此存储，需要安装redis-py-cluster模块
+
+    .. code-block:: bash
+    
+        $ pip install redis-py-cluster>1.0.0
+    
+    此依赖已写到requirements/optional.txt文件中

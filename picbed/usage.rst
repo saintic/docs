@@ -209,7 +209,9 @@ MacOS下使用Control/Option+点击，效果如下：
 
   - 包裹了蒙层无法上传
 
-  - 部分网站CSP限制等
+  - 部分网站CSP限制导致无法上传
+
+  - picbed无https而采集https页面图片时无法上传
 
   - 但是，还有一条限制！
 
@@ -239,12 +241,22 @@ MacOS下使用Control/Option+点击，效果如下：
 
 图片详情中相册名是可以修改的，双击显示已有相册，点击后面的√即可提交更新。
 
+1.4 统计图表
+++++++++++++++
+
+.. versionadded:: 1.6.0
+
+初版的LinkToken调用统计表，展示了什么时间在什么系统、设备、浏览器上调用了
+LinkToken哪个接口，以及认证与授权结果。
+
 .. _picbed-control:
 
 2. 控制台
 ---------------
 
 管理员功能，进行诸如站点设置、钩子扩展等管理（下图可能非最新内容）。
+
+具体内容请参考 :ref:`picbed-admin`
 
 |image1|
 
@@ -279,7 +291,7 @@ MacOS下使用Control/Option+点击，效果如下：
 
 Web中只有首页可以上传，同时最多选择10张，默认支持jpg、jpeg、gif、bmp、png、webp（管理员可修改，可以增加有效的图片后缀，如ico、svg），每张最大10M，上传成功后可以复制多个格式的图片链接，比如HTML、Markdown、reStructuredText(rST)和URL本身。
 
-当然也可以使用API接口上传，而且首页上传也是依托接口，您还可以通过HTTP
+当然也可以使用API接口上传，而且首页上传也是依托接口，另外您还可以通过HTTP
 或其他图床桌面程序上传，使用Token/LinkToken做用户认证。
 
 .. versionchanged:: 1.2.0
@@ -294,10 +306,11 @@ Web中只有首页可以上传，同时最多选择10张，默认支持jpg、jpe
 
     - API也支持了图片链接上传。
 
-      符合http://或https://的合法URL会进入图片链接上传模式，
+      符合 `http://` 或 `https://` 的合法URL会进入图片链接上传模式，
       :ref:`参考Upload Api <picbed-api-upload>`
 
-以下是几个客户端(通过API)上传的示例：
+3.1 以下是几个客户端(通过API)上传的示例：
++++++++++++++++++++++++++++++++++++++++++++
 
 - 使用PicGo上传到自定义的picbed图床
 
@@ -351,6 +364,57 @@ Web中只有首页可以上传，同时最多选择10张，默认支持jpg、jpe
         # 如需设置相册，请增加Body字段，key为album，value即相册名
 
     URL路径：["src"]
+
+3.2 cli.py上传
++++++++++++++++
+
+.. versionadded:: 1.6.0
+
+位于源码仓库 `misc/cli.py <https://github.com/staugur/picbed/blob/master/misc/cli.py>`_
+脚本，可以单独使用，用以命令行形式上传本地图片，
+不依赖第三方模块，支持python2.7、3.x
+
+.. code-block:: bash
+
+    $ python cli.py -h
+    usage: cli.py [-h] -u PICBED_URL [-t PICBED_TOKEN] [-a ALBUM]
+            [-s {default,typora}]
+            file [file ...]
+
+    positional arguments:
+        file                  Local file
+
+    optional arguments:
+        -h, --help          show this help message and exit
+        -u PICBED_URL, --picbed-url PICBED_URL
+                            The picbed upload api url
+        -t PICBED_TOKEN, --picbed-token PICBED_TOKEN
+                            Your LinkToken
+        -a ALBUM, --album ALBUM
+                            Set image album
+        -s {default,typora}, --style {default,typora}
+                            upload result output style
+
+-u: 指定图床的服务地址，http[s]://你的picbed域名
+
+-t: 设置LinkToken认证、授权，拥有 ``api.upload`` 的 ``post`` 权限
+
+-s: 指定输出风格，默认原样返回API响应
+
+其他：-a指定相册名称，-h查看帮助信息
+
+**应用示例：作为自定义命令在使用Typora时上传图片到picbed**
+
+`Typora <https://typora.io>`_ 是一款跨平台的Markdown编辑器，
+在编写内容时可以对图片进行特殊处理，比如上传图片。
+
+打开Typora，定位到偏好设置-图像，选择插入图片时-上传图片，上传服务设定：
+
+上传服务：Custom Command
+
+自定义命令：python cli.py -u {picbed url} -t {LinkToken} -s typora
+
+测试：点击『验证图片上传选项』按钮，验证是否成功。
 
 4. 钩子
 --------

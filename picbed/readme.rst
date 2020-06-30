@@ -12,14 +12,14 @@ GitHub：https://github.com/staugur/picbed
 
 框架：Flask
 
-当前文档对应版本：v1.5.1
+当前文档对应版本：v1.6.0
 
 .. _picbed-features:
 
 功能：
 ------
 
-1. 可作为私有或公开的图床程序
+1. 可作为私有或公共（多用户）的图床程序
 
 2. 可插拔的钩子管理器，允许第三方扩展功能点
 
@@ -44,8 +44,6 @@ GitHub：https://github.com/staugur/picbed
 -------
 
 - 图床管理暂时不能批量化
-
-- 非专业前后端开发，UI、API设计差点意思
 
 - 基于redis的数据存储，虽响应快，但数据存储方面可能有些风险
 

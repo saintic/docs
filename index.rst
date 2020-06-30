@@ -73,7 +73,6 @@ SaintIC：[开源]项目、服务文档!
 
 -  加Q群：`577543189 <https://jq.qq.com/?_wv=1027&k=5aZyCMV>`_
 -  收邮件： staugur\@saintic.com
--  热烈欢迎star、pr、issue或加入 `github组织 <https://github.com/saintic>`_
 -  `留言反馈 <https://passport.saintic.com/feedback.html>`_
 
 .. _End:
