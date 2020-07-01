@@ -228,10 +228,17 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS:
 
 - v1.6.0
 
-    兼容了redis cluster集群模式，如果使用此存储，需要安装redis-py-cluster模块
+    1. 兼容了redis cluster集群模式，如果使用此存储，需要安装redis-py-cluster模块
 
     .. code-block:: bash
     
         $ pip install redis-py-cluster>1.0.0
     
     此依赖已写到requirements/optional.txt文件中
+
+    2. LinkToken统计功能设计更改
+    
+    旧版本调用统计写入到redis的 `picbed:report:linktokens` 中，此版本改为
+    `picbed:report:linktokens:{username}`
+
+    如果需要旧数据，可以将旧版key改名，加上 `:{your username}`
