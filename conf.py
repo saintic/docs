@@ -15,7 +15,7 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
-import sphinx_rtd_theme
+# import sphinx_rtd_theme
 
 # -- Project information -----------------------------------------------------
 
@@ -78,28 +78,73 @@ pygments_style = None
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
-html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+html_theme = 'sphinx_materialdesign_theme'
+# html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
 html_theme_options = {
-    # Toc options
-    'collapse_navigation': True,
-    'sticky_navigation': True,
+    # Specify a list of menu in Header.
+    # Tuples forms:
+    #  ('Name', 'external url or path of pages', boolean, 'icon name')
+    #
+    # Third argument:
+    # True indicates an external link.
+    # False indicates path of pages in the document.
+    #
+    # Fourth argument:
+    # Specify the icon name.
+    # For details see link.
+    # https://material.io/icons/
+    'header_links': [
+        ("Home", 'index', False, 'home'),
+        ("GitHub  ", "https://github.com/staugur", True, 'link'),
+        ("主站", "https://www.saintic.com", True, 'link'),
+        ("博客", "https://blog.saintic.com", True, 'link'),
+        ("诏预", "https://open.saintic.com", True, 'link'),
+    ],
+
+    # Customize css colors.
+    # For details see link.
+    # https://getmdl.io/customize/index.html
+    #
+    # Values: amber, blue, brown, cyan deep_orange, deep_purple, green, grey,
+    #         indigo, light_blue, light_green, lime, orange, pink, purple, red,
+    #         teal, yellow(Default: indigo)
+    'primary_color': 'teal',
+    # Code? Values: Same as primary_color. (Default: pink)
+    'accent_color': 'pink',
+
+    # Customize layout.
+    # For details see link.
+    # https://getmdl.io/components/index.html#layout-section
+    'fixed_drawer': True,  # 侧边栏
+    'fixed_header': True,
+    'header_waterfall': True,   # header导航部分随滚动时隐藏
+    'header_scroll': False,  # 貌似是侧栏和header滚动
+
+    # Render title in header.
+    # Values: True, False (Default: False)
+    'show_header_title': False,
+    # Render title in drawer.
+    # Values: True, False (Default: True)
+    'show_drawer_title': True,
+    # Render footer.
+    # Values: True, False (Default: True)
+    'show_footer': False
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
-
 html_css_files = ['css/my.css?v=' + version]
 html_js_files = ['js/my.js?v=' + version]
 html_logo = '_static/images/logo.png'
 html_favicon = '_static/images/favicon.png'
+html_show_sourcelink = False
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.

@@ -13,6 +13,9 @@ $(document).ready(function () {
     //设置sphinx_rtd_theme右侧内容占据全部宽度 [已通过css更改样式]
     //$('div.wy-nav-content').css('max-width','100%');
 
+    //关闭readthedocs.org的广告
+    //$('.ethical-rtd.ethical-dark-theme').css('display', 'none');
+
     //百度统计
     if (window.location.host === "docs.saintic.com") {
         var _hmt = _hmt || [];
@@ -22,10 +25,8 @@ $(document).ready(function () {
         s.parentNode.insertBefore(hm, s);
     }
 
-    //关闭readthedocs.org的广告
-    $('.ethical-rtd.ethical-dark-theme').css('display', 'none');
-
     //插入名句
+    /*
     $.ajax({
         url: "https://open.saintic.com/api/sentence/all.svg?has-url=true&inline-style=true&font-size=16",
         type: "GET",
@@ -35,6 +36,7 @@ $(document).ready(function () {
             }
         }
     });
+    */
 
     //强制http跳转到https
     if (window.location.protocol != "https:" && window.location.host === "docs.saintic.com") {
@@ -54,8 +56,14 @@ $(document).ready(function () {
     }
 
     //添加utterances评论
+    /*sphinx_rtd_theme
     var hr = document.getElementsByTagName("footer")[0].getElementsByTagName("hr")[0];
     hr.insertAdjacentHTML('beforebegin', '<section id="comment"></section>');
+    */
+    var div = document.createElement("div");
+    div.className = "section";
+    div.id = "comment";
+    document.querySelector("main .document .page-content").appendChild(div);
     (function() {
         // 匿名函数，防止污染全局变量
         var utterances = document.createElement('script');
@@ -86,5 +94,4 @@ $(document).ready(function () {
     }
     document.getElementsByTagName('head')[0].appendChild(hs);
     */
-
 });
