@@ -24,12 +24,12 @@ SaintIC：[开源]项目、服务文档!
     tdi-node/index
     rtfd/index
     securehttp.js/index
-    picbed/index
 
 .. toctree::
     :hidden:
     :caption: 独立文档
 
+    picbed - 简约的自建图床程序 <https://picbed.rtfd.vip>
     Flask-PluginKit <https://flask-pluginkit.rtfd.vip>
     Python-SecureHTTP <https://python-securehttp.rtfd.vip>
     Isso中文文档 <https://isso-cn.rtfd.vip>
