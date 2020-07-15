@@ -15,7 +15,7 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
-# import sphinx_rtd_theme
+import sphinx_rtd_theme
 
 # -- Project information -----------------------------------------------------
 
@@ -24,7 +24,7 @@ copyright = u'2019, SaintIC'
 author = u'SaintIC'
 
 # The short X.Y version
-version = u'0.4'
+version = u'0.5'
 # The full version, including alpha/beta/rc tags
 release = u''
 
@@ -76,13 +76,19 @@ pygments_style = None
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_materialdesign_theme'
-# html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+# html_theme = 'sphinx_materialdesign_theme'
+html_theme = 'sphinx_rtd_theme'
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
+html_theme_options = {
+    'collapse_navigation': True,
+    'sticky_navigation': True,
+}
+'''
 html_theme_options = {
     # Specify a list of menu in Header.
     # Tuples forms:
@@ -133,6 +139,7 @@ html_theme_options = {
     # Values: True, False (Default: True)
     'show_footer': False
 }
+'''
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

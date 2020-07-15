@@ -26,7 +26,6 @@ $(document).ready(function () {
     }
 
     //插入名句
-    /*
     $.ajax({
         url: "https://open.saintic.com/api/sentence/all.svg?has-url=true&inline-style=true&font-size=16",
         type: "GET",
@@ -36,7 +35,6 @@ $(document).ready(function () {
             }
         }
     });
-    */
 
     //强制http跳转到https
     if (window.location.protocol != "https:" && window.location.host === "docs.saintic.com") {
@@ -56,14 +54,14 @@ $(document).ready(function () {
     }
 
     //添加utterances评论
-    /*sphinx_rtd_theme
     var hr = document.getElementsByTagName("footer")[0].getElementsByTagName("hr")[0];
     hr.insertAdjacentHTML('beforebegin', '<section id="comment"></section>');
-    */
+    /* sphinx materialdesign theme
     var div = document.createElement("div");
     div.className = "section";
     div.id = "comment";
     document.querySelector("main .document .page-content").appendChild(div);
+    */
     (function() {
         // 匿名函数，防止污染全局变量
         var utterances = document.createElement('script');
