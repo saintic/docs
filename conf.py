@@ -15,7 +15,7 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
-import sphinx_rtd_theme
+# import sphinx_rtd_theme
 
 # -- Project information -----------------------------------------------------
 
@@ -65,7 +65,7 @@ language = "zh_CN"
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = [u'_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = None
@@ -77,18 +77,24 @@ pygments_style = None
 # a list of builtin themes.
 #
 # html_theme = 'sphinx_materialdesign_theme'
-html_theme = 'sphinx_rtd_theme'
-html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+# html_theme = 'sphinx_rtd_theme'
+# html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+
+html_theme = 'sphinx_typlog_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
 html_theme_options = {
+    'color': '#009688',
+}
+'''
+# sphinx_rtd_theme
+html_theme_options = {
     'collapse_navigation': True,
     'sticky_navigation': True,
 }
-'''
 html_theme_options = {
     # Specify a list of menu in Header.
     # Tuples forms:
@@ -150,7 +156,14 @@ html_js_files = ['js/my.js?v=' + version]
 html_logo = '_static/images/logo.png'
 html_favicon = '_static/images/favicon.png'
 html_show_sourcelink = False
-
+html_sidebars = {
+    '**': [
+        'mylogo.html',
+        'globaltoc.html',
+        'links.html',
+        'searchbox.html',
+    ]
+}
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
 #
@@ -170,15 +183,15 @@ htmlhelp_basename = 'SaintICdoc'
 
 # -- Options for LaTeX output ------------------------------------------------
 latex_elements = {
-# The paper size ('letterpaper' or 'a4paper').
-#'papersize': 'letterpaper',
+    # The paper size ('letterpaper' or 'a4paper').
+    # 'papersize': 'letterpaper',
 
-# The font size ('10pt', '11pt' or '12pt').
-#'pointsize': '10pt',
+    # The font size ('10pt', '11pt' or '12pt').
+    # 'pointsize': '10pt',
 
-# Additional stuff for the LaTeX preamble.
-#'preamble': '',
-'preamble': r'''
+    # Additional stuff for the LaTeX preamble.
+    # 'preamble': '',
+    'preamble': r'''
 \hypersetup{unicode=true}
 \usepackage{CJKutf8}
 \DeclareUnicodeCharacter{00A0}{\nobreakspace}
@@ -219,7 +232,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'SaintIC', u'SaintIC Documentation', author, 'SaintIC', 'One line description of project.', 'Miscellaneous'),
+    (master_doc, 'SaintIC', u'SaintIC Documentation', author,
+     'SaintIC', 'One line description of project.', 'Miscellaneous'),
 ]
 
 

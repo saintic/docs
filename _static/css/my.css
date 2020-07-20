@@ -41,3 +41,11 @@
 .utterances {
     margin-left: 0;
 }
+
+.my-logo a:hover {
+    text-decoration: none;
+    border-bottom: 0px;
+}
+.t-content > footer a {
+    text-decoration: none;
+}

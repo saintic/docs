@@ -54,14 +54,20 @@ $(document).ready(function () {
     }
 
     //添加utterances评论
+    /* sphix rtd theme
     var hr = document.getElementsByTagName("footer")[0].getElementsByTagName("hr")[0];
     hr.insertAdjacentHTML('beforebegin', '<section id="comment"></section>');
+    */
     /* sphinx materialdesign theme
     var div = document.createElement("div");
     div.className = "section";
     div.id = "comment";
     document.querySelector("main .document .page-content").appendChild(div);
     */
+    var div = document.createElement("div");
+    div.className = "section";
+    div.id = "comment";
+    document.querySelector(".t-content .t-body").appendChild(div);
     (function() {
         // 匿名函数，防止污染全局变量
         var utterances = document.createElement('script');
