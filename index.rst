@@ -2,7 +2,7 @@ SaintIC：[开源]项目、服务文档!
 ==================================
 
 :Author: staugur
-:Contact: staugur\@saintic.com
+:Contact: me\@tcw.im
 :Website: https://www.saintic.com
 
 .. meta::
@@ -53,8 +53,11 @@ SaintIC：[开源]项目、服务文档!
     - open.saintic.com: 开放的接口、服务、工具等，会将有趣的东西放上去；
     - www.saintic.com: 早先是博客主域名，后来单独搞一个页面分离出来，目前就是一个导航作用；
     - blog.saintic.com: 技术博客，一些项目介绍、一些技术记录，主要是运维、Python方面；
+      - 托管于GitHub Pages的全静态站，对外域名: `tcw.im`
+      - `blog.saintic.com`用于国内访问，使用又拍云缓存的GitHub Pages
     - passport.saintic.com: 用来认证的应用，统一登录、注册；
-    - 其他诸如swarmops、incetops等项目演示站, **satic.cn**, **rtfd.vip** 等相关域名。
+    - 其他诸如swarmops、incetops等项目演示站
+    - 个人其他域名，如 **satic.cn**, **rtfd.vip**, **tcw.im**, **picbed.pro**
 
 .. _Link:
 
@@ -71,5 +74,5 @@ SaintIC：[开源]项目、服务文档!
 ~~~~~~
 
 -  加Q群：`577543189 <https://jq.qq.com/?_wv=1027&k=5aZyCMV>`_
--  收邮件： staugur\@saintic.com
+-  收邮件： me\@tcw.im
 -  `留言反馈 <https://passport.saintic.com/feedback.html>`_
