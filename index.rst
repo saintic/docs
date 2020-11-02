@@ -51,12 +51,19 @@ SaintIC：[开源]项目、服务文档!
 -  此域名： **saintic.com** 是2014年底注册的，已备案，托管于阿里云，目前主要用来运行博客、公共接口及服务、项目演示等，全站支持https，具体域名：
 
     - open.saintic.com: 开放的接口、服务、工具等，会将有趣的东西放上去；
+
     - www.saintic.com: 早先是博客主域名，后来单独搞一个页面分离出来，目前就是一个导航作用；
+
     - blog.saintic.com: 技术博客，一些项目介绍、一些技术记录，主要是运维、Python方面；
-      - 托管于GitHub Pages的全静态站，对外域名: `tcw.im`
-      - `blog.saintic.com`用于国内访问，使用又拍云缓存的GitHub Pages
+
+      - 托管于GitHub Pages的全静态站，对外域名: *tcw.im*
+
+      - *blog.saintic.com* 用于国内访问，使用又拍云缓存的GitHub Pages
+
     - passport.saintic.com: 用来认证的应用，统一登录、注册；
+
     - 其他诸如swarmops、incetops等项目演示站
+
     - 个人其他域名，如 **satic.cn**, **rtfd.vip**, **tcw.im**, **picbed.pro**
 
 .. _Link:
@@ -67,12 +74,3 @@ SaintIC：[开源]项目、服务文档!
 -  大概是官网吧：https://www.saintic.com
 -  GitHub：https://github.com/staugur
 -  码云：https://gitee.com/staugur
-
-.. _Feedback:
-
-反馈
-~~~~~~
-
--  加Q群：`577543189 <https://jq.qq.com/?_wv=1027&k=5aZyCMV>`_
--  收邮件： me\@tcw.im
--  `留言反馈 <https://passport.saintic.com/feedback.html>`_
