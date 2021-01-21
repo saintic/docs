@@ -18,6 +18,10 @@ Badge: |DocsStatus|
 
 GitHub: https://github.com/staugur/rtfd
 
+.. note::
+
+    Golang重构中
+
 .. _rtfd-features:
 
 功能
