@@ -4,7 +4,7 @@
 概述
 ======
 
-rtfd是一个基于sphinx来构建文档的命令工具，用来生成私有文档。
+rtfd是一个基于sphinx来构建文档的命令工具，用来生成文档。
 
 类似于 ``readthedocs.org`` 提供的服务，当然功能是比不上的，只是作为备用工具使用。
 
@@ -12,15 +12,18 @@ rtfd是一个基于sphinx来构建文档的命令工具，用来生成私有文�
 
 值得注意的是，大多数情况下，这个命令工具你是用不到的，此文档仅以记录使用方法。
 
-Badge: |DocsStatus|
+Badge: |Document Status|
 
-.. |DocsStatus| image:: https://open.saintic.com/rtfd/badge/saintic-docs
+.. |Document Status| image:: https://open.saintic.com/rtfd/saintic-docs/badge
 
 GitHub: https://github.com/staugur/rtfd
 
 .. note::
 
-    Golang重构中...
+    在 github 中可以看到，之前是用 Python 编写，但后来用 Golang 重构，
+    发布正式版本 v1.0.0 ！
+
+    当前文档为1.0新版，如果您要查看旧版文档，请转到 :ref:`rtfd-py <rtfd-py-overview>`
 
 .. _rtfd-features:
 
@@ -31,7 +34,7 @@ GitHub: https://github.com/staugur/rtfd
 
 - 配置简单，rtfd配置依靠ini文件，构建文档时也支持直接写ini文件配置文档所需环境
 
-- 支持https(HTTP2、TLS1.3)，支持自定义域名（包含HTTPS的支持）
+- 支持https（HTTP2、TLS1.3），支持自定义域名（包含HTTPS的支持）
 
 - 文档项目直接支持多语言(翻译)和多标签(版本)，在页面右下角有按钮可以显示
 
@@ -54,17 +57,39 @@ GitHub: https://github.com/staugur/rtfd
 安装
 ======
 
-rtfd本身依赖Flask-PluginKit>=3.5.0、Click>=7.0、configparser模块，
-理论上支持Python2.7和3.5+，您可以在virtualenv、或在全局环境中安装。
+rtfd仅支持Linux操作系统，测试过CentOS/RHEL、Ubuntu系列，不可用于macOS、Windows系统。
 
-- 正式版本
+- 得益于 golang 编译优势，源码最终打包成单个可执行二进制程序，下载即可使用。
+  
+  .. code-block:: bash
 
-    `$ pip install -U rtfd`
+    version=1.0.0
+    wget -c https://github.com/staugur/rtfd/releases/download/v${version}/rtfd.${version}-linux-amd64.tar.gz
+    tar zxf rtfd.${version}-linux-amd64.tar.gz
+    mv rtfd ~/bin/
+    rtfd -v
 
-- 开发版本
+- 如果您本地有golang（v1.16+），可以使用以下命令安装：
 
-    `$ pip install -U git+https://github.com/staugur/rtfd.git@master`
+  .. code-block:: bash
 
-.. note::
+    go get -u tcw.im/rtfd      # 可使用 @tag 安装正式版本
+    mv ~/go/bih/rtfd ~/bin/
+    rtfd -v
 
-    Flask-PluginKit在v3.0时重构，v3.3.1前不兼容旧版本，若有使用此模块请注意！
+- 使用docker下载：
+
+  .. code-block:: bash
+
+    docker pull staugur/rtfd   # 可使用 :tag 拉取正式版本
+
+- 从源码编译（要求golang v1.16+）：
+
+  .. code-block:: bash
+
+    git clone https://github.com/staugur/rtfd.git && cd rtfd
+    make build
+
+需要注意的是，rtfd二进制文件需要放到PATH环境变量下，因为内部会调用此命令，避免找不到。
+
+您已安装完毕，接下来看看使用命令行和API前的依赖环境准备。

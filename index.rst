@@ -28,7 +28,7 @@ SaintIC：[开源]项目、服务文档!
 .. toctree::
     :caption: 独立文档
 
-    sapic - 简约的自建图床程序 <https://picbed.rtfd.vip>
+    sapic - 简约的自建图床程序 <https://sapic.rtfd.vip>
     Flask-PluginKit <https://flask-pluginkit.rtfd.vip>
     Python-SecureHTTP <https://python-securehttp.rtfd.vip>
     Isso中文文档 <https://isso-cn.rtfd.vip>

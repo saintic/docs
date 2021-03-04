@@ -9,18 +9,20 @@
 依赖
 =====
 
-rtfd依赖的外部环境是nginx、python。
+rtfd本身仅仅是一个命令行程序，其需要一份配置文件来指导说明它如何工作，而它依赖操作系统内的
+环境是nginx、python、redis。
 
 Nginx
 -----
 
 Sphinx生成HTML文档，Nginx用来接收web请求，要求版本不小于1.15.0，且有一个托管域名，
-另外用户需要有权限执行 `nginx` 相关命令，比如 ``sudo nginx`` 。
+另外用户需要有权限执行 `nginx` 相关命令，可能需要 sudo 权限。
 
 关于托管域名需要说明下，需要的是一个域名后缀，文档项目创建时会依据文档项目名和托管域名
 生成文档对应的域名，所以这个域名要求有一个默认解析。
-比如托管域名是 ``rtfd.vip`` ，需要添加一条 ``*.rtfd.vip`` 的A记录或CNAME记录指向
-Nginx服务器。
+
+比如托管域名是 ``rtfd.vip`` ，需要添加一条 ``*.rtfd.vip`` 的A记录或CNAME记录指向rtfd
+运行的这台服务器。
 
 如果要开启https，还需要证书，要求支持通配符。
 
@@ -31,112 +33,95 @@ Python要求python2和python3两个版本，且都安装了virtualenv模块，�
 
 安装virtualenv模块可以使用命令： `python -m pip install virtualenv`
 
+Redis
+------
+
+rtfd需要redis数据库，本来是要用一个内嵌型的DB，可是写完了测试发现严重问题，还是决定用redis
+存储数据了，版本的话，2.x、3.x、4.x都可以，更高版本应该也没问题。
+
+redis要开启AOF，避免数据丢失！
+
+.. _rtfd-usgae-workflow:
+
+工作流程
+==========
+
+rtfd所有操作均为命令行执行，通过全局选项 `-c/--config` 读取配置文件（数据、存储等）。
+
+使用时先初始化配置文件（仅首次使用时），
+然后创建文档项目（生成一系列项目配置，最重要的是默认域名），
+之后构建文档生成HTML页面（参考 FAQ :ref:`构建流程 <rtfd-faq-build-progress>` 说明），
+此时可以通过默认域名访问文档了。
+
+启动API服务，否则访问页面时无法加载 rtfd.js 初始化导航按钮（位于右下角，
+展开包含语言、版本、Git等）。
+
 .. _rtfd-usgae-quickstart:
 
 快速开始
 =========
 
-rtfd模块安装完成后，会在系统中生成一个 `rtfd` 命令，它的帮助信息可以使用 `-h/--help`
-查看，它的版本可以使用 `-v/--version` 获得。
+rtfd安装完成后，可直接使用 `rtfd` 命令，它的帮助信息可以使用 `-h/--help`
+查看，它的版本可以使用 `-v/--version` 获得，详细信息可以使用 `-i/--info` 获得。
 
 .. code-block:: bash
 
     $ rtfd -v
-    0.4.2
+    1.0.0
 
-在最初编写此文档时，rtfd版本0.2.0！
-
-.. versionchanged:: 0.3.0
-
-.. versionchanged:: 0.4.0
-
-    - 构建钩子
-    - 多选构建器
-    - 前端导航和脚本、API消息接口等
-
-.. versionchanged:: 0.4.2
-
-    - api内部变更
-    - 支持构建任意分支
-    - 其他参见changlog
-
-.. code-block:: bash
+    $ rtfd -i
+    v1.0.0 commit/41accab built/2021-03-04T03:24:02Z
 
     $ rtfd -h
-    Usage: rtfd [OPTIONS] COMMAND [ARGS]...
+    Build, read your exclusive and fuck docs.
 
-    Options:
-        -v, --version
-        -h, --help     Show this message and exit.
+    Usage:
+      rtfd [flags]
+      rtfd [command]
 
-    Commands:
-        api      以开发模式运行API
-        build    构建文档
-        cfg      查询配置文件的配置内容
-        init     初始化rtfd
-        project  文档项目管理
+    Available Commands:
+      api         运行API服务
+      build       构建文档
+      cfg         查询配置文件的配置内容
+      project     文档项目管理（可用别名p代替project）
+      help        Help about any command
 
-以上是帮助信息，支持5个子命令，子命令也可以使用 `-h/--help` 显示帮助。
+    Flags:
+      -v, --version         显示版本
+      -i, --info            显示版本与构建信息
+          --init            初始化rtfd配置文件
+      -c, --config string   rtfd配置文件 (default "/root/.rtfd.cfg")
+      -h, --help            help for rtfd
 
-安装完rtfd，准备好依赖环境，就可以开始使用了。
+    Use "rtfd [command] --help" for more information about a command.
+
+以上是帮助信息，支持的子命令也可以使用 `-h/--help` 显示帮助。
+
+安装完rtfd，准备好依赖环境（nginx+python），就可以开始使用了。
 
 .. _rtfd-usgae-quickstart-no1:
 
 一、初始化配置文件
 --------------------
 
-init子命令，这一步基本只用一次，在没有rtfd的配置文件时生成配置，如果已有则会直接退出。
+如上所述，rtfd任何操作都需要一个配置文件来指导它，默认读取 **$HOME/.rtfd.cfg** ，
+是用户级的，所以切换不同用户，rtfd的数据都会不一样！
 
-使用 ``rtfd init -h`` 查看提示，大部分选项设置了默认值，请根据提示和配置模板填写。最
-需要设置的是 ``-b/--basedir`` 选项，设置rtfd数据的基础目录，所有数据都会存放在此目录
-下；配置文件的选项 ``-c/--config`` 强烈建议保持默认值，即 ``${HOME}/.rtfd.cfg`` ！
-配置文件决定了数据目录，也就是说不同配置文件可以有不同数据目录，一个系统中可以存在多个
-rtfd的服务。
+配置文件使用全局选项 `-c/--config` 指定，使用 `rtfd --init` 可以生成初始配置文件，
+，生成文件路径也是 `-c` 指定，不会覆盖，如果已有则会直接退出。
 
-另一个需要注意的选项是 ``--nginx-dn`` ，这是前面准备的托管域名，比如 ``rtfd.vip`` ！
+请自行修改生成的配置文件（默认 $HOME/.rtfd.cfg），ini格式，大部分选项可保持默认，根据
+注释修改即可。
 
-注意到有两个选项 ``--nginx-ssl-crt和key`` ，其默认值有点特别，是个变量，其中
-的 `g.base_dir` 即 `--basedir` ， `dn` 即 `--nginx-dn`
+可以在线查看 `rtfd.cfg <https://github.com/staugur/rtfd/blob/master/assets/rtfd.cfg>`_ 模板。
 
-.. code-block:: bash
+配置文件中，无默认值的需要填写的是 redis和nginx.dn 值，这是存储数据所用 redis
+和文档默认域名后缀，详细解释都有注释，另外，后面文档也会介绍。
 
-    $ rtfd init --help
-    Usage: rtfd init [OPTIONS]
+.. note::
 
-        初始化rtfd
-
-    Options:
-        --yes                           Confirm the action without prompting.
-        -b, --basedir PATH              rtfd根目录
-        -l, --loglevel [DEBUG|INFO|WARNING|ERROR]
-                                        日志级别  [default: INFO]
-        -su, --server-url TEXT          rtfd服务地址，默认是api段的http://host:port
-        -ssu, --server-static_url TEXT  rtfd静态资源地址，默认在server-url下
-        -fu, --favicon-url TEXT         文档HTML页面的默认图标地址  [default:
-                                        https://static.saintic.com/rtfd/favicon.png]
-        -un, --unallowed-name TEXT      不允许的文档项目名称，以英文逗号分隔  [default: ]
-        --nginx-dn TEXT                 文档生成后用以Nginx访问的顶级域名  [default:
-                                        localhost.localdomain]
-        --nginx-exec PATH               Nginx管理命令路径  [default: /usr/sbin/nginx]
-        --nginx-ssl / --no-nginx-ssl    Nginx开启SSL  [default: False]
-        --nginx-ssl-crt PATH            SSL证书  [default:
-                                        ${g:base_dir}/certs/${dn}.crt]
-        --nginx-ssl-key PATH            SSL证书私钥  [default:
-                                        ${g:base_dir}/certs/${dn}.key]
-        --nginx-ssl-hsts-maxage INTEGER
-                                        设置在浏览器收到这个请求后的maxage秒的时间内凡是访问这个域名下的请求都使用HTTPS请求。  [default: 31536000]
-        --py2 PATH                      Python2路径  [default: /usr/bin/python2]
-        --py3 PATH                      Python3路径  [default: /usr/bin/python3]
-        -i, --index TEXT                pip安装时的默认源  [default:
-                                        https://pypi.org/simple]
-        --host TEXT                     Api监听地址  [default: 127.0.0.1]
-        --port INTEGER                  Api监听端口  [default: 5000]
-        -c, --config PATH               rtfd的配置文件（不会覆盖）  [default:
-                                        /home/xxxx/.rtfd.cfg]
-        -h, --help                      Show this message and exit.
-
-当然，配置文件可以不用命令生成，这里有一个模板，而且包含了大量注释，强烈建议使用的：
-`rtfd.cfg`_
+    配置文件需要redis信息，产生的数据存储到redis中，注意要开启redis的AOF让数据落盘，
+    避免丢失！
 
 .. _rtfd-usgae-quickstart-no2:
 
@@ -145,126 +130,226 @@ rtfd的服务。
 
 类似于readthedocs，文档项目需要先创建，再构建，构建成功才能访问。
 
-project子命令用来管理项目，新建、查询、更新等操作，这个是常用的，因为目前项目管理操作
-只能使用命令行，API暂时还没写。
+project子命令用来管理项目，其别名是p，又包含新建、查询、更新等子命令，这个是常用的，
+因为目前项目管理操作只能使用命令行。
+
+.. code-block:: bash
+
+    $ rtfd p -h
+    文档项目管理
+
+    Usage:
+      rtfd project [flags]
+      rtfd project [command]
+
+    Aliases:
+      project, p
+
+    Available Commands:
+      create      创建文档项目
+      get         显示文档项目信息
+      list        列出所有文档项目信息
+      remove      删除文档项目
+      update      更新文档项目配置
+
+    Flags:
+      -h, --help   help for project
+
+    Global Flags:
+      -c, --config string   rtfd配置文件 (default "/root/.rtfd.cfg")
+
+    Use "rtfd project [command] --help" for more information about a command.
 
 .. _rtfd-usgae-quickstart-project-create:
 
 新建项目
 ^^^^^^^^^^^^^
 
-命令 `rtfd project --help` 大部分选项都是新建项目时用到的，新建项目时action选项设为
-create，--update-rule选项用不到，其他根据提示信息设置，最重要的选项是--url，必需。
-
-例如，新建一个名叫repo的项目，文档在仓库的docs目录下：
+通过project子命令create： `rtfd project create --{Flags} {ProjectName}`
 
 .. code-block:: bash
 
-    $ rtfd project -a create --url https://github.com/user/repo repo
+    $ rtfd p create -h
+    创建文档项目
+
+    Usage:
+      rtfd project create [flags]
+
+    Flags:
+      -u, --url string           文档项目的git仓库地址，如果是私有仓库，请在url协议后携带编码后的 username:password
+          --latest string        latest所指向的分支 (default "master")
+          --single               是否为单一版本
+      -s, --sourcedir string     实际文档文件所在目录，目录路径是项目的相对位置 (default "docs")
+      -l, --lang string          文档语言，支持多种，以英文逗号分隔 (default "en")
+      -v, --version uint8        构建文档所用的Python版本，2或3 (default 3)
+      -r, --requirement string   需要安装的依赖包需求文件（文件路径是项目的相对位置），支持多个，以英文逗号分隔
+          --install              是否需要安装项目
+      -i, --index string         指定pip安装时的pypi源
+      -b, --builder string       Sphinx构建器，可选html、dirhtml、singlehtml (default "html")
+          --secret string        Webhook密钥
+          --domain string        自定义域名
+          --sslcrt string        自定义域名的SSL证书公钥
+          --sslkey string        自定义域名的SSL证书私钥
+          --before string        构建前的钩子命令
+          --after string         执行构建成功后的钩子命令
+      -h, --help                 help for create
+
+    Global Flags:
+      -c, --config string   rtfd配置文件 (default "/root/.rtfd.cfg")
+
+create新建项目时， `url` 选项是必须有的，是文档源文件git仓库地址，其他根据构建需要设置，
+需要说明的是，一个文档项目通过create可以设置大部分字段，但还有一小部分只能用过update子命令更新。
+
+例如，新建一个名叫test的项目，文档在仓库的docs目录下：
+
+.. code-block:: bash
+
+    $ rtfd p create -u https://github.com/user/repo test
 
 .. note::
 
     新建项目时url支持GitHub和Gitee，可以是公开仓库或私有仓库，私有仓库的url格式
     是：https://username:password@git-service-provider.com/username/repo
 
-选项 `-cd / --custom-domain` 用来自定义域名，不包含协议，如果自定义域名想要支持
-HTTPS，请设置选项 `--ssl --ssl-crt 证书文件 --ssl-key 密钥文件` 。
+    username和password如果有特殊符号需要先进行url编码！
 
-已创建的项目可以更新项目，上述共四个选项还有设置语言等选项在更新时会重新渲染nginx配置，
-生成自定义域名的配置文件，用户需要给自定义域名添加CNAME记录，指向程序配置文件中dn的
-域名或者生成的默认域名。
+特别说明下部分选项：
 
-比如托管域名是 ``rtfd.vip`` ，新建项目test，那么默认域名是test.rtfd.vip；如果自定义
-了其他域名，那么请CNAME到test.rtfd.vip（这是最靠谱的，因为其他域名可能不在同机器）。
+选项 `-l/--lang` 指定文档采用的国际语言，可以有多个（翻译版本，逗号分隔），第一个语言即默认语言。
 
-.. versionadded:: 0.3.0
+选项 `--domain` 用来自定义域名，不包含协议，比如 test.example.com，
+如果自定义域名想要支持HTTPS，请自行申请证书并保存到服务器本地，
+通过选项 `--sslcrt 证书公钥文件 --sslkey 私钥文件` 开启HTTPS。
 
-    - 已有项目如果要删除自定义域名，也是可以的，参考 :ref:`rtfd-faq-custom-domain`
+你的自定义域名需要在在DNS服务商处添加CNAME解析到项目默认域名，比如新建test项目，默认域名假如
+是test.example.com，自定义域名是docs.hello.com，则需要添加DNS解析：
 
+docs.hello.com -> CNAME -> test.example.com
+
+选项 `--before` 仅用文档构建前，在安装完文档项目的依赖后，sphinx-build命令执行前；
+选项 `--after` 仅在sphinx-build命令构建完成后，两者均要求为单条系统命令，不能包含
+管道、与、或等，若要用多条命令组合，请了解下eval（温馨提示：命令在子进程运行，
+请注意对系统安全性）！
+
+选项 `--secret` 用于 api webhook 加密，在后文 api 一节中说明。
 
 .. _rtfd-usgae-quickstart-project-get:
 
 查询项目
 ^^^^^^^^^^^^^
 
-选项action默认是get，即查询动作，所以带上参数项目名即可，比如：
+位于project后的两条子命令，如果没有错误，返回的是 JSON 格式字符串，可以用jq命令排版。
 
-.. code-block:: bash
+1. `rtfd p list` 列出所有文档项目名，可用 `-v/--verbose` 选项查看详细信息。
 
-    $ rtfd project repo
+2. `rtfd p get {ProjectName}` 查看单个文档项目详细信息，可用 `-b/--build` 显示构建结果。
 
-这会输出JSON数据，可以美化下输出结果，
-
-.. code-block:: bash
-
-    $ rtfd project repo | python -m json.tool
-    # 或者
-    $ rtfd project repo | jq
+  get子命令有隐藏的查询功能，通过 `rtfd p get {ProjectName}:{Filed}` 格式（无 -b 选项），
+  可以查看配置中单个字段（Field）的值，字段名 Field 从get返回的详细信息查看，区分大小写！
 
 .. _rtfd-usgae-quickstart-project-update:
 
 更新项目
 ^^^^^^^^^^^^^
 
-即更新项目配置信息，设置action为update即更新动作，所有更新内容用 `-ur/--update-rule`
-选项来设置，这个内容要求是JSON格式，其中配置字段名即新建时的选项名，但注意是小写，而且
-短横线要改为下划线，不包含前缀的短横线，不支持短格式的选项。
+通过project子命令update： `rtfd project update --{Flags} {ProjectName}` 即可更新
+项目配置信息。
 
-比如--install对应的更新键名是install=true/false，--version对应的是version=2/3
+`rtfd p update -h` 提示信息很丰富，
 
-另外，更新项目的配置还可以通过 `.rtfd.ini` 文件，且其优先级高，
-参考 :ref:`rtfd-config-docs-project` ，对比命令行，其支持latest参数及rtfd.ini样例
-中的其他参数，样例中未提及的参数则不支持更改。
+.. code-block:: bash
 
-.. warning::
+    更新文档项目配置
 
-    更新languages、default_language、single参数会重载nginx配置。
+    第一种方式，通过 text 选项：
 
-.. versionchanged:: 0.4.0
+    仅可更新部分字段，参考如下列表（即Field，解释说明处小括号为字段类型，无则默认为string）：
 
-    - show_nav_git: 导航中是否显示git view/edit部分
+    url：        文档项目的git仓库地址
+    latest：     latest所指向的分支
+    version：    构建文档所用的Python版本，2或3（int）
+    single：     是否单一版本（bool）
+    source：     文档源文件所在目录
+    lang：       文档语言
+    requirement：依赖包需求文件，支持多个，以逗号分隔
+    install：    是否安装项目（bool）
+    index：      pypi源
+    builder：    sphinx构建器
+    shownav：    是否显示导航（bool）
+    hidegit：    导航中是否隐藏git信息（bool）
+    secret：     webhook密钥
+    domain：     自定义域名
+    sslcrt：     自定义域名开启HTTPS时的证书公钥
+    sslpri：     自定义域名开启HTTPS时的证书私钥
+    before：     构建前的钩子命令
+    after：      执行构建成功后的钩子命令
 
-    - before_hook: 构建前钩子，要求为系统命令（安装完文档项目的依赖后，sphinx-build命令执行前）
+    可一次更新一个或多个字段，格式是 -> Field:Value,Field:Value,...,Field:Value
+    分隔符可用 sep 选项设置，更新成功或失败的字段均会打印。
+    请按照字段类型（如int、bool）填写值，否则可能导致异常。
+    请注意：
+        # bool类型仅当值为1、true、on时表示true，其他表示false
+        # domain字段值为0、false、off时表示取消自定义域名（不更改SSL相关配置）
+        # 额外字段ssl（不在列表中）值为0、false、off时表示取消自定义域名SSL
+        # 部分更新失败的字段亦可能已造成破坏性更改（如lang、latest、domain）
+        # 部分字段仅在下一次构建时生效
 
-    - after_hook: 构建成功后钩子，要求为系统命令
+    第二种方式，通过 file 选项：
 
-    以上三个选项未在rtfd project选项中，算是小tip，其中两个钩子为单条命令（不能包含
-    管道、与、或等），若要用多条命令组合，请了解下eval（温馨提示：命令在子进程运行，
-    请注意对系统安全性）！
+    通常用于构建时更新，编写 rtfd.ini 规则文件放到源码仓库中，在构建时 rtfd 会读取此文件，
+    结合系统存储配置（优先级低于规则文件）进行参数化文档构建。
+
+    不过相对于第一种方式，此方式可更新字段较少，仅为构建时参数。
+
+    Usage:
+      rtfd project update [flags]
+
+    Flags:
+      -f, --file string   更新规则文件
+      -h, --help          help for update
+      -s, --sep string    设定 Field、Value 之间的分隔符 (default ":")
+      -t, --text string   更新规则文本，格式是 Field:Value,Field:Value
+
+    Global Flags:
+      -c, --config string   rtfd配置文件 (default "/root/.rtfd.cfg")
+
+更新确实复杂，所以提示很多，两种更新方式，一是 `-t text` 按照格式更新，示例：
+
+.. code-block:: bash
+
+    $ rtfd p update -t url=https://github.com/USER/REPO,hidegit=true -s = test
+
+    $ rtfd p update -t before:"make build-css" test
+
+注意，目前大部分选项不能取消/置空。
+
+第二种方式按 `-f file` 更新，这个一般用在文档构建时，参考 :ref:`rtfd-config-docs-project`
 
 .. _rtfd-usgae-quickstart-project-remove:
 
 删除项目
 ^^^^^^^^^^^^^
 
-选项action设置为remove，加上项目名即可删除项目，比如：
-
-.. code-block:: bash
-
-    $ rtfd project --action remove repo
+通过project子命令remove： `rtfd project remove {ProjectName}` 即可删除。
 
 .. warning::
 
     注意：这个操作会删除已生成的文档页面、Nginx配置等，属于危险操作！
-
-.. _rtfd-usgae-quickstart-project-list:
-
-列出项目
-^^^^^^^^^^^^^
-
-选项action设置为list，项目名随意（不想新开子命令了，但是这里名字还要求存在，没办法），
-列出本地存储中的项目，其中项目名如果设置为only，会只输出所有项目的项目名。
-
-输出JSON数据，同样可以美化输出结果。
 
 .. _rtfd-usgae-quickstart-no3:
 
 三、构建文档
 ---------------
 
-build子命令，用来通过命令行构建文档，支持一个branch选项设置分支，默认是master，允许
-设置为标签，v0.4.2及之后版本已经支持克隆任意远程分支。
+通过 `rtfd build` 子命令，使用命令行构建文档，支持一个 `-b/--branch` 选项设置构建的
+分支或标签，默认是latest
 
 构建文档还可以通过API触发，也可以webhook触发，参考 :ref:`rtfd-api-docs`
 
-.. _rtfd.cfg: https://github.com/staugur/rtfd/blob/master/tpl/rtfd.cfg
+
+四、启动API服务
+---------------
+
+`rtfd api`
+
+请看下一篇。
