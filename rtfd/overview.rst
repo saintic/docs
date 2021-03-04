@@ -77,12 +77,6 @@ rtfd仅支持Linux操作系统，测试过CentOS/RHEL、Ubuntu系列，不可用
     mv ~/go/bih/rtfd ~/bin/
     rtfd -v
 
-- 使用docker下载：
-
-  .. code-block:: bash
-
-    docker pull staugur/rtfd   # 可使用 :tag 拉取正式版本
-
 - 从源码编译（要求golang v1.16+）：
 
   .. code-block:: bash
