@@ -58,3 +58,21 @@
 如果自定义域名要取消https，更新项目，将 ssl 设为 false 即可。
 
 如果自定义域名支持https，那么证书是有到期时间的，请自行更新项目。
+
+.. _rtfd-faq-docker:
+
+是否支持docker
+================
+
+不集成dockerfile，不过是可以，但是很复杂，需要将nginx、python环境打包进去，启动时将数据
+目录和配置文件映射进去。
+
+.. _rtfd-faq-online-api-daemon:
+
+正式环境启动API服务脚本
+=========================
+
+源码仓库 `scripts <https://github.com/staugur/rtfd/tree/master/scripts>`_ 目录下
+有几个脚本用来后台启动api服务。
+
+可以通过nohup（start.sh）、supervisor、systemd（rtfd.service）等方式。
