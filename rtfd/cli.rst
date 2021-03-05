@@ -123,6 +123,55 @@ rtfd安装完成后，可直接使用 `rtfd` 命令，它的帮助信息可以�
     配置文件需要redis信息，产生的数据存储到redis中，注意要开启redis的AOF让数据落盘，
     避免丢失！
 
+.. _rtfd-usgae-quickstart-cfg:
+
+查看程序配置信息
+^^^^^^^^^^^^^^^^^
+
+初始化rtfd配置文件后，可以通过 `rtfd cfg` 查询。
+
+.. code-block:: bash
+
+    $ rtfd cfg -h
+    查询配置文件的配置内容
+
+    Usage:
+      rtfd cfg [flags]
+
+    Flags:
+      -h, --help   help for cfg
+      -j, --json   使用JSON格式显示结果
+
+    Global Flags:
+      -c, --config string   rtfd配置文件 (default "/root/.rtfd.cfg")
+
+cfg子命令读取配置文件，一一映射返回hash（go map）格式，使用 `-j/--json` 选项可以格式化
+为json格式，然后就可以用jq排版了。
+
+cfg可以携带两个位置参数，第一个表示section（ini格式中的段名），第二个表示section下的字段。
+
+综上，无位参表示获取所有section及其下字段，仅一个位参则表示读取其section下所有字段，
+两个位参表示读取section下具体某个字段。
+
+.. code-block:: bash
+
+    $ rtfd cfg default
+    map[base_dir:/rtfd favicon_url:https://static.saintic.com/rtfd/favicon.png redis:redis://:123456@localhost/0 unallowed_name:]
+
+    $ rtfd cfg default -j   # 以下输出为jq格式化排版后
+    {
+      "base_dir": "/rtfd",
+      "favicon_url": "https://static.saintic.com/rtfd/favicon.png",
+      "redis": "redis://:123456@localhost/0",
+      "unallowed_name": ""
+    }
+
+    $ rtfd cfg default redis -j
+    "redis://:123456@localhost/0"
+
+    $ rtfd cfg default redis
+    redis://:123456@localhost/0
+
 .. _rtfd-usgae-quickstart-no2:
 
 二、项目管理
@@ -186,7 +235,7 @@ project子命令用来管理项目，其别名是p，又包含新建、查询、
           --install              是否需要安装项目
       -i, --index string         指定pip安装时的pypi源
       -b, --builder string       Sphinx构建器，可选html、dirhtml、singlehtml (default "html")
-          --secret string        Webhook密钥
+          --secret string        Api/Webhook密钥
           --domain string        自定义域名
           --sslcrt string        自定义域名的SSL证书公钥
           --sslkey string        自定义域名的SSL证书私钥
@@ -215,7 +264,8 @@ create新建项目时， `url` 选项是必须有的，是文档源文件git仓�
 
 特别说明下部分选项：
 
-选项 `-l/--lang` 指定文档采用的国际语言，可以有多个（翻译版本，逗号分隔），第一个语言即默认语言。
+选项 `-l/--lang` 指定文档采用的国际语言，可以有多个（翻译版本，逗号分隔），
+第一个语言即默认语言（default lang）。
 
 选项 `--domain` 用来自定义域名，不包含协议，比如 test.example.com，
 如果自定义域名想要支持HTTPS，请自行申请证书并保存到服务器本地，
@@ -277,7 +327,7 @@ docs.hello.com -> CNAME -> test.example.com
     builder：    sphinx构建器
     shownav：    是否显示导航（bool）
     hidegit：    导航中是否隐藏git信息（bool）
-    secret：     webhook密钥
+    secret：     api/webhook密钥
     domain：     自定义域名
     sslcrt：     自定义域名开启HTTPS时的证书公钥
     sslpri：     自定义域名开启HTTPS时的证书私钥
@@ -353,3 +403,4 @@ docs.hello.com -> CNAME -> test.example.com
 `rtfd api`
 
 请看下一篇。
+

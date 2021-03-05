@@ -67,6 +67,35 @@
 不集成dockerfile，不过是可以，但是很复杂，需要将nginx、python环境打包进去，启动时将数据
 目录和配置文件映射进去。
 
+给一个基础的dockerfile示例：
+
+.. code-block:: dockerfile
+
+    # -- build dependencies with alpine & go1.16+ --
+    FROM golang:1.16.0-alpine3.13 AS builder
+
+    ENV GO111MODULE=on \
+        CGO_ENABLED=0 \
+        GOOS=linux \
+        GOARCH=amd64
+
+    WORKDIR /build
+
+    COPY . .
+
+    RUN go env -w GOPROXY=https://goproxy.cn,direct && \
+        go build -ldflags "-s -w -X tcw.im/rtfd/cmd.built=$(date -u '+%Y-%m-%dT%H:%M:%SZ')" && chmod +x rtfd
+
+    # run application with a small image
+    FROM scratch
+
+    COPY --from=builder /build/rtfd /bin/
+
+    WORKDIR /rtfd
+
+    # volume bind /rtfd.cfg
+    ENTRYPOINT ["rtfd", "api", "-c", "/rtfd.cfg"]
+
 .. _rtfd-faq-online-api-daemon:
 
 正式环境启动API服务脚本

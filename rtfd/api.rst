@@ -72,7 +72,7 @@ API接口文档
 
 或 /rtfd/<ProjectName>/badge
 
-这个显示文档的构建状态的徽章，支持传入branch查询参数获取不同分支的构建状态徽章。
+这个显示文档的构建状态的徽章，支持传入branch（通过query）查询参数获取不同分支的构建状态徽章。
 
 3. POST /rtfd/build/<ProjectName>
 ---------------------------------
@@ -81,8 +81,12 @@ API接口文档
 
 通过API构建文档，支持branch参数（通过query、form）设置构建的分支/标签
 
-3. /rtfd/webhook/<ProjectName>
----------------------------------
+这个接口需要验证，如果创建项目时的 **secret** 参数不为空则验证，留空即不验证。
+
+如果验证，需要传递HTTP头 **X-Rtfd-Sign** ，值为 ``md5(secret)`` 的结果。
+
+3. POST /rtfd/webhook/<ProjectName>
+------------------------------------
 
 或 /rtfd/<ProjectName>/webhook
 
