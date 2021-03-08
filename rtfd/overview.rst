@@ -23,7 +23,7 @@ GitHub: https://github.com/staugur/rtfd
     在 github 中可以看到，之前是用 Python 编写，但后来用 Golang 重构，
     发布正式版本 v1.0.0 ！
 
-    当前文档为1.0新版，如果您要查看旧版文档，请转到 :ref:`rtfd-py <rtfd-py-overview>`
+    如果您要查看旧版文档，请转到 :ref:`rtfd-py <rtfd-py-overview>`
 
 .. _rtfd-features:
 
@@ -63,7 +63,7 @@ rtfd仅支持Linux操作系统，测试过CentOS/RHEL、Ubuntu系列，不可用
   
   .. code-block:: bash
 
-    version=1.0.0
+    version=1.1.0
     wget -c https://github.com/staugur/rtfd/releases/download/v${version}/rtfd.${version}-linux-amd64.tar.gz
     tar zxf rtfd.${version}-linux-amd64.tar.gz
     mv rtfd ~/bin/

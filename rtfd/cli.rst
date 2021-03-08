@@ -67,10 +67,10 @@ rtfd安装完成后，可直接使用 `rtfd` 命令，它的帮助信息可以�
 .. code-block:: bash
 
     $ rtfd -v
-    1.0.0
+    1.1.0
 
     $ rtfd -i
-    v1.0.0 commit/41accab built/2021-03-04T03:24:02Z
+    v1.1.0 commit/7a3ae80 built/2021-03-08T08:16:49Z
 
     $ rtfd -h
     Build, read your exclusive and fuck docs.
@@ -297,6 +297,15 @@ docs.hello.com -> CNAME -> test.example.com
   get子命令有隐藏的查询功能，通过 `rtfd p get {ProjectName}:{Filed}` 格式（无 -b 选项），
   可以查看配置中单个字段（Field）的值，字段名 Field 从get返回的详细信息查看，区分大小写！
 
+  .. versionchanged:: 1.1.0
+
+      新增了 Meta 字段，定义项目额外配置数据（键值对），只能通过 update 子命令更新。
+      查询时，需增加 "@Key" 查询具体字段：
+
+      .. code-block:: bash
+
+          $ rtfd p get {ProjectName}:Meta@{Key}
+
 .. _rtfd-usgae-quickstart-project-update:
 
 更新项目
@@ -333,6 +342,7 @@ docs.hello.com -> CNAME -> test.example.com
     sslpri：     自定义域名开启HTTPS时的证书私钥
     before：     构建前的钩子命令
     after：      执行构建成功后的钩子命令
+    meta：       额外配置数据，每次仅能更新一条，格式是 key=value（key不区分大小写）
 
     可一次更新一个或多个字段，格式是 -> Field:Value,Field:Value,...,Field:Value
     分隔符可用 sep 选项设置，更新成功或失败的字段均会打印。
@@ -343,6 +353,8 @@ docs.hello.com -> CNAME -> test.example.com
         # 额外字段ssl（不在列表中）值为0、false、off时表示取消自定义域名SSL
         # 部分更新失败的字段亦可能已造成破坏性更改（如lang、latest、domain）
         # 部分字段仅在下一次构建时生效
+        # 特殊字段meta系统内置字段：
+            # _sep: 当meta内部字段的值为多值类型时，指定其分隔符，默认是 |
 
     第二种方式，通过 file 选项：
 

@@ -123,3 +123,10 @@ API接口文档
     在选择上述两个git服务商的webhook事件中，Releases或Tag Push事件是仅在发布新标签时
     触发。
 
+.. versionchanged:: 1.1.0
+
+    新增Meta字段 excluded_branch 可以排除构建某些分支/标签（竖线分隔多个排除分支）：
+
+    .. code-block:: bash
+
+        $ rtfd p update -t meta:excluded_branch=test|dev test
