@@ -67,10 +67,10 @@ rtfd安装完成后，可直接使用 `rtfd` 命令，它的帮助信息可以�
 .. code-block:: bash
 
     $ rtfd -v
-    1.1.0
+    1.1.1
 
     $ rtfd -i
-    v1.1.0 commit/7a3ae80 built/2021-03-08T08:16:49Z
+    v1.1.1 commit/8199006 built/2021-03-09T02:56:27Z
 
     $ rtfd -h
     Build, read your exclusive and fuck docs.
@@ -299,12 +299,17 @@ docs.hello.com -> CNAME -> test.example.com
 
   .. versionchanged:: 1.1.0
 
-      新增了 Meta 字段，定义项目额外配置数据（键值对），只能通过 update 子命令更新。
-      查询时，需增加 "@Key" 查询具体字段：
+    新增了 Meta 字段，定义项目额外配置数据（键值对），只能通过 update 子命令更新。
+    查询时，需增加 "@Key" 查询具体字段：
 
-      .. code-block:: bash
+    .. code-block:: bash
 
-          $ rtfd p get {ProjectName}:Meta@{Key}
+        $ rtfd p get {ProjectName}:Meta@{Key}
+
+  .. versionchanged:: 1.1.1
+
+    `rtfd p get {ProjectName}:{Field}` 查询时 Field 由程序内部调节，
+    用户使用时可不用区分大小写。
 
 .. _rtfd-usgae-quickstart-project-update:
 

@@ -16,6 +16,11 @@ Badge: |Document Status|
 
 .. |Document Status| image:: https://open.saintic.com/rtfd/saintic-docs/badge
 
+Go doc: |Go Reference|
+
+.. |Go Reference| image:: https://pkg.go.dev/badge/tcw.im/rtfd.svg
+    :target: https://tcw.im/rtfd
+
 GitHub: https://github.com/staugur/rtfd
 
 .. note::
@@ -63,7 +68,7 @@ rtfd仅支持Linux操作系统，测试过CentOS/RHEL、Ubuntu系列，不可用
   
   .. code-block:: bash
 
-    version=1.1.0
+    version=1.1.1
     wget -c https://github.com/staugur/rtfd/releases/download/v${version}/rtfd.${version}-linux-amd64.tar.gz
     tar zxf rtfd.${version}-linux-amd64.tar.gz
     mv rtfd ~/bin/
