@@ -12,6 +12,8 @@
 
     基于Node.js的，文档是：:ref:`Tdi for Node <tdi-node-readme>`
 
+    基于Golang的，文档是：:ref:`Tdi for Golang <tdi-go-readme>`
+
 GitHub：https://github.com/staugur/tdi-php
 
 语言：PHP
@@ -40,7 +42,7 @@ GitHub：https://github.com/staugur/tdi-php
 2. 中心端校验成员端规则，没问题则注册到中心端。
 3. 中心端定时检测成员端，查询其可用性、磁盘、负载、内存，并更新状态。
 4. 用户请求时，中心端根据成员端状态和资源计算是否可用，然后从可用列表中分配。
-5. 程序收到下载请求后，放入异步任务队列，下载完成后回调给中心端，实现提醒、记录等。
+5. 此程序收到下载请求后，放入异步任务队列，下载完成后回调给中心端，实现提醒、记录等。
 
 .. _tdi-php-deploy:
 

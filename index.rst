@@ -22,6 +22,7 @@ SaintIC：[开源]项目、服务文档!
     tdi/index
     tdi-php/index
     tdi-node/index
+    tdi-go/index
     rtfd/index
     securehttp.js/index
 
