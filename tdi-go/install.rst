@@ -17,16 +17,24 @@
 
 作者博客： https://blog.saintic.com/
 
-依赖环境： Redis 2.x 3.x 4.x
+.. versionchanged:: 0.2.0
+
+    - 增加了路由直接可下载文件，不依赖nginx
+    - 去除了redis依赖
+
+    程序本身已无第三方依赖，不过由于去除redis依赖，在清理文件时旧版本生成的无法删除了，
+    因为无法读取redis数据，可自行删除。
+
+.. role:: raw-html(raw)
+   :format: html
+.. default-role:: raw-html
 
 .. _tdi-go-install-no1:
 
-**NO.1 启动Redis**
--------------------
+`<S> NO.1 启动Redis </S>`
+--------------------------
 
-部署redis很简单，CentOS用户可以\ ``yum install redis``\ ，Ubuntu用户可以\ ``apt-get install redis-server``\ ，都可以编译安装，给一个教程链接：\ http://www.runoob.com/redis/redis-install.html
-
-也可以docker启动，用官方镜像启动一个docker redis，镜像：\ https://hub.docker.com/_/redis\ 。
+不再需要
 
 .. _tdi-go-install-no2:
 
@@ -56,16 +64,15 @@
 2.2 从发行版中获取
 ^^^^^^^^^^^^^^^^^^^
 
-正式版本都会上传一个打包好的附件，直接下载解压即可得到二进制可执行文件，比如 v0.1.0 版本：
+正式版本都会上传一个打包好的附件，直接下载解压即可得到二进制可执行文件，比如 v0.2.0 版本：
 
 .. code-block:: bash
 
-    Version=0.1.0
+    Version=0.2.0
     wget -c https://github.com/staugur/tdi-go/releases/download/v${Version}/tdi.${Version}-linux-amd64.tar.gz
     tar -zxf tdi.${Version}-linux-amd64.tar.gz
     ./tdi -i
 
-    
 **NO.3 启动 tdi 进程**
 ------------------------
 
@@ -88,8 +95,6 @@
           --host            http listen host (default "0.0.0.0", env)
           --port            http listen port (default 13145, env)
       -d, --dir             download base directory (required, env)
-      -r, --redis           redis url, DSN-Style (required, env)
-                            format: redis://[:<password>@]host[:port/db]
       -t, --token           password to verify identity (required, env)
       -s, --status          set this service status: ready or tardy, (default ready)
 
@@ -97,8 +102,8 @@
 并内置了过期自动清理文件。
 
 配置也集成到cli选项中，参考上方帮助提示中的小括号，required表示必须项，default后面是默认值，
-env表示可以从环境变量中读取，以 `tdi_` 为前缀，加上选项名，比如 `--redis` ，
-可从环境变量 `tdi_redis` 中读取值。
+env表示可以从环境变量中读取，以 `tdi_` 为前缀，加上选项名，比如 `--token` ，
+可从环境变量 `tdi_token` 中读取值。
 
 着重说下部分选项：
 
@@ -115,15 +120,15 @@ env表示可以从环境变量中读取，以 `tdi_` 为前缀，加上选项名
   由于tdi-go只是二进制文件，所以需要此选项指定下载目录，而nginx需要一段location提供访问以
   供用户下载文件。
 
-  v0.1.1已经内置了路由可以直接下载，可省去nginx作为反向代理。
+  可以是相对目录（此时会根据程序位置自动识别绝对目录），也可以是绝对目录（推荐）
+
+  v0.2.0已经内置了路由可以直接下载，可省去nginx作为反向代理。
 
 - **redis**
 
   redis连接串，格式是：redis://[:password]@host:port/db
 
-  .. tip::
-
-      想了想，其实也可以不用redis，毕竟不像其他语言的tdi那样需要队列，考虑可能在 v0.2.0 移除
+  .. deprecated:: 0.2.0
 
 - **token**
 
@@ -137,10 +142,9 @@ env表示可以从环境变量中读取，以 `tdi_` 为前缀，加上选项名
 ^^^^^^^^^^^^^^
 
 如果上述选项已经了解，可以启动服务了，可以先把所有配置通过环境变量设置，然后直接 tdi 即可启动；
-也可以全通过选项启动（三个必选项填好就行）：
+也可以全通过选项启动（必选项填好就行）：
 
-`tdi -d downloads -r redis://localhost -t xxx`
-
+`tdi -d downloads -t xxx`
 
 3.2 使用Docker启动
 ^^^^^^^^^^^^^^^^^^^
@@ -149,19 +153,18 @@ env表示可以从环境变量中读取，以 `tdi_` 为前缀，加上选项名
 源码自行构建镜像。
 
 需要注意的就一个容器内部挂载点 /tdi 是下载目录，要挂载到宿主机上供nginx访问，
-或者v0.1.1自带路由不通过nginx可不挂载。
+或者v0.2.0自带路由不通过nginx可不挂载。
 
 .. code-block:: bash
 
     docker pull staugur/tdi-go   # 亦可使用具体版本
 
     docker run -d --name tdi --restart=always --net=host \
-      -e tdi_redis=redis://localhost \
       -e tdi_token=xxx \
       -v /data/tdi-go/downloads:/tdi/ staugur/tdi-go
 
-**NO.4 Nginx配置**
--------------------
+`<S> NO.4 Nginx配置 </S>`
+---------------------------
 
 tdi-go启动一个web应用，默认监听 0.0.0.0:13145，可以参考tdi，简单的反向代理即可。
 
@@ -182,7 +185,7 @@ tdi-go启动一个web应用，默认监听 0.0.0.0:13145，可以参考tdi，简
         location /downloads {
             alias /tdi-go/downloads/;
             default_type application/octet-stream;
-            if ($request_filename ~* ^.*?\.(zip|tgz)$){
+            if ($request_filename ~* ^.*?\.(zip|tgz|tar)$){
                 add_header Content-Disposition 'attachment;';
             }
         }
@@ -199,6 +202,11 @@ tdi-go启动一个web应用，默认监听 0.0.0.0:13145，可以参考tdi，简
 程序部署好+Nginx配置完成，启动后，这个域名就能对外服务了（温馨提示：您可以使用HTTPS提供服务，并且也建议用HTTPS），即可进入下一篇查看如何注册、使用。
 
 另外，若您没有[已备案]域名，可以与我留言申请一个 *tdi.saintic.com* 的子域。
+
+.. versionchanged:: 0.2.0
+
+    增加的路由可直接下载，可以不需要nginx代理，不过目前内置仅支持HTTP1，所以推荐用nginx代理
+    下载功能。
 
 **NO.5 程序升级**
 ------------------

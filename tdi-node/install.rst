@@ -212,7 +212,7 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS::
             #程序下载目录(源码下的src/downloads或者容器的主机挂载点)
             alias /tdi-node/src/downloads/;
             default_type application/octet-stream;
-            if ($request_filename ~* ^.*?\.(zip|tgz)$){
+            if ($request_filename ~* ^.*?\.(zip|tgz|tar)$){
                 add_header Content-Disposition 'attachment;';
             }
         }
@@ -248,7 +248,7 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS::
             #下载程序目录
             alias /tdi-node/src/downloads;
             default_type application/octet-stream;
-            if ($request_filename ~* ^.*?\.(zip|tgz)$){
+            if ($request_filename ~* ^.*?\.(zip|tgz|tar)$){
                 add_header Content-Disposition 'attachment;';
             }
         }

@@ -265,7 +265,7 @@ Nginx配置示例如下，您也可以配置使其支持HTTPS:
             alias /tdi/src/downloads;
             default_type application/octet-stream;
             proxy_max_temp_file_size 0;
-            if ($request_filename ~* ^.*?\.(zip|tgz)$){
+            if ($request_filename ~* ^.*?\.(zip|tgz|tar)$){
                 add_header Content-Disposition 'attachment;';
             }
         }
