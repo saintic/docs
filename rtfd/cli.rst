@@ -67,10 +67,10 @@ rtfd安装完成后，可直接使用 `rtfd` 命令，它的帮助信息可以�
 .. code-block:: bash
 
     $ rtfd -v
-    1.1.1
+    1.2.0
 
     $ rtfd -i
-    v1.1.1 commit/8199006 built/2021-03-09T02:56:27Z
+    v1.2.0 commit/3e92c4b built/2021-04-07T03:11:22Z
 
     $ rtfd -h
     Build, read your exclusive and fuck docs.
@@ -115,7 +115,7 @@ rtfd安装完成后，可直接使用 `rtfd` 命令，它的帮助信息可以�
 
 可以在线查看 `rtfd.cfg <https://github.com/staugur/rtfd/blob/master/assets/rtfd.cfg>`_ 模板。
 
-配置文件中，无默认值的需要填写的是 redis和nginx.dn 值，这是存储数据所用 redis
+配置文件中，无默认值的需要填写的是 `redis` 和 `nginx.dn` 值，这是存储数据所用 redis
 和文档默认域名后缀，详细解释都有注释，另外，后面文档也会介绍。
 
 .. note::
@@ -199,6 +199,7 @@ project子命令用来管理项目，其别名是p，又包含新建、查询、
       get         显示文档项目信息
       list        列出所有文档项目信息
       remove      删除文档项目
+      transfer    转储（导入、导出）文档项目
       update      更新文档项目配置
 
     Flags:
@@ -208,6 +209,10 @@ project子命令用来管理项目，其别名是p，又包含新建、查询、
       -c, --config string   rtfd配置文件 (default "/root/.rtfd.cfg")
 
     Use "rtfd project [command] --help" for more information about a command.
+
+.. versionchanged:: 1.2.0
+
+    project各子命令也增设了别名，取首字母，比如create是c，list是l，另外增加了 transfer
 
 .. _rtfd-usgae-quickstart-project-create:
 
@@ -402,6 +407,61 @@ docs.hello.com -> CNAME -> test.example.com
 .. warning::
 
     注意：这个操作会删除已生成的文档页面、Nginx配置等，属于危险操作！
+
+    
+.. _rtfd-usgae-quickstart-project-transfer:
+
+转储项目
+^^^^^^^^^^^^^
+
+.. versionadded:: 1.2.0
+
+通过project子命令transfer： `rtfd project transfer --{Flags} {ProjectName}`
+
+可以导入导出项目。
+
+.. code-block:: bash
+
+    $ rtfd p t -h
+    转储（导入、导出）文档项目
+
+    可以使用此之命令在一台服务器上将项目配置导出为 base64 编码的字符串，
+    在另一台服务器上导入，或者在本地导入（相当于复制项目，需要设置别名）。
+
+    导出：
+
+        $ rtfd p t -e <NAME>
+        // Output: base64-encoded
+
+    导入：
+
+        $ rtfd p t -i <base64-encoded>
+
+        // 因为导出选项包含名称，如果导入时rtfd已经有此名称则会失败，
+        // 此时可以设置别名覆盖原名称。
+        $ rtfd p t -i <base64-encoded> <New-Name>
+        // Output: imported (if success)
+
+    Usage:
+      rtfd project transfer [flags]
+
+    Aliases:
+      transfer, t
+
+    Flags:
+      -e, --export          导出项目
+      -h, --help            help for transfer
+      -i, --import string   导入（格式为 base64 编码）项目
+      -d, --import-debug    不导入项目，仅查看选项
+
+    Global Flags:
+      -c, --config string   rtfd配置文件 (default "/home/taochengwei/.rtfd.cfg")
+
+一个特别的应用场景是本地使用 transfer 复制项目：
+
+.. code-block:: bash
+
+    $ rtfd p t -i $(rtfd p t -e <OldName>) <NewName>
 
 .. _rtfd-usgae-quickstart-no3:
 

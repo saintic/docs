@@ -130,3 +130,10 @@ API接口文档
     .. code-block:: bash
 
         $ rtfd p update -t meta:excluded_branch=test|dev test
+
+4. POST /rtfd/github/app
+-----------------------------
+
+.. versionadded:: 1.2.0
+
+适配 github apps 功能，具体参考 :ref:`rtfd-faq-ghapp`
