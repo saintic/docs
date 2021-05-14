@@ -64,11 +64,11 @@
 2.2 从发行版中获取
 ^^^^^^^^^^^^^^^^^^^
 
-正式版本都会上传一个打包好的附件，直接下载解压即可得到二进制可执行文件，比如 v0.2.0 版本：
+正式版本都会上传一个打包好的附件，直接下载解压即可得到二进制可执行文件，比如 v0.2.2 版本：
 
 .. code-block:: bash
 
-    Version=0.2.0
+    Version=0.2.2
     wget -c https://github.com/staugur/tdi-go/releases/download/v${Version}/tdi.${Version}-linux-amd64.tar.gz
     tar -zxf tdi.${Version}-linux-amd64.tar.gz
     ./tdi -i
@@ -94,9 +94,9 @@
           --hour            if clean, expiration time (default 12)
           --host            http listen host (default "0.0.0.0", env)
           --port            http listen port (default 13145, env)
-      -d, --dir             download base directory (required, env)
-      -t, --token           password to verify identity (required, env)
-      -s, --status          set this service status: ready or tardy, (default ready)
+      -d, --dir             download base directory (default "downloads", env)
+      -t, --token           password to verify identity (required<random>, env)
+      -s, --status          set service status: ready or tardy, (default "ready")
 
 不同于其他Python、Node版本，golang版全部是cli处理，通过它开启web进程，
 并内置了过期自动清理文件。
@@ -115,7 +115,7 @@ env表示可以从环境变量中读取，以 `tdi_` 为前缀，加上选项名
 
   当清理过期文件时，指定清理的最大过期时间，单位h，默认12，即默认清理12h以前下载的。
 
-- **dir**
+- dir
 
   由于tdi-go只是二进制文件，所以需要此选项指定下载目录，而nginx需要一段location提供访问以
   供用户下载文件。
@@ -124,7 +124,9 @@ env表示可以从环境变量中读取，以 `tdi_` 为前缀，加上选项名
 
   v0.2.0已经内置了路由可以直接下载，可省去nginx作为反向代理。
 
-- **redis**
+  v0.2.2默认为downloads目录。
+
+- redis
 
   redis连接串，格式是：redis://[:password]@host:port/db
 
@@ -133,6 +135,10 @@ env表示可以从环境变量中读取，以 `tdi_` 为前缀，加上选项名
 - **token**
 
   签名令牌，切勿泄露、遗失，支持修改。
+
+  .. versionchanged:: 0.2.0
+
+    默认随机生成，启动时会输出Token
 
 - status
 
@@ -144,7 +150,11 @@ env表示可以从环境变量中读取，以 `tdi_` 为前缀，加上选项名
 如果上述选项已经了解，可以启动服务了，可以先把所有配置通过环境变量设置，然后直接 tdi 即可启动；
 也可以全通过选项启动（必选项填好就行）：
 
-`tdi -d downloads -t xxx`
+.. code-block:: bash
+
+    $ tdi
+    the randomly generated token is: <Your-Randomly-Token>
+    ⇨ http server started on [::]:13145
 
 3.2 使用Docker启动
 ^^^^^^^^^^^^^^^^^^^
