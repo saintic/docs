@@ -130,13 +130,13 @@ env表示可以从环境变量中读取，以 `tdi_` 为前缀，加上选项名
 
   redis连接串，格式是：redis://[:password]@host:port/db
 
-  .. deprecated:: 0.2.0
+  v0.2.0废弃
 
-- **token**
+- token
 
   签名令牌，切勿泄露、遗失，支持修改。
 
-  .. versionchanged:: 0.2.0
+  .. versionchanged:: 0.2.2
 
     默认随机生成，启动时会输出Token
 
