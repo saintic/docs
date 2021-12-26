@@ -5,3 +5,5 @@ sphinx-typlog-theme
 #sphinx_rtd_theme
 #sphinx-materialdesign-theme
 pygments
+sphinxcontrib-httpdomain
+sphinxcontrib-httpexample

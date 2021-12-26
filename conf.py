@@ -41,6 +41,8 @@ release = u''
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
+    'sphinxcontrib.httpdomain',
+    'sphinxcontrib.httpexample',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -164,6 +166,7 @@ html_sidebars = {
         'searchbox.html',
     ]
 }
+httpexample_scheme = 'https'
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
 #
