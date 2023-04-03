@@ -29,7 +29,7 @@ SaintIC：[开源]项目、服务文档!
 .. toctree::
     :caption: 独立文档
 
-    sapic - 简约的自建图床程序 <https://sapic.rtfd.vip>
+    Sapic - 简约自建图床程序 <https://sapic.rtfd.vip>
     Flask-PluginKit <https://flask-pluginkit.rtfd.vip>
     Python-SecureHTTP <https://python-securehttp.rtfd.vip>
     Isso中文文档 <https://isso-cn.rtfd.vip>
@@ -45,11 +45,11 @@ SaintIC：[开源]项目、服务文档!
 关于
 ~~~~~~~
 
--  此作者：菜鸟运维一名，期待运维开发，目前在北京，未来上海/杭州有工作推荐欢迎@我。
+-  此作者：运维一名，期待容器运维开发，目前在北京，未来杭州有工作推荐欢迎@我。
 
 -  本文档：作者开源工具的使用文档，尽可能详细的文档，持续更新中；若有问题可提交issue或pr！
 
--  此域名： **saintic.com** 是2014年底注册的，已备案，托管于阿里云，目前主要用来运行博客、公共接口及服务、项目演示等，全站支持https，具体域名：
+-  此域名： **saintic.com** 是2014年底注册的，主要用来运行博客、公共接口及服务、项目演示等，具体域名：
 
     - open.saintic.com: 开放的接口、服务、工具等，会将有趣的东西放上去；
 
@@ -57,15 +57,9 @@ SaintIC：[开源]项目、服务文档!
 
     - blog.saintic.com: 技术博客，一些项目介绍、一些技术记录，主要是运维、Python方面；
 
-      - 托管于GitHub Pages的全静态站，对外域名: *tcw.im*
-
-      - *blog.saintic.com* 用于国内访问，使用又拍云缓存的GitHub Pages
-
     - passport.saintic.com: 用来认证的应用，统一登录、注册；
 
-    - 其他诸如swarmops、incetops等项目演示站
-
-    - 个人其他域名，如 **satic.cn**, **rtfd.vip**, **tcw.im**, **sapicd.com**
+    - 个人其他域名，如 **satic.cn**, **rtfd.vip**, **sapicd.com**
 
 .. _Link:
 

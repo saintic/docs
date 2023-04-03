@@ -43,8 +43,8 @@ Pay
 具体规则参考模块内付费规则。
 
 支付后请联系并提供自己的 **UID**
-（登录：`开放平台-控制台 <https://open.saintic.com/control/>`_ 查看我的信息），
-如有特别说明请一并留言。
+（登录：`开放平台-控制台 <https://open.saintic.com/control/>`_ 查看我的信息）
+和支付凭证，如有特别说明请一并留言。
 
 .. _openapi-terms:
 
@@ -55,25 +55,62 @@ Pay
 2. 拒绝为黄赌毒及涉嫌违规违法网站使用，一经发现会立即禁用服务，且不予退款！
 3. 如不同意本条款请停止使用，如继续使用则视为同意；本条款适时修改，即时生效。
 
+.. _openapi-auth:
+
+接口认证：
+----------
+
+1. 登录：`开放平台-控制台 <https://open.saintic.com/control/>`_
+
+2. 创建：定位到 *我的API密钥* 点击创建，根据实际选择权限，立即提交。
+
+3. 复制：在 *我的API密钥* 列表可以点击密钥即可复制内容。
+
+4. 使用：有三种使用方式
+
+- url query
+
+直接附加到URL查询参数中，不需要额外构建请求头，方便快捷但不安全，适用于GET/POST请求。
+
+格式：token=对密钥原文进行URL安全的base64编码后的加密串
+
+- post form
+
+放到请求主体中，适用于POST请求，方便快捷安全。
+
+格式：token=密钥原文
+
+- header token
+
+放到请求头中，适用于GET/POST请求。
+
+格式：Authorization=Token 密钥原文
+
+.. _sec:
+
 SEC
 ===
 
 此模块名为 Search Engine Collector，即搜索引擎收录查询器，简写为 **SEC** ，
-目前包括百度、必应（Bing）收录查询，后续计划增加搜狗收录查询。
+目前包括百度、必应（Bing）收录查询。
 
-接口匿名、登录状态有速率限制，登录态请使用 `Authorization`
-请求头传递API密钥（请登录平台后在控制台生成，SEC相关接口只读权限即可）。
+搜索引擎有查询验证，故此接口也有速率限制，匿名、登录用户、付费用户有不同速率：
 
-由于目前发现的百度查询触发验证，接口也相应限制，一般个人使用量应该满足，
-而对较大需求量推出付费方式，也尝试弥补服务器费用。
+匿名用户： **5/d/ip** （每IP每天总共 5 次）；
 
-SEC相关接口请求成功时都会返回 *deduct* 字段表示计次：
-包月方式计次消耗的是每天最大上限；按次方式消耗的是总额度。
+登录用户： **20/d/user** （每用户每天总共 20 次）。
+
+付费用户： **按付费规则**
+
+支持 **url query** 和 **header token** 两种认证方式，只读密钥权限即可。
 
 .. _sec-rule:
 
-规则：
-------
+付费规则：
+----------
+
+SEC相关接口请求成功时都会返回 *deduct* 字段表示计次：
+按次方式消耗的是总次数；包月方式消耗的是每天最大上限。
 
 付费方式：按次、包月
 
@@ -86,11 +123,11 @@ SEC相关接口请求成功时都会返回 *deduct* 字段表示计次：
   - 初级档位：**￥15/月**，最大限制每天 100 次
   - 中级档位：**￥30/月**，最大限制每天 1000 次
   - 高级档位：**￥50/月**，最大限制每天 10000 次
-  - “ 支持连续包月，比如金额￥30，联系并留言需要2个月，即提服60天 ”
+  - “ 支持连续包月，比如金额￥30，联系并留言需要2个月，即提供60天服务！ ”
 
 2. 按次方式：请求限制 *每分钟 120 次*，按金额（分）等量换算为次数，最大使用时长一年，过期作废。
 
-3. 命中缓存不计次：查询URL时如果收录会写入缓存，后续查询则直接返回已收录。
+3. 命中缓存不计次：查询URL时如果收录会写入缓存，后续查询则直接返回已收录并且不计次。
 
 sec.baidu
 -------------
@@ -109,7 +146,7 @@ sec.baidu
   :resjson string msg: 未收录时
   :statuscode 429: 请求速率达到限制
 
-  **示例：**
+  **示例1（Header认证）：**
 
   .. http:example:: curl python-requests
 
@@ -118,6 +155,28 @@ sec.baidu
     Authorization: Token <API-Key>
 
     :query url: https://www.saintic.com
+
+
+    HTTP/1.0 200 OK
+    Content-Type: application/json
+
+    {
+        "Included": true,
+        "success": true,
+        "deduct": true,
+        "msg": null,
+        "url": "https://www.saintic.com/"
+    }
+
+  **示例2（URL Query认证）：**
+
+  .. http:example:: curl python-requests
+
+    GET /api/BaiduIncludedQuery HTTP/1.0
+    Host: open.saintic.com
+
+    :query url: https://www.saintic.com
+    :query token: urlsafe_base64_encode_API-KEY
 
 
     HTTP/1.0 200 OK
@@ -148,7 +207,7 @@ sec.bing
   :resjson string msg: 未收录时
   :statuscode 429: 请求速率达到限制
 
-  **示例：**
+  **示例1（Header认证）：**
 
   .. http:example:: curl python-requests
 
@@ -157,6 +216,28 @@ sec.bing
     Authorization: Token <API-Key>
 
     :query url: https://www.saintic.com
+
+
+    HTTP/1.0 200 OK
+    Content-Type: application/json
+
+    {
+        "Included": true,
+        "success": true,
+        "deduct": true,
+        "msg": null,
+        "url": "https://www.saintic.com/"
+    }
+
+  **示例2（URL Query认证）：**
+
+  .. http:example:: curl python-requests
+
+    GET /api/BingIncludedQuery HTTP/1.0
+    Host: open.saintic.com
+
+    :query url: https://www.saintic.com
+    :query token: urlsafe_base64_encode_API-KEY
 
 
     HTTP/1.0 200 OK
