@@ -113,9 +113,10 @@ html_theme_options = {
     'header_links': [
         ("Home", 'index', False, 'home'),
         ("GitHub  ", "https://github.com/staugur", True, 'link'),
-        ("主站", "https://www.saintic.com", True, 'link'),
+        ("主页", "https://www.saintic.com", True, 'link'),
         ("博客", "https://blog.saintic.com", True, 'link'),
         ("诏预", "https://open.saintic.com", True, 'link'),
+        ("Service Hub", "https://hub.tcw.im", True, 'link'),
     ],
 
     # Customize css colors.
