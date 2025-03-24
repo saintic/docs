@@ -1,9 +1,5 @@
 #require py3
-sphinx
-sphinx-autobuild
+sphinx<7.0.0
 sphinx-typlog-theme
-#sphinx_rtd_theme
-#sphinx-materialdesign-theme
-pygments
-sphinxcontrib-httpdomain
-sphinxcontrib-httpexample
+sphinxcontrib-httpdomain==1.8.1
+sphinxcontrib-httpexample==1.1
