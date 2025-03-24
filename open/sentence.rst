@@ -23,7 +23,7 @@
 
 -  请参阅RULE规则，共三个点，每个点表示含义不同，最后一个点后是后缀，即\ **.suffix**
 -  suffix支持json、txt、svg格式，其中svg参考了古诗词·一言API，暂不支持png，默认是json！
--  json返回字段code为0表示请求成功，data是名句数据，q是RULE解析后的数据；若code不为0，msg为异常消息。
+-  json返回字段success为true表示请求成功，data是名句数据，q是RULE解析后的数据；若success不为true，message为异常消息。
 
 .. _open-sentence-rule-query:
 

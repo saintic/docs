@@ -32,7 +32,6 @@ SaintIC：[开源]项目、服务文档!
     Sapic - 简约自建图床程序 <https://sapic.rtfd.vip>
     Flask-PluginKit <https://flask-pluginkit.rtfd.vip>
     Python-SecureHTTP <https://python-securehttp.rtfd.vip>
-    Isso中文文档 <https://isso-cn.rtfd.vip>
 
 .. _README:
 
@@ -45,21 +44,17 @@ SaintIC：[开源]项目、服务文档!
 关于
 ~~~~~~~
 
--  此作者：运维一名，期待容器运维开发，目前在北京，北京、合肥有工作推荐欢迎@我。
-
 -  本文档：作者开源工具的使用文档，尽可能详细的文档，持续更新中；若有问题可提交issue或pr！
 
 -  此域名： **saintic.com** 是2014年底注册的，主要用来运行博客、公共接口及服务、项目演示等，具体域名：
 
-    - open.saintic.com: 开放的接口、服务、工具等，会将有趣的东西放上去；
+    - open.saintic.com: 开放的接口、服务、工具等，会将有趣的东西放上去（部分服务用 hub.saintic.com 提供）；
 
     - blog.saintic.com: 技术博客，一些项目介绍、一些技术记录，主要是运维、Python方面；
 
     - passport.saintic.com: 用来认证的应用，统一登录、注册；
 
     - 个人其他域名，如 **satic.cn**, **rtfd.vip**, **sapicd.com**
-
-- 承接IT技术单子，详见： `Service Hub <https://hub.tcw.im>`_
 
 .. _Link:
 
