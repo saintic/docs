@@ -30,7 +30,7 @@
 **关于规则与查询参数**
 ^^^^^^^^^^^^^^^^^^^^^^
 
--  接口地址：\ *https://open.saintic.com/api/sentence/* **RULE**
+-  接口地址：\ *https://hub.saintic.com/openservice/sentence/* **RULE**
 
 .. _open-sentence-rule:
 
@@ -104,12 +104,12 @@
 -  **RULE示例:**
 
     -  您可以参考下方公开的主题及子分类部分，可以点击接口后的地址，将随机返回古诗词名句，格式json！
-    -  `随机返回古诗词名句，格式svg <https://open.saintic.com/api/sentence/all.svg>`__
-    -  `随机返回古诗词名句，格式txt <https://open.saintic.com/api/sentence/all.txt>`__
-    -  `随机返回爱情(子分类)的名句，格式svg <https://open.saintic.com/api/sentence/aiqing.svg>`__
-    -  `随机返回节日(主题)的名句，格式svg <https://open.saintic.com/api/sentence/jieri..svg>`__
-    -  `随机返回苏轼的名句，格式svg <https://open.saintic.com/api/sentence/sushi...svg>`__
-    -  `随机返回古籍-论语的名句，格式json <https://open.saintic.com/api/sentence/guji.lunyu.json>`__
+    -  `随机返回古诗词名句，格式svg <https://hub.saintic.com/openservice/sentence/all.svg>`__
+    -  `随机返回古诗词名句，格式txt <https://hub.saintic.com/openservice/sentence/all.txt>`__
+    -  `随机返回爱情(子分类)的名句，格式svg <https://hub.saintic.com/openservice/sentence/aiqing.svg>`__
+    -  `随机返回节日(主题)的名句，格式svg <https://hub.saintic.com/openservice/sentence/jieri..svg>`__
+    -  `随机返回苏轼的名句，格式svg <https://hub.saintic.com/openservice/sentence/sushi...svg>`__
+    -  `随机返回古籍-论语的名句，格式json <https://hub.saintic.com/openservice/sentence/guji.lunyu.json>`__
 
 .. _open-sentence-usage:
 
@@ -126,7 +126,7 @@
     <div id="svg"></div>
     <script>
         $.ajax({
-            url: "https://open.saintic.com/api/sentence/all.svg?has-url=true&inline-style=true&font-size=16",
+            url: "https://hub.saintic.com/openservice/sentence/all.svg?has-url=true&inline-style=true&font-size=16",
             type: "GET",
             success: function (res) {
                 $("#svg").html(res);
