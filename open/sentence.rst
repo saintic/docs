@@ -8,6 +8,10 @@
 
 说明：这个API是一个可以随机返回一句古诗词文中名句的接口。
 
+.. note::
+
+    2025/4/1 开启策略：空 User-Agent 访问此接口直接返回 403 http status_code。
+
 .. _open-sentence-data-source:
 
 **关于数据来源**

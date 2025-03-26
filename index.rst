@@ -30,7 +30,6 @@ SaintIC：[开源]项目、服务文档!
 
     Sapic - 简约自建图床程序 <https://sapic.rtfd.vip>
     Flask-PluginKit <https://flask-pluginkit.rtfd.vip>
-    Python-SecureHTTP <https://python-securehttp.rtfd.vip>
 
 .. _README:
 
