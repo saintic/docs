@@ -6,15 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = "https:" + window.location.href.substring(window.location.protocol.length);
     }
 
-    //百度统计
-    if (window.location.host === "docs.saintic.com") {
-        let _hmt = _hmt || [];
-        let hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?02b77b16662ed42705572c6e53fad80d";
-        let s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    }
-
     //返回顶部
     window.onscroll = function () {
         let goTop = document.getElementsByClassName("back2top");
