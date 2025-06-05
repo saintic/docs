@@ -116,7 +116,6 @@ html_theme_options = {
         ("主页", "https://www.saintic.com", True, 'link'),
         ("博客", "https://blog.saintic.com", True, 'link'),
         ("诏预", "https://open.saintic.com", True, 'link'),
-        ("Service Hub", "https://hub.tcw.im", True, 'link'),
     ],
 
     # Customize css colors.

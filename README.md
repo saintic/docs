@@ -2,4 +2,4 @@
 
 My document, build with Sphinx+reStructuredText
 
-[![Documentation Status](https://open.saintic.com/rtfd/badge/saintic-docs?branch=latest)](https://docs.saintic.com)
+[![Documentation Status](https://app.readthedocs.org/projects/saintic-docs/badge/?style=for-the-badge)](https://docs.saintic.com)

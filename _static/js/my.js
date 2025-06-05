@@ -18,16 +18,16 @@ $(document).ready(function () {
 
     //百度统计
     if (window.location.host === "docs.saintic.com") {
-        var _hmt = _hmt || [];
-        var hm = document.createElement("script");
+        let _hmt = _hmt || [];
+        let hm = document.createElement("script");
         hm.src = "https://hm.baidu.com/hm.js?02b77b16662ed42705572c6e53fad80d";
-        var s = document.getElementsByTagName("script")[0];
+        let s = document.getElementsByTagName("script")[0];
         s.parentNode.insertBefore(hm, s);
     }
 
     //插入名句
     $.ajax({
-        url: "https://open.saintic.com/api/sentence/all.svg?has-url=true&inline-style=true&font-size=16",
+        url: "https://hub.saintic.com/openservice/sentence/all.svg?has-url=true&inline-style=true&font-size=16",
         type: "GET",
         success: function (res) {
             if (res) {
@@ -43,7 +43,7 @@ $(document).ready(function () {
 
     //返回顶部
     window.onscroll = function () {
-        var goTop = document.getElementsByClassName("back2top");
+        let goTop = document.getElementsByClassName("back2top");
         if (goTop.length > 0) {
             goTop[0].style.display = document.documentElement.scrollTop >= 200 || document.body.scrollTop >= 200 ? 'block' : 'none';
             goTop[0].onclick = function () {
@@ -64,13 +64,13 @@ $(document).ready(function () {
     div.id = "comment";
     document.querySelector("main .document .page-content").appendChild(div);
     */
-    var div = document.createElement("div");
+    let div = document.createElement("div");
     div.className = "section";
     div.id = "comment";
     document.querySelector(".t-content .t-body").appendChild(div);
     (function() {
         // 匿名函数，防止污染全局变量
-        var utterances = document.createElement('script');
+        let utterances = document.createElement('script');
         utterances.type = 'text/javascript';
         utterances.async = true;
         utterances.setAttribute('issue-term','title');
@@ -80,22 +80,4 @@ $(document).ready(function () {
         utterances.src = 'https://utteranc.es/client.js';
         document.getElementById('comment').appendChild(utterances);
     })();
-    /*
-    //添加Isso评论
-    var isDirIndex = location.pathname.endsWith("/index.html");
-    var hr = document.getElementsByTagName("footer")[0].getElementsByTagName("hr")[0];
-    hr.insertAdjacentHTML('beforebegin', '<section class=".utterances" id="isso-thread"' + (isDirIndex ? (' data-isso-id="' + location.pathname.split("index.html")[0] + '"') : '') + '></section>');
-    var hs = document.createElement("script");
-    hs.type = "text/javascript";
-    hs.src = 'https://open.saintic.com/isso/docs/js/embed.min.js';
-    hs.dataset.isso = 'https://open.saintic.com/isso/docs';
-    hs.dataset.issoAvatar = 'false';
-    hs.dataset.issoGravatar = 'true';
-    hs.dataset.issoReplyNotifications = 'true';
-    hs.dataset.issoRequireAuthor = 'true';
-    if (isDirIndex === true) {
-        hs.dataset.issoId = location.pathname.split("index.html")[0];
-    }
-    document.getElementsByTagName('head')[0].appendChild(hs);
-    */
 });
