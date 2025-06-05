@@ -14,6 +14,16 @@
     font-size: 16px;
 }
 
+/* 隐藏新版右下角悬浮按钮 */
+readthedocs-flyout {
+    display: none !important;
+}
+
+/* 隐藏相关背景遮罩层（如果存在） */
+rtd-flyout, flyout-container {
+    display: none !important;
+}
+
 /*返回顶部*/
 .back2top {
     z-index: 99;
