@@ -46,7 +46,7 @@ SaintIC：[开源]项目、服务文档!
 
 -  此域名： **saintic.com** 是2014年底注册的，主要用来运行博客、公共接口及服务、项目演示等，具体域名：
 
-    - open.saintic.com: 开放的接口、服务、工具等，会将有趣的东西放上去（部分服务用 hub.saintic.com 提供）；
+    - open.saintic.com: 开放的接口、服务、工具等，会将有趣的东西放上去（全量迁移到 hub.saintic.com ）；
 
     - blog.saintic.com: 技术博客，一些项目介绍、一些技术记录，主要是运维、Python方面；
 

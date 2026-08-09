@@ -1,5 +1,5 @@
 #require py3
 sphinx<7.0.0
-sphinx-typlog-theme
+sphinx-typlog-theme<=0.8.0
 sphinxcontrib-httpdomain==1.8.1
 sphinxcontrib-httpexample==1.1
