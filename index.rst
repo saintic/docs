@@ -26,8 +26,8 @@ SaintIC：[开源]项目、服务文档!
 .. toctree::
     :caption: 独立文档
 
-    Sapic - 简约自建图床程序 <https://sapic.rtfd.vip>
-    Flask-PluginKit <https://flask-pluginkit.rtfd.vip>
+    Sapic - 简约自建图床程序 <https://sapic.readthedocs.io>
+    Flask-PluginKit <https://flask-pluginkit.readthedocs.io>
     Passportd - 新版统一认证服务 <https://passportd.readthedocs.io/>
 
 .. _README:
