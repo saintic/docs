@@ -18,6 +18,7 @@
     sentence
     sec
     danmu
+    fee
     feishubak
     crawlhuaban
     tdi/index

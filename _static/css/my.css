@@ -37,7 +37,12 @@
 }
 
 .my-links a {
+    color: var(--color-sidebar-link-text, var(--color-foreground-secondary, #6b7280));
     text-decoration: none;
+}
+
+.my-links a:hover {
+    color: var(--color-brand-primary, #2980b9);
 }
 
 /*返回顶部*/
