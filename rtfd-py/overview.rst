@@ -20,7 +20,7 @@ GitHub: https://github.com/staugur/rtfd
 
 .. note::
 
-    已经使用 Golang 重构，请查看 :doc:`新版文档 </rtfd>`
+    已经使用 Golang 重构，请查看 :doc:`新版文档 </rtfd-v2/index>`
 
 .. _rtfd-py-features:
 

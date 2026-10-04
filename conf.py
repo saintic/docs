@@ -82,14 +82,26 @@ pygments_style = None
 # html_theme = 'sphinx_rtd_theme'
 # html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
-html_theme = "sphinx_typlog_theme"
+html_theme = "furo"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
+# 主色沿用原 sphinx_typlog_theme 的 teal #009688
 html_theme_options = {
-    "color": "#009688",
+    "light_css_variables": {
+        "color-brand-primary": "#00796b",
+        "color-brand-content": "#009688",
+        "color-brand-visited": "#004d40",
+    },
+    "dark_css_variables": {
+        "color-brand-primary": "#4db6ac",
+        "color-brand-content": "#26a69a",
+        "color-brand-visited": "#80cbc4",
+    },
+    "sidebar_hide_name": False,
+    "navigation_with_keys": True,
 }
 """
 # sphinx_rtd_theme
@@ -115,7 +127,8 @@ html_theme_options = {
         ("GitHub  ", "https://github.com/staugur", True, 'link'),
         ("主页", "https://www.saintic.com", True, 'link'),
         ("博客", "https://blog.saintic.com", True, 'link'),
-        ("诏预", "https://open.saintic.com", True, 'link'),
+        ("OpenHub", "https://hub.saintic.com", True, 'link'),
+        ("ServiceHub", "https://hub.tcw.im", True, 'link'),
     ],
 
     # Customize css colors.
@@ -153,19 +166,13 @@ html_theme_options = {
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
-html_css_files = ["css/my.css?v=" + version]
-html_js_files = ["js/my.js?v=" + version]
+html_css_files = ["css/my.css"]
+html_js_files = ["js/my.js"]
 html_logo = "_static/images/logo.png"
 html_favicon = "_static/images/favicon.png"
 html_show_sourcelink = False
-html_sidebars = {
-    "**": [
-        "mylogo.html",
-        "globaltoc.html",
-        "links.html",
-        "searchbox.html",
-    ]
-}
+# Furo 自带侧栏（brand + search + navigation），不再通过 html_sidebars 覆盖；
+# 原侧栏的 Logo 由 html_logo 提供，友链已移至页脚（见 _templates/page.html）。
 httpexample_scheme = "https"
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.

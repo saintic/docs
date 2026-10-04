@@ -37,7 +37,7 @@ GitHub：https://github.com/staugur/tdi-go
 流程：
 ------
 
-1. 成员端启动程序，到中心端页面\ ``https://open.sainitc.com/CrawlHuaban/Register``\ 注册成员端URL。
+1. 成员端启动程序，到中心端页面\ ``https://hub.saintic.com/CrawlHuaban``\ 注册成员端URL。
 2. 中心端校验成员端规则，没问题则注册到中心端。
 3. 中心端定时检测成员端，查询其可用性、磁盘、负载、内存，并更新状态。
 4. 用户请求时，中心端根据成员端状态和资源计算是否可用，然后从可用列表中分配。

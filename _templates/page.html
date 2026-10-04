@@ -1,0 +1,21 @@
+{% extends "!page.html" %}
+
+{# Furo 不使用 basic 的 footer.html，页脚在 page.html 的 footer 块中，
+   故在此注入名句、友链与返回顶部元素（原 _templates/footer.html 已失效）。 #}
+{% block footer %}
+{{ super() }}
+<div class="footer-extra-content">
+    <div class="my-links">
+        <h3>Links</h3>
+        <ul>
+            <li><a href="https://www.saintic.com" target="_blank">主站</a></li>
+            <li><a href="https://blog.saintic.com" target="_blank">我的博客</a></li>
+            <li><a href="https://hub.saintic.com" target="_blank">Open Service Hub</a></li>
+            <li><a href="https://hub.tcw.im" target="_blank">Global Service Hub</a></li>
+            <li><a href="https://status.saintic.com/" target="_blank">服务状态</a></li>
+        </ul>
+    </div>
+    <div id="footer-extra-sentence"></div>
+</div>
+<a class="back2top" style="display:none;"></a>
+{% endblock %}

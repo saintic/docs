@@ -1,5 +1,6 @@
 #require py3
-sphinx<7.0.0
-sphinx-typlog-theme<=0.8.0
-sphinxcontrib-httpdomain==1.8.1
-sphinxcontrib-httpexample==1.1
+# Furo 要求 sphinx>=7.0,<10.0（旧主题 sphinx-typlog-theme 已停止维护且不支持 Sphinx 7+，已移除）
+sphinx>=7.0.0,<10.0.0
+furo==2025.12.19
+sphinxcontrib-httpdomain==2.0.0
+sphinxcontrib-httpexample==2.0

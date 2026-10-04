@@ -26,22 +26,25 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error("获取名言时出错:", error);
         });
 
-    //添加utterances评论
-    let div = document.createElement("div");
-    div.className = "section";
-    div.id = "comment";
-    document.querySelector(".t-content .t-body").appendChild(div);
-    (function () {
-        // 匿名函数，防止污染全局变量
-        let utterances = document.createElement('script');
-        utterances.type = 'text/javascript';
-        utterances.async = true;
-        utterances.setAttribute('issue-term', 'title');
-        utterances.setAttribute('theme', 'github-light');
-        utterances.setAttribute('repo', 'saintic/docs');
-        utterances.crossorigin = 'anonymous';
-        utterances.src = 'https://utteranc.es/client.js';
-        document.getElementById('comment').appendChild(utterances);
-    })();
+    //添加utterances评论（Furo 的正文容器为 #furo-main-content）
+    let mainContent = document.getElementById('furo-main-content');
+    if (mainContent) {
+        let div = document.createElement("div");
+        div.className = "section";
+        div.id = "comment";
+        mainContent.appendChild(div);
+        (function () {
+            // 匿名函数，防止污染全局变量
+            let utterances = document.createElement('script');
+            utterances.type = 'text/javascript';
+            utterances.async = true;
+            utterances.setAttribute('issue-term', 'title');
+            utterances.setAttribute('theme', 'github-light');
+            utterances.setAttribute('repo', 'saintic/docs');
+            utterances.crossorigin = 'anonymous';
+            utterances.src = 'https://utteranc.es/client.js';
+            document.getElementById('comment').appendChild(utterances);
+        })();
+    }
 
 });

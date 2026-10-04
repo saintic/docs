@@ -15,21 +15,20 @@ SaintIC：[开源]项目、服务文档!
     :maxdepth: 2
     :caption: 集成文档
 
-    open/index
+    hub/index
     grab_huaban_duitang
     passport/index
     incetops/index
-    tdi/index
-    tdi-php/index
-    tdi-node/index
-    tdi-go/index
     rtfd/index
+    rtfd-v2/index
+    rtfd-py/index
 
 .. toctree::
     :caption: 独立文档
 
     Sapic - 简约自建图床程序 <https://sapic.rtfd.vip>
     Flask-PluginKit <https://flask-pluginkit.rtfd.vip>
+    Passportd - 新版统一认证服务 <https://passportd.readthedocs.io/>
 
 .. _README:
 

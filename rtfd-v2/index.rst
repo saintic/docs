@@ -1,5 +1,5 @@
-rtfd(py) - 构建、阅读专属文档
-===============================
+rtfd v2 - 构建、阅读专属文档
+=============================
 
 .. toctree::
     :maxdepth: 2
@@ -10,4 +10,3 @@ rtfd(py) - 构建、阅读专属文档
     config
     faq
     更新日志 <https://github.com/staugur/rtfd/releases>
-

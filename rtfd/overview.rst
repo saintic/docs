@@ -28,6 +28,12 @@ GitHub: https://github.com/staugur/rtfd
 
 .. note::
 
+    本文档描述的是 **rtfd v1**\ （使用 Redis 存储、Nginx 托管的早期 Golang 重构版本，约 v1.0.0–v1.2.x）。
+    当前版本为 **rtfd v2**\ （关系型数据库 + Caddy，详见 :doc:`/rtfd-v2/index`）；更早的
+    Python 版本文档见 :ref:`rtfd-py-overview`。
+
+.. note::
+
     在 github 中可以看到，之前是用 Python 编写，但后来用 Golang 重构，
     发布正式版本 v1.0.0 ！
 

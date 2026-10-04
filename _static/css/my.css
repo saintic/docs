@@ -1,27 +1,43 @@
 @charset "utf-8";
 
-.wy-nav-content {
-    max-width: 100% !important;
-}
-
-.ethical-rtd.ethical-dark-theme {
-    display: none;
-}
-
+/* 页脚扩展内容：友链 + 名句（由 _templates/page.html 注入），同行左右分布 */
 .footer-extra-content {
     margin-top: 12px;
     margin-bottom: 12px;
     font-size: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 16px;
 }
 
-/* 隐藏新版右下角悬浮按钮 */
-readthedocs-flyout {
-    display: none !important;
+/* 名句 SVG 由 my.js 内联注入，其文字 fill 被接口硬编码为黑色；
+   改为 currentColor 以跟随 furo 主题前景色，避免暗色模式下黑字不可见。 */
+#footer-extra-sentence svg {
+    max-width: 100%;
+    height: auto;
+}
+#footer-extra-sentence svg text {
+    fill: currentColor;
 }
 
-/* 隐藏相关背景遮罩层（如果存在） */
-rtd-flyout, flyout-container {
-    display: none !important;
+.my-links h3 {
+    margin: 0 0 6px;
+    font-size: 15px;
+}
+
+.my-links ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+}
+
+.my-links a {
+    text-decoration: none;
 }
 
 /*返回顶部*/
@@ -48,14 +64,7 @@ rtd-flyout, flyout-container {
     border-right: 10px solid transparent;
     border-bottom: 15px solid #fff;
 }
+
 .utterances {
     margin-left: 0;
-}
-
-.my-logo a:hover {
-    text-decoration: none;
-    border-bottom: 0px;
-}
-.t-content > footer a {
-    text-decoration: none;
 }

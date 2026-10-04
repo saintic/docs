@@ -12,6 +12,12 @@
 
     由于一些设计逻辑问题，目前准备重构此项目，请不要使用dev分支代码。
 
+.. note::
+
+    本文档描述的是 **passport v1**\ （Python 2.7 + MySQL/Redis 的自研 SSO 旧版）。当前版本已
+    重构为 **passportd v2.x**\ （Flask + Peewee + OIDC/OAuth2 标准实现），文档见
+    https://passportd.readthedocs.io/ 。
+
 .. _passport-Source:
 
 来源

@@ -18,7 +18,7 @@ rtfd程序配置文件
 可以认为rtfd是用户级工具。
 
 我不建议改变默认配置文件，不过命令行子命令、API都支持设置非默认配置文件，参考
-FAQ的 :ref:`rtfd-faq-multi-rtfd`
+FAQ的 :ref:`rtfd-py-faq-multi-rtfd`
 
 配置文件所支持的所有配置项都可以参考 `rtfd.cfg`_ ，注释应该都清楚。
 

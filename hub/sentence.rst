@@ -1,4 +1,4 @@
-.. _open-sentence:
+.. _hub-sentence:
 
 ====================
 古诗词文名句接口文档
@@ -12,7 +12,7 @@
 
     2025/4/1 开启策略：空 User-Agent 访问此接口直接返回 403 http status_code。
 
-.. _open-sentence-data-source:
+.. _hub-sentence-data-source:
 
 **关于数据来源**
 ^^^^^^^^^^^^^^^^
@@ -20,7 +20,7 @@
 -  接口数据来源于古诗文网和诗词公开数据库（大约12k条数据），包括诗、词、歌、赋、古籍等。
 -  源于公开数据库的部分（大约4k条）未查到主题、分类及来源URL。
 
-.. _open-sentence-api-response:
+.. _hub-sentence-api-response:
 
 **关于接口返回**
 ^^^^^^^^^^^^^^^^
@@ -29,14 +29,14 @@
 -  suffix支持json、txt、svg格式，其中svg参考了古诗词·一言API，暂不支持png，默认是json！
 -  json返回字段success为true表示请求成功，data是名句数据，q是RULE解析后的数据；若success不为true，message为异常消息。
 
-.. _open-sentence-rule-query:
+.. _hub-sentence-rule-query:
 
 **关于规则与查询参数**
 ^^^^^^^^^^^^^^^^^^^^^^
 
 -  接口地址：\ *https://hub.saintic.com/openservice/sentence/* **RULE**
 
-.. _open-sentence-rule:
+.. _hub-sentence-rule:
 
 -  **RULE规则:**
 
@@ -77,7 +77,7 @@
 
             sushi.shuqing.aiqing.json
 
-.. _open-sentence-query:
+.. _hub-sentence-query:
 
 -  **个性化查询参数（针对.svg后缀）:**
 
@@ -103,7 +103,7 @@
    | inline-style      | 是否内联样式       | 无     | 可选true、on、1等开启此选项，表示仅返回svg纯文本内容！      |
    +-------------------+--------------------+--------+-------------------------------------------------------------+
 
-.. _open-sentence-rule-demo:
+.. _hub-sentence-rule-demo:
 
 -  **RULE示例:**
 
@@ -115,7 +115,7 @@
     -  `随机返回苏轼的名句，格式svg <https://hub.saintic.com/openservice/sentence/sushi...svg>`__
     -  `随机返回古籍-论语的名句，格式json <https://hub.saintic.com/openservice/sentence/guji.lunyu.json>`__
 
-.. _open-sentence-topics:
+.. _hub-sentence-topics:
 
 **公开主题及子分类**
 ^^^^^^^^^^^^^^^^^^^^
@@ -348,7 +348,7 @@
 - `金匮要略 <https://hub.saintic.com/openservice/sentence/guji.jinkuiyaolve.json>`__
 - `明儒学案 <https://hub.saintic.com/openservice/sentence/guji.mingruxuean.json>`__
 
-.. _open-sentence-usage:
+.. _hub-sentence-usage:
 
 -  **使用方法:**
 
