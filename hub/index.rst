@@ -20,6 +20,7 @@
     danmu
     fee
     feishubak
+    webdav
     crawlhuaban
     tdi/index
     tdi-php/index
@@ -38,7 +39,7 @@
    * - 模块
      - 说明
    * - 开放服务 ``/openservice/*``
-     - 随机名句、Bing 壁纸、K站随机图、IP 定位、Cron 计算器、IPTV 直播源
+     - 随机名句、Bing 壁纸、K站随机图、Wallhaven 壁纸、IP 定位、Cron 计算器、IPTV 直播源
    * - 搜索引擎收录查询 ``/api/sec/*``
      - 检测 URL 是否被百度、Bing 收录，支持按量、包月付费
    * - 画板下载 ``/CrawlHuaban/*``
@@ -47,6 +48,8 @@
      - 用户配置自己的飞书自建应用与备份群，多群消息备份（买断制付费）
    * - 弹幕服务 ``/api/danmu/*``
      - 弹幕库搜索、导入与任务查询（Token 由控制台管理）
+   * - WebDAV 网盘 ``/webdav``
+     - 为每位登录用户提供独立、隔离的 WebDAV 目录，支持 rclone / 资源管理器 / 访达等多客户端挂载
    * - 短网址 ``/api/shorturl/*``
      - 创建与还原短链
    * - RTFD 文档构建 ``/openservice/rtfd/*``

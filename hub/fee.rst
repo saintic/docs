@@ -49,7 +49,7 @@
 
 * 微信/QQ：\ **1663116375**
 
-* Telegram: \ `o0o1o1o0 <https://t.me/o0o1o1o0>`__
+* TG: \ `o0o1o1o0 <https://t.me/o0o1o1o0>`__
 
 * 请添加\ *saintic*\ 、\ *开放平台*\ 、\ *付费*\ 等备注字样之一
 
