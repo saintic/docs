@@ -17,7 +17,7 @@ openhub 通过 **WebDAV 网关** 为每位登录用户提供一块独立的网�
 ========
 
 * 网关端点： ``https://hub.saintic.com/webdav`` （WebDAV 全方法：PROPFIND / GET / PUT / DELETE / COPY / MOVE / LOCK …）
-* 用户页面： ``/control/webdav`` （登录后，含接入信息与初始化按钮）
+* 用户页面： ``/webdav_control`` （登录后，含接入信息与初始化按钮）
 * 初始化接口： ``POST /openservice/webdav/init`` （需登录）
 * 状态查询： ``GET /openservice/webdav/info`` （需登录）
 
@@ -52,7 +52,7 @@ WebDAV 端点支持三种 **等价** 的鉴权方式：
 首次使用前需初始化你的专属账号：openhub 会在内网 openlist **自动建号** 并分配
 ``/user_<uid>`` 目录（凭据由站点密钥派生，不落库明文，你无需也不接触该密码）。
 
-* 方式一：登录后访问 ``/control/webdav`` ，点击「初始化」按钮；
+* 方式一：登录后访问 ``/webdav_control`` ，点击「初始化」按钮；
 * 方式二：已持有 API Key，直接 ``POST /openservice/webdav/init`` ，返回
   ``{"success": true, "data": {"endpoint": "...", "base_path": "/user_<uid>"}}`` ；
   已初始化会幂等返回「WebDAV 已初始化」，不会重复建号。

@@ -21,6 +21,7 @@
     fee
     feishubak
     webdav
+    cert
     crawlhuaban
     tdi/index
     tdi-php/index
@@ -50,6 +51,8 @@
      - 弹幕库搜索、导入与任务查询（Token 由控制台管理）
    * - WebDAV 网盘 ``/webdav``
      - 为每位登录用户提供独立、隔离的 WebDAV 目录，支持 rclone / 资源管理器 / 访达等多客户端挂载
+   * - SSL 证书服务 ``/cert``
+     - 由内嵌 ACME + dns-lexicon 提供免费证书签发：**私钥在浏览器本地生成**，hub 仅接收 CSR 并借 DNS-01 / HTTP-01 挑战签发，全程不存储用户公私钥；多用户按账号隔离，支持到期前 30/15/7 天续期提醒
    * - 短网址 ``/api/shorturl/*``
      - 创建与还原短链
    * - RTFD 文档构建 ``/openservice/rtfd/*``
