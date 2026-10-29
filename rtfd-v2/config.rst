@@ -38,11 +38,11 @@ rtfd v2 有两处配置（ini 格式）：一处是 rtfd 本身的程序配置�
 文档项目仅能通过命令行 ``create`` 新建，新建时即包含众多选项并存入数据库；这些配置也可通过
 ``rtfd project get {ProjectName}`` 查询。
 
-rtfd 在构建时会**优先读取** ``.rtfd.ini`` 的配置，某配置项无值时再读取已存储的配置，最终构建
+rtfd 在构建时会\ **优先读取**\ ``.rtfd.ini`` 的配置，某配置项无值时再读取已存储的配置，最终构建
 参数是两者共同作用的结果（优先级：仓库 ``.rtfd.ini`` > 项目数据库配置 > 系统 rtfd.cfg 默认值）。
 
 .. warning::
 
-    文档项目的部分配置可通过 ``.rtfd.ini`` 实现，且构建成功时 rtfd 会读取其内容**回写数据库**
+    文档项目的部分配置可通过 ``.rtfd.ini`` 实现，且构建成功时 rtfd 会读取其内容\ **回写数据库**\
     （白名单：``[project] latest``\ ；``[sphinx] sourcedir/lang/builder``\ ；
     ``[python] version/requirement/install/index``\ ，其中 ``version`` 取值须在 ``[py]`` 分区已定义）。

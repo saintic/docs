@@ -28,9 +28,10 @@ API 地址前缀：https://hub.saintic.com/api/danmu
 * 登录未买断：免费 **100 次/日**
 * 买断（lifetime）：**￥9.9**，额度 **1000 次/日**
 
-买断后在控制台创建/刷新的 Token 自动拥有买断额度；额度在弹幕服务侧执行，Hub 在
-三处把付费状态同步至弹幕服务（创建 Token、每日定时同步、付费回调），付费状态
-无法确认时降级为免费额度。
+**自助下单**：在「我的费用」（``/fee#fee-module-danmu``）选择买断档位，审核入账后
+新建 / 刷新的 Token 自动拥有买断额度。以上为当前公示价格，调整后以下单页显示为准。
+额度在弹幕服务侧执行，Hub 在三处把本地费用账本的付费状态同步至弹幕服务
+（创建 Token、每日定时同步、账本变动后即时刷新），付费状态无法确认时降级为免费额度。
 
 .. _hub-danmu-library:
 
@@ -106,9 +107,9 @@ API 地址前缀：https://hub.saintic.com/api/danmu
 
 弹幕 Token 在控制台（``/control`` 弹幕区）创建与管理，相关接口：
 
-* ``POST /api/control/danmu-token`` ：创建 Token（名称仅限英文字母与数字，且不以数字开头，每用户有数量上限）
-* ``POST /api/control/danmu-token/delete`` ：删除指定 Token（表单字段 ``id``）
-* ``POST /api/control/danmu-token/refresh`` ：刷新 Token 缓存（从弹幕服务拉取最新状态）
+* ``POST /api/control/danmu-token``\ ：创建 Token（名称仅限英文字母与数字，且不以数字开头，每用户有数量上限）
+* ``POST /api/control/danmu-token/delete``\ ：删除指定 Token（表单字段 ``id``）
+* ``POST /api/control/danmu-token/refresh``\ ：刷新 Token 缓存（从弹幕服务拉取最新状态）
 
-创建成功后返回 ``token_url``（形如 ``{弹幕服务域名}/api/v1/{token}``），
-``daily_call_limit`` 体现当前每日额度；公开调用请使用该 ``token_url``。
+创建成功后返回 ``token_url``\ ，形如 ``{弹幕服务域名}/api/v1/{token}``\ ；
+返回中的 ``daily_call_limit`` 体现当前每日额度，公开调用请使用该 ``token_url``\ 。

@@ -84,7 +84,7 @@ PPA 预装 ``3.10`` 与 ``3.12``\ ，版本列表写死在 ``assets/rtfd.cfg`` �
 支持 github apps
 =================
 
-rtfd v2 适配了 GitHub Apps（以下简称 ghapp），在创建 / 删除项目时**自动注册、清理**\ 仓库 webhook，
+rtfd v2 适配了 GitHub Apps（以下简称 ghapp），在创建 / 删除项目时\ **自动注册、清理**\ 仓库 webhook，
 无需手动配置。
 
 流程

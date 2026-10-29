@@ -42,7 +42,7 @@ API接口文档
 
 3. ``POST /rtfd/build/<ProjectName>`` 或 ``/rtfd/<ProjectName>/build``
 
-   触发构建。采用**动态签名**\ 鉴权：请求头 ``X-Rtfd-Ts``\ （Unix 秒）、``X-Rtfd-Nonce``\ （随机串）、
+   触发构建。采用\ **动态签名**\ 鉴权：请求头 ``X-Rtfd-Ts``\ （Unix 秒）、``X-Rtfd-Nonce``\ （随机串）、
    ``X-Rtfd-Sign``\ （HMAC-SHA256，密钥为项目 secret）。``secret`` 为空时免鉴权。
    参数 ``branch``\ 、``debug``\ ；异步执行，返回 201。
 
