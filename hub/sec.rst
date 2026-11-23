@@ -70,146 +70,19 @@ SEC 相关接口请求成功时都会返回 ``deduct`` 字段表示本次是否�
 - 付费状态与余额可在「我的费用」（``/fee``）、控制台「我的付费状态」查看，
   每次实际扣减在 ``/fee/logs`` 有消费流水。
 
-.. _hub-sec-baidu:
 
-百度收录查询
-==============
+.. _hub-sec-api:
 
-.. http:get:: /api/sec/baidu
+接口说明
+==========
 
-   百度收录查询接口
+两个接口的参数、返回结构与在线调试统一见站点内的 API 文档与调试台，
+分组为「收录查询」：
 
-   :query string url: 要查询的 URL 地址，必填，要以 http 或 https 开头
-   :query string method: 查询方法，可选 ``json``、``html``，默认先后使用两者共同查询
-   :query boolean force: 是否强制刷新缓存后再查询收录状态，传 1、true、yes 等真值；此必会计次
-   :resjson boolean Included: 表示是否收录
-   :resjson boolean success: 表示请求是否成功、有无异常，与 **Included** 无直接关系
-   :resjson boolean deduct: 表示本次是否计次
-   :resjson string url: 返回解析后的查询 URL 地址
-   :resjson string msg: 异常或未收录时的说明
-   :statuscode 200: 请求成功
-   :statuscode 400: url 为空、非法或 method 不在白名单
-   :statuscode 403: 域名命中黑名单
-   :statuscode 429: 请求速率达到限制或今日额度已用完
-   :statuscode 502: 收录查询后端未配置或异常
+- `API 文档与调试台 <https://hub.saintic.com/playground>`__
 
-   **示例1（Header认证）：**
+- 百度收录查询：``GET /api/sec/baidu``
+- 必应（Bing）收录查询：``GET /api/sec/bing``
 
-   .. http:example:: curl python-requests
-
-       GET /api/sec/baidu HTTP/1.0
-       Host: hub.saintic.com
-       Authorization: Token <API-Key>
-
-       :query url: https://www.saintic.com
-
-
-       HTTP/1.0 200 OK
-       Content-Type: application/json
-
-       {
-           "Included": true,
-           "success": true,
-           "deduct": true,
-           "msg": null,
-           "url": "https://www.saintic.com/"
-       }
-
-   **示例2（URL Query认证）：**
-
-   .. http:example:: curl python-requests
-
-       GET /api/sec/baidu HTTP/1.0
-       Host: hub.saintic.com
-
-       :query url: https://www.saintic.com
-       :query token: urlsafe_base64_encode_API-KEY
-
-
-       HTTP/1.0 200 OK
-       Content-Type: application/json
-
-       {
-           "Included": true,
-           "success": true,
-           "deduct": false,
-           "msg": null,
-           "url": "https://www.saintic.com/"
-       }
-
-.. _hub-sec-bing:
-
-必应（Bing）收录查询
-======================
-
-.. http:get:: /api/sec/bing
-
-   必应（Bing）收录查询接口
-
-   :query string url: 要查询的 URL 地址，必填，要以 http 或 https 开头
-   :query string method: 查询方法，可选 ``rss``、``html``，默认先后使用两者共同查询
-   :query boolean force: 是否强制刷新缓存后再查询收录状态，传 1、true、yes 等真值；此必会计次
-   :resjson boolean Included: 表示是否收录
-   :resjson boolean success: 表示请求是否成功、有无异常，与 **Included** 无直接关系
-   :resjson boolean deduct: 表示本次是否计次
-   :resjson string url: 返回解析后的查询 URL 地址
-   :resjson string msg: 异常或未收录时的说明
-   :statuscode 200: 请求成功
-   :statuscode 400: url 为空、非法或 method 不在白名单
-   :statuscode 403: 域名命中黑名单
-   :statuscode 429: 请求速率达到限制或今日额度已用完
-   :statuscode 502: 收录查询后端未配置或异常
-
-   **示例1（Header认证）：**
-
-   .. http:example:: curl python-requests
-
-       GET /api/sec/bing HTTP/1.0
-       Host: hub.saintic.com
-       Authorization: Token <API-Key>
-
-       :query url: https://www.saintic.com
-
-
-       HTTP/1.0 200 OK
-       Content-Type: application/json
-
-       {
-           "Included": true,
-           "success": true,
-           "deduct": true,
-           "msg": null,
-           "url": "https://www.saintic.com/"
-       }
-
-   **示例2（URL Query认证）：**
-
-   .. http:example:: curl python-requests
-
-       GET /api/sec/bing HTTP/1.0
-       Host: hub.saintic.com
-
-       :query url: https://www.saintic.com
-       :query token: urlsafe_base64_encode_API-KEY
-
-
-       HTTP/1.0 200 OK
-       Content-Type: application/json
-
-       {
-           "Included": true,
-           "success": true,
-           "deduct": true,
-           "msg": null,
-           "url": "https://www.saintic.com/"
-       }
-
-.. _hub-sec-note:
-
-说明
-======
-
-- URL 会被规范化为 ``scheme://netloc/path``，即去掉查询串与锚点后再查询。
-- 命中黑名单的域名返回 403，并累加该域名的命中次数。
-- 收录查询由后端 se-collector 实际抓取判定，Hub 自身只做鉴权、限速与计费。
-- 计费失败不会阻断已返回的结果，仅记录日志供对账；整体不可用时自动退回免费额度。
+请求成功时响应均带 ``deduct`` 字段，表示本次调用是否计次（规则见上文
+「付费规则」）。

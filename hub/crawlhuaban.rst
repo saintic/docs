@@ -48,85 +48,6 @@ Tdi：即为花瓣网下载和堆糖网下载两个油猴脚本提供远程下�
    * - 移交任务超时
      - 7200 秒
 
-.. _hub-crawlhuaban-download:
-
-远程下载接口
-==============
-
-.. http:post:: /CrawlHuaban/
-
-   提交画板下载任务，由可用 Tdi 受理并打包
-
-   :form int site: 站点类型，花瓣网为 1、堆糖网为 2，默认 1
-   :form string version: 油猴脚本版本，可选
-   :form string board_id: 画板 ID，必填
-   :form string pins: 图片列表的 JSON 字符串（数组），必填
-   :form int board_total: 画板图片总数，可选
-   :form string email: 下载完成后发送邮件提醒的邮箱，可选
-   :form string token: API 密钥，用于识别用户身份以使用专属 Tdi，可选
-   :reqheader Authorization: ``Token 密钥原文`` 或 ``Bearer 密钥原文``，可选
-   :resjson boolean success: 表示请求是否成功
-   :resjson string msg: 异常消息
-   :resjson string downloadUrl: 压缩包下载地址（成功时）
-   :resjson string expireTime: 过期时间（成功时）
-   :resjson string tip: 附加提示，如专属 Tdi、邮箱设置结果
-   :statuscode 200: 请求已受理或返回错误说明
-
-   响应示例：
-
-   .. code-block:: json
-
-       {
-           "success": true,
-           "downloadUrl": "http://tdi.demo.com/downloads/hb_1704067200000_1234_abcd.zip",
-           "expireTime": "2026-10-01 12:00:00",
-           "tip": "<br><span style='color:green'>您正在使用专属Tdi服务下载图片！</span>"
-       }
-
-   .. note::
-
-       未携带有效密钥时使用公共 Tdi；携带有效密钥且该用户注册了私有 Tdi 时，
-       优先使用专属 Tdi，专属 Tdi 全部不可用才退回公共 Tdi。
-
-.. _hub-crawlhuaban-status:
-
-下载状态查询
-==============
-
-.. http:post:: /CrawlHuaban/Status
-
-   查询下载任务状态，无需登录
-
-   :form string url: 上一步返回的 downloadUrl，也可用查询参数传递
-   :resjson int code: 0 表示查询成功，非 0 表示失败
-   :resjson string msg: 异常消息
-   :resjson object data: 任务详情（code 为 0 时）
-   :statuscode 200: 请求成功
-
-   ``data.status`` 取值：0=下载中、1=下载完成、2=下载失败或已过期。
-
-   响应示例：
-
-   .. code-block:: json
-
-       {
-           "code": 0,
-           "data": {
-               "status": 1,
-               "statusText": "下载完成，可通过浏览器或下载工具下载此压缩包",
-               "site": "花瓣网",
-               "board_id": "12345678",
-               "total_number": "520",
-               "email": "",
-               "size": "12.5MB",
-               "downloadUrl": "http://tdi.demo.com/downloads/hb_1704067200000_1234_abcd.zip",
-               "ctime": "2026-10-01 00:00:00",
-               "etime": "2026-10-01 12:00:00",
-               "dtime": "2026-10-01 00:05:30",
-               "tdi": "http://tdi.demo.com"
-           }
-       }
-
 .. _hub-crawlhuaban-register:
 
 Tdi注册接入
@@ -164,103 +85,6 @@ Tdi注册接入
      专属与公共均使用权重，若机器配置高、较空闲可适量增加。
 
 填写无误并提交后，系统会向您的域名发送一次 GET 请求（``/ping``），令牌验证通过后接入成功。
-
-.. http:post:: /CrawlHuaban/Register
-
-   第三方 Tdi 服务注册（需登录）
-
-   :form string tdi_url: 远端服务地址，需以 http:// 或 https:// 开头
-   :form string tdi_token: 签名令牌
-   :form int tdi_private: 是否专属，0 或 1，默认 0
-   :form int memLimit: 内存使用率上限，0-100，默认 0
-   :form int loadLimit: 负载上限，0-100，默认 0
-   :form int diskLimit: 磁盘使用率上限，0-100，默认 0
-   :form int weight: 权重，1-9，默认 1
-   :resjson int code: 0 表示注册成功
-   :resjson string msg: 异常消息
-   :statuscode 200: 请求成功
-
-.. _hub-crawlhuaban-tdi-status:
-
-Tdi状态查询
-==============
-
-.. http:post:: /CrawlHuaban/TdiStatus
-
-   查询当前登录用户已注册 Tdi 的实时状态
-
-   :resjson int code: 0 表示查询成功
-   :resjson object data: Tdi 状态列表
-   :statuscode 200: 请求成功
-
-   列表每项包含 id、url、status（ready/tardy）、memRate、diskRate、loadFive、
-   version、update_time 等字段。状态优先读缓存（60 秒），过期则实时探测一次。
-
-.. _hub-crawlhuaban-tdi-update:
-
-Tdi属性修改
-==============
-
-.. http:post:: /CrawlHuaban/TdiUpdate
-
-   修改已注册 Tdi 的权重、私有属性或签名令牌（需登录）
-
-   :form string id: Tdi 记录 ID，必填
-   :form string action: 操作类型，必填，见下表
-   :form string value: 目标值，``set_weight`` 与 ``set_token`` 时必填
-   :resjson int code: 0 表示修改成功
-   :resjson string msg: 异常消息
-   :statuscode 200: 请求成功
-
-   ``action`` 取值：
-
-   .. list-table::
-      :header-rows: 1
-      :widths: 25 25 50
-
-      * - action
-        - value
-        - 说明
-      * - ``set_weight``
-        - 1-9 的整数
-        - 修改权重
-      * - ``toggle_private``
-        - 无
-        - 在私有与公开之间切换
-      * - ``set_token``
-        - 新的签名令牌
-        - 修改令牌，保存后立即用新令牌探测，错误会实时反映为离线并移出可用集合
-
-.. _hub-crawlhuaban-callback:
-
-第三方下载回调
-================
-
-Tdi 打包完成或过期时回调 Hub 更新状态，此接口由 Tdi 程序调用。
-
-.. http:post:: /CrawlHuaban/Callback
-
-   第三方下载回调接口
-
-   :query string Action: ``FIRST_STATUS`` （打包完成）或 ``SECOND_STATUS`` （已过期）
-   :form string uifn: 唯一文件名，必填
-   :form string uifnKey: 任务 Redis key，``FIRST_STATUS`` 时必填
-   :form string size: 压缩包大小，``FIRST_STATUS`` 时可选
-   :form string dtime: 打包完成时间，``FIRST_STATUS`` 时可选
-   :resjson int code: 0 表示接收成功
-   :resjson string msg: 异常消息
-   :statuscode 200: 请求成功
-
-.. _hub-crawlhuaban-ping:
-
-健康检查
-==========
-
-.. http:get:: /CrawlHuaban/ping
-
-   Tdi 健康检查接口，返回 ``ok``
-
-   :statuscode 200: 服务正常
 
 .. _hub-crawlhuaban-check:
 
@@ -304,8 +128,7 @@ Tdi 打包完成或过期时回调 Hub 更新状态，此接口由 Tdi 程序调
 **清理流程：**
 
 1. 遍历 downloads 目录，根据文件名查询创建时间，结合过期时长（12 小时）决定是否删除。
-2. 判定过期后删除压缩文件，可选地删除 Redis 中的 key，并回调 Hub 的
-   :ref:`第三方下载回调 <hub-crawlhuaban-callback>` 接口（``Action=SECOND_STATUS``）。
+2. 判定过期后删除压缩文件，可选地删除 Redis 中的 key，并回调 Hub 的过期通知接口（``Action=SECOND_STATUS``）。
 
 .. note::
 
@@ -349,8 +172,8 @@ Tdi 打包完成或过期时回调 Hub 更新状态，此接口由 Tdi 程序调
 .. note::
 
     此功能是 Hub 中心端提供的，不是 Tdi 程序本身的属性！
-    已接入的 Tdi 可随时在控制台通过 :ref:`Tdi属性修改 <hub-crawlhuaban-tdi-update>`
-    （``action=toggle_private``）在公共与专属之间切换，也可以直接删除。
+    已接入的 Tdi 可随时在控制台调整权重、在公共与专属之间切换或更换签名令牌，
+    也可以直接删除。
 
 1. 接入专属：在注册表单中将 ``tdi_private`` 设为 1，此 Tdi 即为您账号专属，
    只有您账号下的密钥能使用它远程下载。
