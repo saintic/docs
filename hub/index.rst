@@ -21,9 +21,7 @@
 .. toctree::
     :maxdepth: 2
 
-    api
     sentence
-    sec
     crawlhuaban
     tdi/index
     tdi-php/index
@@ -45,7 +43,7 @@
      - 随机名句、Bing 壁纸、K站随机图、Wallhaven 壁纸、IP 定位、Cron 计算器、IPTV 直播源
    * - 搜索引擎收录查询 ``/api/sec/*``
      - 检测 URL 是否被百度、Bing 收录，支持按量、包月付费（价格见
-       `付费说明 <https://hub.saintic.com/fee/docs>`__ ）
+       `付费说明 <https://hub.saintic.com/docs/fee>`__ ）
    * - 画板下载 ``/CrawlHuaban/*``
      - 花瓣、堆糖画板打包下载，由第三方 Tdi 承担打包任务；使用说明（含 Tdi 接入）
        见 :ref:`hub-crawlhuaban`
